@@ -5,8 +5,8 @@ class PagoRow extends React.Component {
   colocar=()=>{
     var hola=document.getElementById(this.props.pago.idRec);
     console.log(hola.id);
-    //var holas=hola.id;
-    //this.props.Funciones(holas);
+    var holas=hola.id;
+    this.props.Funciones(holas);
    /*  var selec=[];
    var check=document.getElementsByClassName("checkbox1");
     var normal=Array.from(check);

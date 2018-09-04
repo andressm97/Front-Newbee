@@ -182,7 +182,8 @@ console.log(this.state.lista);
         this.setState({
           pagocero: pagos,
           pagos: pagos,
-          alumno: alumnoDetalle
+          alumno: alumnoDetalle,
+          lista_aux:[...this.state.lista_aux, pagos]
         },
 
         );
@@ -210,7 +211,8 @@ console.log(this.state.lista);
       })
       .then((conceptos) => {
         this.setState({
-          conceptos: conceptos
+          conceptos: conceptos,
+          lista_aux:[...this.state.lista_aux, conceptos]
         }
       
 
@@ -370,7 +372,7 @@ console.log(this.state.lista);
                   <Importe importe={this.CalcularImporte()} />
                 </div>
                 <div className="col-md-5">
-                  <Imprimir onClick={this.enviar} listado={this.state.pagocero} alumno={this.state.alumno}/>
+                  <Imprimir onClick={this.enviar} listado={this.state.lista} alumno={this.state.alumno}/> 
                 </div>
               </div>
             </div>

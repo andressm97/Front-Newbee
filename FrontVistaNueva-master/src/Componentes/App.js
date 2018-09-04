@@ -43,7 +43,9 @@ class App extends React.Component {
       filtroAl:new String(""),
       filtroNumeros: [],
       alumno: {},
-      conceptos:[]
+      conceptos:[],
+      lista_aux:[],
+      lista:[]
 
     }
     this.clase='';

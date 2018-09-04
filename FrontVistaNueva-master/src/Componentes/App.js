@@ -59,6 +59,8 @@ class App extends React.Component {
     this.SeleccionFechaDel = this.SeleccionFechaDel.bind(this);
     this.Filtrar = this.Filtrar.bind(this);
 
+    this.arreglosReporte = this.arreglosReporte.bind(this); 
+
     this.select = [];
     this.onChangePage = this.onChangePage.bind(this);
     this.seleccionar=this.seleccionar.bind(this);

@@ -188,7 +188,9 @@ console.log(this.state.lista);
 
         );
         
-        
+      console.log("who will rise 0")
+      console.log(this.state.lista_aux)
+        this.arreglosReporte(this.state.lista_aux);  
         // console.log("hola");
       var total=this.state.pagocero;
   
@@ -247,12 +249,14 @@ console.log(this.state.lista);
         this.setState({
           pagocero: pagos,
           pagos: pagos,
-          alumno: alumnoDetalle
+          alumno: alumnoDetalle,
+          lista_aux:[...this.state.lista_aux, pagos]
         },
 
         );
-        
-        
+      console.log("who will rise 1")
+      console.log(this.state.lista_aux)
+      this.arreglosReporte(this.state.lista_aux)  
         // console.log("hola");
       var total=this.state.pagocero;
   
@@ -278,7 +282,8 @@ console.log(this.state.lista);
       })
       .then((conceptos) => {
         this.setState({
-          conceptos: conceptos
+          conceptos: conceptos,
+          lista_aux:[...this.state.lista_aux, conceptos]
         }
       
 

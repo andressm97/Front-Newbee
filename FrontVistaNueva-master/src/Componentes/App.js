@@ -95,6 +95,35 @@ componentDidUpdate(){
          this.setState({estado:1})
         }
  }
+
+ arreglosReporte(lista_aux){
+
+  var lista = []; 
+  var pag = lista_aux[1];
+  var con = lista_aux[0];
+
+  for(let i in con)
+  {  
+    var arr = new Array(); 
+    for(let j in pag){
+        
+        if(con[i].concepto === pag[j].concepto){ 
+          arr.push(pag[j])
+        }
+    
+    }
+    
+    lista.push(arr);    
+  }
+
+this.setState({
+  lista :lista
+})
+
+console.log("lista final");
+console.log(this.state.lista);
+}
+
   componentWillMount() {
     this.pageOfItems = this.pagocero;
     var checkbox_selec=[];

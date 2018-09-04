@@ -99,8 +99,8 @@ componentDidUpdate(){
  arreglosReporte(lista_aux){
 
   var lista = []; 
-  var pag = lista_aux[1];
-  var con = lista_aux[0];
+  var pag = lista_aux[0];
+  var con = lista_aux[1];
 
   for(let i in con)
   {  
@@ -188,9 +188,9 @@ console.log(this.state.lista);
 
         );
         
-      console.log("who will rise 0")
+      console.log("lista_aux pagos1")
       console.log(this.state.lista_aux)
-        this.arreglosReporte(this.state.lista_aux);  
+      
         // console.log("hola");
       var total=this.state.pagocero;
   
@@ -216,9 +216,11 @@ console.log(this.state.lista);
           conceptos: conceptos,
           lista_aux:[...this.state.lista_aux, conceptos]
         }
-      
-
-        );  
+        );
+        
+        console.log("lista_aux concepto1")
+        console.log(this.state.lista_aux)
+        this.arreglosReporte(this.state.lista_aux);  
         
       })
       .catch(error => {
@@ -254,9 +256,8 @@ console.log(this.state.lista);
         },
 
         );
-      console.log("who will rise 1")
-      console.log(this.state.lista_aux)
-      this.arreglosReporte(this.state.lista_aux)  
+        console.log("lista_aux pagos2")
+        console.log(this.state.lista_aux)
         // console.log("hola");
       var total=this.state.pagocero;
   
@@ -284,11 +285,13 @@ console.log(this.state.lista);
         this.setState({
           conceptos: conceptos,
           lista_aux:[...this.state.lista_aux, conceptos]
-        }
+        },
       
 
         );  
-        
+        console.log("lista_aux concepto2")
+        console.log(this.state.lista_aux)
+        this.arreglosReporte(this.state.lista_aux);  
       })
       .catch(error => {
        

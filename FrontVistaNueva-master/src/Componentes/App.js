@@ -354,97 +354,113 @@ componentDidUpdate(){
     }
   }
 //obtenemos la fecha del componente FILTROFECHA1
-Filtrar=(e)=>{
-    var concep = [];
-    concep = this.SeleccionConceptos();
-    var filtrodel = this.state.filtroDel;
+Filtrar=(e)=>{ 
+  var concep = [];
+  concep = this.SeleccionConceptos();
+  var filtrodel = this.state.filtroDel;
 
-    var filtroal = this.state.filtroAl;
+  var filtroal = this.state.filtroAl;
 
-    if(filtrodel.length == 0){
-     // console.log("no hay del ")
-      filtrodel = "0000-00-00";
-     // console.log(filtrodel)
-    }
-    if(filtroal.length == 0){
-      //console.log("no hay al");
-      filtroal = "9999-12-12";
-      //console.log(filtroal)
-    }
-    let nombreFiltro = this.state.name;
-
-    var separadorFiltro = " "; // un espacio en blanco
-    var arregloDeSubCadenasFiltro = nombreFiltro.split(separadorFiltro);
-    /*
-    console.log("arreglo de subcadenas");
-    console.log(arregloDeSubCadenas);*/
-    var arregloFiltro = [];
-    for (let i = 0; i< arregloDeSubCadenasFiltro.length; i++) {
-      if(arregloDeSubCadenasFiltro[i]!==''){
-         arregloFiltro.push(arregloDeSubCadenasFiltro[i])
-      }
-    }
-    /*
-    console.log("arreglo sin espacios en blanco");
-    console.log(arreglo);
-*/
-    var nombrenuevoFiltro = arregloFiltro.join(" & ");
-    /* console.log("lista de numeros pasados");
-     console.log(this.state.filtroNumeros);
-     console.log("lista de CONCEPTOS PASADOSs");
-     console.log(concep); */
-    //ANTERIOR LINK:
-    //http://modulo-alumno-zuul.herokuapp.com/modulo-alumno-jdbc-client/recaudaciones/alumno/concepto/listar/filtrar
-    fetch(CONFIG+'recaudaciones/alumno/concepto/listar/filtrar',
-    {
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    method: "POST",
-    body: JSON.stringify(
-      {
-        "nom_ape": nombrenuevoFiltro,
-        "fechaInicial": filtrodel,
-        "fechaFinal": filtroal,
-        "conceptos": concep,
-        "recibos":this.state.filtroNumeros
-      }/*
-      {
-        "nom_ape": "RAUL NAUPARI QUIROZ",
-        "fechaInicial": "0000-00-00",
-        "fechaFinal": "9999-12-12",
-        "conceptos": ["210011"],
-        "recibos":["10509204","10509205"]
-      }*/
-      
-    )
-  })
-  .then((response) => {
-  return response.json()
-  })
-  .then((pagos) => {
-  if(pagos.length > 0){
-    
-  this.setState({
-    pagocero: pagos
-  });
-  swal("Filtro realizado exitosamente!","","success");
-  }else{
-    swal("No se encontraron registros","","info");
+  if(filtrodel.length == 0){
+   // console.log("no hay del ")
+    filtrodel = "0000-00-00";
+   // console.log(filtrodel)
   }
-/*
-  console.log("Pagos filtrados que recibo")
-  console.log(pagos);*/
-  })
-  .catch(error => {
-  // si hay algún error lo mostramos en consola
-  swal("Oops, Algo salió mal!!", "","error")
-  console.error(error)
-  });
+  if(filtroal.length == 0){
+    //console.log("no hay al");
+    filtroal = "9999-12-12";
+    //console.log(filtroal)
+  }
+  let nombreFiltro = this.state.name;
 
+  var separadorFiltro = " "; // un espacio en blanco
+  var arregloDeSubCadenasFiltro = nombreFiltro.split(separadorFiltro);
+  /*
+  console.log("arreglo de subcadenas");
+  console.log(arregloDeSubCadenas);*/
+  var arregloFiltro = [];
+  for (let i = 0; i< arregloDeSubCadenasFiltro.length; i++) {
+    if(arregloDeSubCadenasFiltro[i]!==''){
+       arregloFiltro.push(arregloDeSubCadenasFiltro[i])
+    }
+  }
+  /*
+  console.log("arreglo sin espacios en blanco");
+  console.log(arreglo);
+*/
+  var nombrenuevoFiltro = arregloFiltro.join(" & ");
+  /* console.log("lista de numeros pasados");
+   console.log(this.state.filtroNumeros);
+   console.log("lista de CONCEPTOS PASADOSs");
+   console.log(concep); */
+  //ANTERIOR LINK:
+  //http://modulo-alumno-zuul.herokuapp.com/modulo-alumno-jdbc-client/recaudaciones/alumno/concepto/listar/filtrar
+  console.log("link filtros")
+  console.log(CONFIG+'recaudaciones/alumno/concepto/listar/filtrar')
+  var json={
+    "nom_ape": nombrenuevoFiltro,
+    "fechaInicial": filtrodel,
+    "fechaFinal": filtroal,
+    "conceptos": concep,
+    "recibos":this.state.filtroNumeros
+  }
+  console.log("json enviado")
+  console.log(json);
+  fetch(CONFIG+'recaudaciones/alumno/concepto/listar/filtrar',
+  {
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  method: "POST",
+  body: JSON.stringify(
+    {
+      "nom_ape": nombrenuevoFiltro,
+      "fechaInicial": filtrodel,
+      "fechaFinal": filtroal,
+      "conceptos": concep,
+      "recibos":this.state.filtroNumeros
+    }/*
+    {
+      "nom_ape": "RAUL NAUPARI QUIROZ",
+      "fechaInicial": "0000-00-00",
+      "fechaFinal": "9999-12-12",
+      "conceptos": ["210011"],
+      "recibos":["10509204","10509205"]
+    }*/
     
+  )
+})
+.then((response) => {
+return response.json()
+})
+.then((pagos) => {
+if(pagos.length > 0){
+  
+this.setState({
+  pagocero: pagos
+});
+swal("Filtro realizado exitosamente!","","success");
+}else{console.log(pagos);
+  swal("No se encontraron registros","","info");
+}
+/*
+console.log("Pagos filtrados que recibo")
+console.log(pagos);*/
+})
+.catch(error => {
+// si hay algún error lo mostramos en consola
+swal("Oops, Algo salió mal!!", "","error")
+console.error(error)
+});
+
+  
 
 }
+
+
+
+
+
   SeleccionFechaDel(Fecha) {
     
     var fecha1 = new String(Fecha);

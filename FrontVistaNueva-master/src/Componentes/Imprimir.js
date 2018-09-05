@@ -235,11 +235,11 @@ doc.text(f.getHours()+":"+f.getMinutes()+":"+f.getSeconds(), 540, 30);
       var menes = [];
       for( let a=0;a<listafinal[i].length;a++)
       {
-        uff = [listafinal[i][a].fecha,"RECIBO",listafinal[i][a].numero,listafinal[i][a].importe,listafinal[i][a].concepto];
+        uff = [listafinal[i][a].fecha,"RECIBO",listafinal[i][a].numero,"S/."+listafinal[i][a].importe,listafinal[i][a].concepto];
         menes.push(uff);
         
         if(a==listafinal[i].length-1){
-          uff = ["","","TOTAL",importe[i],""];
+          uff = ["","","TOTAL","S/."+importe[i],""];
         menes.push(uff);
         }
 

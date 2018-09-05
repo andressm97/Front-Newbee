@@ -26,7 +26,7 @@ class PagoRow extends React.Component {
   render() {
     return(
     <tr>
-      <td className="td">
+      {/* <td className="td">
       <form action="#">
               <label className="row center-xs color_white">
                   <input
@@ -40,7 +40,7 @@ class PagoRow extends React.Component {
               </label>
       </form>
      
-    </td>
+    </td> */}
       <td className="td">{this.props.pago.apeNom}</td>
       <td className="td">{this.props.pago.concepto}</td>
 			<td className="td">{this.props.pago.numero}</td>	

@@ -34,19 +34,49 @@ class Imprimir extends React.Component {
     console.log(totalimportes);
    // return totalimportes;
   }
+
+  arreglosReporte(con,pag){
+
+        var lista = []; 
+        for(let i in con)
+        {  
+          var arr = new Array(); 
+          for(let j in pag){
+              
+              if(con[i].concepto === pag[j].concepto){ 
+                arr.push(pag[j])
+              }
+          
+          }
+          
+          lista.push(arr);    
+        }
+      
+    return lista;
+  }
+
   Imprimir(){
-    // console.log(this.props.listado);
+    console.log("pagos")
+    console.log(this.props.pagos);
+    console.log("conceptos")
+    console.log(this.props.conceptos);
+
+    this.arreglosReporte(this.props.conceptos,this.props.pagos);
 
     var checkbox_selec=[];
     var checks=[];
     var nombres = this.props.alumno.apeNom; 
     var codigo= this.props.alumno.codigo;
     var importe = 0;
-    var listadopagos = this.props.listado;
+ //   var listadopagos = this.props.listado;
     var listado = [];
+    var listafinal = this.arreglosReporte(this.props.conceptos,this.props.pagos);
     var total=[];
     var checks=document.getElementsByClassName("checkbox1");
     var checks_normales=Array.from(checks);
+    console.log("xdxdxdxd:")
+    console.log(listafinal);
+    
     checks_normales.map((checkbox)=>{
      if(checkbox.checked){
        checkbox_selec.push(checkbox.id);
@@ -54,22 +84,23 @@ class Imprimir extends React.Component {
     });
   //  console.log(checkbox_selec);
    
-      for(let j=0;j<listadopagos.length;j++){
+   /*   for(let j=0;j<listadopagos.length;j++){
         if(listadopagos[j].check==true){
             total.push(listadopagos[j]); // ya no hay esas weas de chck box
         }
       }
-
-    importe = this.CalcularImporte(this.props.listado); 
+*/
+    importe = this.CalcularImporte(listafinal); 
    
-    // console.log(total);
+    console.log(importe);
 
-
+/*
     for (let i = 0; i<total.length; i++) {
       var pago = [total[i].concepto,total[i].numero,total[i].idAlum,
       total[i].fecha.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3-$2-$1'),total[i].moneda,total[i].importe]
       listado.push(pago);
     }
+    */
     // console.log("listado para enviar a imprimir");
     
     // console.log(listado);
@@ -95,7 +126,7 @@ class Imprimir extends React.Component {
     var doc = new jsPDF('p', 'pt');
     
     
-    doc.autoTable(columns, listado, {
+    doc.autoTable(columns, listafinal, {
       styles: {
           cellPadding: 5, // a number, array or object (see margin below)
           fontSize: 8,

@@ -44,9 +44,6 @@ class App extends React.Component {
       filtroNumeros: [],
       alumno: {},
       conceptos:[],
-      lista_aux:[],
-      lista:[]
-
     }
     this.clase='';
     this.alumno = '';
@@ -59,7 +56,7 @@ class App extends React.Component {
     this.SeleccionFechaDel = this.SeleccionFechaDel.bind(this);
     this.Filtrar = this.Filtrar.bind(this);
 
-    this.arreglosReporte = this.arreglosReporte.bind(this); 
+ //   this.arreglosReporte = this.arreglosReporte.bind(this); 
 
     this.select = [];
     this.onChangePage = this.onChangePage.bind(this);
@@ -95,34 +92,6 @@ componentDidUpdate(){
          this.setState({estado:1})
         }
  }
-
- arreglosReporte(lista_aux){
-
-  var lista = []; 
-  var pag = lista_aux[0];
-  var con = lista_aux[1];
-
-  for(let i in con)
-  {  
-    var arr = new Array(); 
-    for(let j in pag){
-        
-        if(con[i].concepto === pag[j].concepto){ 
-          arr.push(pag[j])
-        }
-    
-    }
-    
-    lista.push(arr);    
-  }
-
-this.setState({
-  lista :lista
-})
-
-console.log("lista final");
-console.log(this.state.lista);
-}
 
   componentWillMount() {
     this.pageOfItems = this.pagocero;
@@ -162,6 +131,7 @@ console.log(this.state.lista);
     var nombresTrans = nombres;
     var pruebita = parseInt(nombresTrans);
 
+   
     if(isNaN(pruebita)){
       this.clase=Alumno;
     fetch(CONFIG+'recaudaciones/alumno/concepto/listar/' + nombrenuevo)
@@ -182,15 +152,11 @@ console.log(this.state.lista);
         this.setState({
           pagocero: pagos,
           pagos: pagos,
-          alumno: alumnoDetalle,
-          lista_aux:[...this.state.lista_aux, pagos]
+          alumno: alumnoDetalle
         },
 
         );
         
-      console.log("lista_aux pagos1")
-      console.log(this.state.lista_aux)
-      
         // console.log("hola");
       var total=this.state.pagocero;
   
@@ -214,14 +180,8 @@ console.log(this.state.lista);
       .then((conceptos) => {
         this.setState({
           conceptos: conceptos,
-          lista_aux:[...this.state.lista_aux, conceptos]
         }
-        );
-        
-        console.log("lista_aux concepto1")
-        console.log(this.state.lista_aux)
-        this.arreglosReporte(this.state.lista_aux);  
-        
+        );        
       })
       .catch(error => {
        
@@ -252,13 +212,11 @@ console.log(this.state.lista);
           pagocero: pagos,
           pagos: pagos,
           alumno: alumnoDetalle,
-          lista_aux:[...this.state.lista_aux, pagos]
         },
 
         );
-        console.log("lista_aux pagos2")
-        console.log(this.state.lista_aux)
         // console.log("hola");
+     //   this.arreglosReporte(this.state.lista_aux);  
       var total=this.state.pagocero;
   
      this.state.pagocero.map((pago)=>{
@@ -283,15 +241,12 @@ console.log(this.state.lista);
       })
       .then((conceptos) => {
         this.setState({
-          conceptos: conceptos,
-          lista_aux:[...this.state.lista_aux, conceptos]
+          conceptos: conceptos
         },
       
 
         );  
-        console.log("lista_aux concepto2")
-        console.log(this.state.lista_aux)
-        this.arreglosReporte(this.state.lista_aux);  
+    
       })
       .catch(error => {
        
@@ -380,7 +335,7 @@ console.log(this.state.lista);
                   <Importe importe={this.CalcularImporte()} />
                 </div>
                 <div className="col-md-5">
-                  <Imprimir onClick={this.enviar} listado={this.state.lista} alumno={this.state.alumno}/> 
+                  <Imprimir onClick={this.enviar} pagos={this.state.pagos} conceptos={this.state.conceptos} alumno={this.state.alumno}/> 
                 </div>
               </div>
             </div>

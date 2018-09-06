@@ -62,7 +62,7 @@ class App extends React.Component {
     this.onChangePage = this.onChangePage.bind(this);
     this.seleccionar=this.seleccionar.bind(this);
     this.enviar=this.enviar.bind(this);
-    //this.Funcion=this.Funcion.bind(this);
+    this.Funcion=this.Funcion.bind(this);
     this.Regresar=this.Regresar.bind(this);
     
   }
@@ -327,7 +327,7 @@ componentDidUpdate(){
             <div className="  center-xs-12">
               <table className=" total table ">
                 <TableHeader />
-                <PagoList   listado={this.state.pageOfItems} />
+                <PagoList funcion={this.Funcion} listado={this.state.pageOfItems} />
               </table>
               <div className="margen_top"> <Paginacion items={this.state.pagocero} onChangePage={this.onChangePage}/></div>
               <div className="row">
@@ -494,17 +494,17 @@ console.error(error)
     return checkbox_seleccionados;
 
   }
-  // Funcion(holas){
-  //   for(let j=0;j<this.state.pagocero.length;j++){
-  //     if(holas==this.state.pagocero[j].idRec){
-  //       if(this.state.pagocero[j].check==true){
-  //         this.state.pagocero[j].check=false;
-  //       }else{
-  //         this.state.pagocero[j].check=true;
-  //       }
-  //     }
-  //   }
-  // }
+  Funcion(holas){
+    for(let j=0;j<this.state.pagocero.length;j++){
+      if(holas==this.state.pagocero[j].idRec){
+        if(this.state.pagocero[j].check==true){
+          this.state.pagocero[j].check=false;
+        }else{
+          this.state.pagocero[j].check=true;
+        }
+      }
+    }
+  }
 seleccionar(){
   //console.log("gg");
   var checks=document.getElementsByClassName("checkbox1");

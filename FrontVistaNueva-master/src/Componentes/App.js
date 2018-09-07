@@ -440,7 +440,7 @@ this.setState({
   pagocero: pagos
 });
 swal("Filtro realizado exitosamente!","","success");
-}else{console.log(pagos);
+}else{console.log(pagos+"cc");
   swal("No se encontraron registros","","info");
 }
 /*
@@ -494,7 +494,7 @@ console.error(error)
     return checkbox_seleccionados;
 
   }
-  Funcion(holas){
+  Funcion(holas){console.log(holas+"cdc");
     for(let j=0;j<this.state.pagocero.length;j++){
       if(holas==this.state.pagocero[j].idRec){
         if(this.state.pagocero[j].check==true){
@@ -506,7 +506,7 @@ console.error(error)
     }
   }
 seleccionar(){
-  //console.log("gg");
+  //console.log("gg agg");
   var checks=document.getElementsByClassName("checkbox1");
   for (let i=0;i<checks.length;i++) {
             if(this.state.todos==false){
@@ -572,9 +572,9 @@ FiltrarFecha(Fechas) {
 
   onChangePage(pageOfItems) {
     
-    var total=[];
-    var checkbox_selec=[];
-    var checks=document.getElementsByClassName("checkbox1");
+   var total=[];
+   var checkbox_selec=[];
+   var checks=document.getElementsByClassName("checkbox1");
    var checks_normales=Array.from(checks);
    checks_normales.map((checkbox)=>{
      if(checkbox.checked){
@@ -597,7 +597,7 @@ FiltrarFecha(Fechas) {
       pageOfItems: pageOfItems });
 
    
-     
+     console.log(pageOfItems)
   }
   
 

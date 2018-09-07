@@ -2,14 +2,14 @@ import React from 'react'
 import PagoRow from './Pago-row'
 
 class PagoList extends React.Component {
-
-  render() {
+  
+  render() { 
     return (
         <tbody>
           {
             this.props.listado.map((pago) => {
               return <PagoRow Funciones={this.props.funcion} key={pago.idRec} 
-                                  pago={ pago} />
+                                  pago={pago} />
             })
           }
         </tbody>

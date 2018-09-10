@@ -316,12 +316,14 @@ componentDidUpdate(){
             
           </div>
           <hr />
-          {/* <div className="margen2">
+          {
+          <div className="margen2">
             <button onClick={this.seleccionar} className="waves-effect waves-light btn-small botonazul2 start">
             Seleccionar todo<i className="large material-icons left">check</i>
             </button>
             
-            </div>                         */}
+            </div>                         
+          }
 
           <div className="SplitPane row center-xs">
             <div className="  center-xs-12">
@@ -335,7 +337,7 @@ componentDidUpdate(){
                   <Importe importe={this.CalcularImporte()} />
                 </div>
                 <div className="col-md-5">
-                  <Imprimir onClick={this.enviar} pagos={this.state.pagos} conceptos={this.state.conceptos} alumno={this.state.alumno}/> 
+                  <Imprimir onClick={this.enviar} listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno}/> 
                 </div>
               </div>
             </div>

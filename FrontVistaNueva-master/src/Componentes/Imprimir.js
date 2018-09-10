@@ -269,7 +269,7 @@ doc.text(f.getHours()+":"+f.getMinutes()+":"+f.getSeconds(), 540, 30);
       doc.setFont("helvetica");
       doc.setFontType("normal");
       doc.setFontSize(9);
-      doc.text("",170,208);
+      doc.text(listafinal[0][0].nomPrograma,170,208);
     }
 
 
@@ -310,7 +310,14 @@ doc.text(f.getHours()+":"+f.getMinutes()+":"+f.getSeconds(), 540, 30);
 
       }
       var conceptitos = listafinal[i][0].concepto.substr(0,3)+'-'+listafinal[i][0].concepto.substr(3,3);
-      doc.text("CONCEPTO DE PAGO "+conceptitos+" "+this.props.conceptos[i].descripcion,192,marginT-10);
+
+      if(this.props.conceptos[i].descripcion!=null){
+        doc.text("CONCEPTO DE PAGO "+conceptitos+" "+this.props.conceptos[i].descripcion,192,marginT-10);
+      }
+      else{
+        doc.text("CONCEPTO DE PAGO "+conceptitos,240,marginT-10);
+      }
+      
       
       doc.autoTable(columns2,menes,
          {
@@ -332,7 +339,7 @@ doc.text(f.getHours()+":"+f.getMinutes()+":"+f.getSeconds(), 540, 30);
         headerStyles: {fillColor: [180, 180, 180],
         textColor:0,
         fontStyle:'bold'},
-          
+          pageBreak : 'always',
           margin:{ top: marginT }}
          );  
          

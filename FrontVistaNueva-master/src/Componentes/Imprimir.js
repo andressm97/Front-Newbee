@@ -1,4 +1,5 @@
 import React from 'react'
+import swal from 'sweetalert';
 
 var jsPDF = require('jspdf');
 require('jspdf-autotable');
@@ -83,13 +84,13 @@ class Imprimir extends React.Component {
     var checks=document.getElementsByClassName("checkbox1");
     var checks_normales=Array.from(checks);
 
-
+    
     checks_normales.map((checkbox)=>{
      if(checkbox.checked){
        checkbox_selec.push(checkbox.id);
      }
     });
-
+    if(checkbox_selec.length!=0){
   //  console.log(checkbox_selec);
    
    for(let j=0;j<listadopagos.length;j++){
@@ -373,6 +374,8 @@ doc.text(f.getHours()+":"+f.getMinutes()+":"+f.getSeconds(), 540, 30);
     x.document.open();
     x.document.write(iframe);
     x.document.close();
+    }
+    else{swal("Seleccione al menos un estado de pago","","info");}
     }
  //<button  onClick={() => window.print()} className=" waves-effect waves-light btn imprimir ">Imprimir<i className="large material-icons left">local_printshop</i></button>
   render() {

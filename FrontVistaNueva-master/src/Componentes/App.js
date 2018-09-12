@@ -61,6 +61,8 @@ class App extends React.Component {
     this.select = [];
     this.onChangePage = this.onChangePage.bind(this);
     this.seleccionar=this.seleccionar.bind(this);
+    this.editarFecha=this.editarFecha.bind(this);
+    this.guardarFecha=this.guardarFecha.bind(this);
     this.enviar=this.enviar.bind(this);
     this.Funcion=this.Funcion.bind(this);
     this.Regresar=this.Regresar.bind(this);
@@ -92,6 +94,8 @@ componentDidUpdate(){
          this.setState({estado:1})
         }
  }
+
+
 
   componentWillMount() {
     this.pageOfItems = this.pagocero;
@@ -202,7 +206,10 @@ componentDidUpdate(){
 
        
          console.log("pagos de la consulta de acuerdo el nombre ingresado");
-        console.log(pagos);
+        
+         console.log(pagos);
+         console.log("UN IDREC");
+         console.log(pagos[1].idRec);
         var auxPagos = pagos;
         
       var alumnoDetalle = {
@@ -323,6 +330,21 @@ componentDidUpdate(){
             </button>
             
             </div>                         
+          }{
+            <div className="margenFECHA">
+            <button onClick={this.editarFecha} className="waves-effect waves-light btn-small botonazul2 start">
+            <i className="large material-icons">border_color</i>
+            </button>
+            
+            </div> 
+          }
+          {
+            <div className="margenFECHA2">
+            <button onClick={this.guardarFecha} className="waves-effect waves-light btn-small botonazul2 start">
+            <i className="large material-icons">save</i>
+            </button>
+          
+            </div>
           }
 
           <div className="SplitPane row center-xs">
@@ -513,11 +535,9 @@ seleccionar(){
   for (let i=0;i<checks.length;i++) {
             if(this.state.todos==false){
               checks[i].checked=true; 
-              
             }
             else{
               checks[i].checked=false; 
-             
             }    
 }
  if(this.state.todos==false){
@@ -534,13 +554,38 @@ seleccionar(){
           this.state.pagocero.map((pago)=>{
             pago.check=false;
           })
-        }   
-
-
-        
+        }           
 }
+
+editarFecha(){
+  var primero;
+  
+  for(let i=0;i<this.state.pagos.length;i++){
+    console.log(":Vvv "+i);
+    primero = this.state.pagos[i].idRec.toString()+this.state.pagos[i].idAlum.toString();
+    document.getElementById(primero).disabled = false;
+  }
+}
+
+guardarFecha(){
+ // document.getElementById("thisss").disabled = true;
+  
+    var primero;
+
+  for(let i=0;i<this.state.pagos.length;i++){
+    primero = this.state.pagos[i].idRec.toString()+this.state.pagos[i].idAlum.toString();
+    console.log("a ber :v");
+    console.log(primero);
+    document.getElementById(primero).disabled = true;
+  }
+  
+
+}
+
+
+
 enviar(){
-  // console.log("lo que envio:");
+   console.log("lo que envio:");
   console.log(this.state.pagocero);
 }
 CalcularImporte() {
@@ -598,7 +643,6 @@ FiltrarFecha(Fechas) {
       checkbox_:total,
       pageOfItems: pageOfItems });
 
-   
      console.log(pageOfItems)
   }
   

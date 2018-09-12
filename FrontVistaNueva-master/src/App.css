@@ -10,6 +10,13 @@
   height: 100%;
 }
 
+::placeholder { 
+  color: black;
+  opacity: 1; 
+}
+
+
+
 .plomo{
   background-color: #E4E1E1;
 }
@@ -145,6 +152,18 @@ label {
   background-color: #4CAF50;
     color: white;
 } */
+.margenFECHA{
+  margin-left: 920px;
+  margin-top: -100px;
+  
+ } 
+
+ .margenFECHA2{
+  margin-left: 980px;
+  margin-top: -64px;
+
+ } 
+ 
 .margen2{
   margin-top: 20px;
   margin-bottom: 20px;

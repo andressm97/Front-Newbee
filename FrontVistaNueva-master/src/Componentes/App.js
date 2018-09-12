@@ -33,6 +33,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      aparecer:true,
       todos:false,
       checkbox_:[],
       filtros: [],
@@ -348,8 +349,8 @@ componentDidUpdate(){
           
             </div>
           }
-
-          <div className="SplitPane row center-xs">
+          
+          {this.state.aparecer?(<div className="SplitPane row center-xs">
             <div className="  center-xs-12">
               <table className=" total table ">
                 <TableHeader />
@@ -363,12 +364,16 @@ componentDidUpdate(){
                 <div className="col-md-5">
                   <Imprimir onClick={this.enviar} listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno}/> 
                 </div>
-                 <ComponenteEditable  listado={this.state.pagocero} />  
-                {/* <button  onClick={this.enviar2} listado={this.state.pagocero} className="waves-effect waves-light btn-large botonazul2" type="submit">Filtrar<i className="large material-icons left">XD</i></button> */}
+
+                
+                <button  onClick={this.enviar2} listado={this.state.pagocero} className="waves-effect waves-light btn-large botonazul2" type="submit">Filtrar<i className="large material-icons left">XD</i></button>
 
               </div>
             </div>
-          </div>
+          </div>):(
+            <ComponenteEditable  listado={this.state.pagocero}/>  
+          )
+        }
 
            <footer>
             <div className="row center-xs centrar color">
@@ -596,9 +601,10 @@ enviar(){
 
 enviar2=(e)=>{
       
-  browserHistory.push('/vista/imprimir');
-  // console.log("Vista nueva");
-  e.preventDefault();
+  this.setState({
+    aparecer:false,
+  });
+  
   
 }
 

@@ -11,6 +11,7 @@ import { Router, Route, browserHistory } from 'react-router-3';
 import LoginForm from './Componentes/LoginForm';
 import VistaTablaNuevo from './Componentes/VistaTablaNueva';
 import VistaIntermedia from './Componentes/seleccion-intermedia';
+import ComponenteEditable from './Componentes/ComponenteEditable';
 
 class Index extends React.Component {
     render() {
@@ -27,6 +28,7 @@ class Index extends React.Component {
             <Route path="/vista/nueva2" component={AppNueva2}></Route>
             <Route path="/vista/tabla" component={ VistaTablaNuevo}></Route>
             <Route path="/vista/loginNyA" component={LoginFormNombreApellidos}></Route>
+            <Route path="/vista/imprimir" component={ComponenteEditable}></Route>
             
           </Router>
           )

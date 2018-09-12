@@ -13,6 +13,8 @@ import Imprimir from './Imprimir';
 import {browserHistory} from 'react-router-3';
 import swal from 'sweetalert';
 import CONFIG from '../Configuracion/Config'
+import ComponenteEditable from './ComponenteEditable'
+
 
 //ESTA ES LA VISTA PRINCIPAL POR NOMBRES Y APELLIDOS
 
@@ -361,6 +363,9 @@ componentDidUpdate(){
                 <div className="col-md-5">
                   <Imprimir onClick={this.enviar} listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno}/> 
                 </div>
+                 <ComponenteEditable  listado={this.state.pagocero} />  
+                {/* <button  onClick={this.enviar2} listado={this.state.pagocero} className="waves-effect waves-light btn-large botonazul2" type="submit">Filtrar<i className="large material-icons left">XD</i></button> */}
+
               </div>
             </div>
           </div>
@@ -588,6 +593,16 @@ enviar(){
    console.log("lo que envio:");
   console.log(this.state.pagocero);
 }
+
+enviar2=(e)=>{
+      
+  browserHistory.push('/vista/imprimir');
+  // console.log("Vista nueva");
+  e.preventDefault();
+  
+}
+
+
 CalcularImporte() {
     
     let pagos = this.state.pagocero;

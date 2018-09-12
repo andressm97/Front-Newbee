@@ -2,6 +2,7 @@ import React from 'react'
 import CodigoRow from './codigo-row'
 import TableHeaderCodigo from './Table-Header-Codigo'
 class CodigoList extends React.Component{
+
     render(){
         if(this.props.lista.length >0){
         return(
@@ -10,7 +11,7 @@ class CodigoList extends React.Component{
                 <tbody>
                 {
                     this.props.lista.map((alumno)=>{
-                        return <CodigoRow Funciones={this.props.funcion} key={alumno.idrec} alumno={alumno} />
+                        return <CodigoRow  alumno={alumno} /> 
                     })
                 }
             </tbody>

@@ -157,7 +157,8 @@ SeleccionFechitasArreglos(){
                   <Imprimir onClick={this.enviar} listado={this.state.totalnuevo} conceptos={this.props.conceptos} alumno={this.props.alumno}/> 
                 </div>
                 </div>
-            </div>  
+                </div>
+            
         )
       }
 

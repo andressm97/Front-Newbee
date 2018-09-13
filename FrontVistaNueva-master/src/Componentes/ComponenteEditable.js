@@ -134,15 +134,18 @@ SeleccionFechitasArreglos(){
         return (
 
            <div>
+            <div className="SplitPane row center-xs margencomponente">
+                <div className="SplitPane row">
                 <div className="margenFECHA">
-                    <button onClick={this.editarFecha} className="waves-effect waves-light btn-small botonazul2 start">
-                    <i className="large material-icons">border_color</i>
+                    <button onClick={this.editarFecha} className="waves-effect waves-light btn-small botonazul2 start">Editar
+                    <i className="large material-icons left">border_color</i>
                     </button>
                 </div> 
                 <div className="margenFECHA2">
                     <button onClick={this.guardarFecha} className="waves-effect waves-light btn-small botonazul2 start">
-                    <i className="large material-icons">save</i>
+                    Guardar<i className="large material-icons left">save</i>
                     </button>
+                </div>
                 </div>
                  <div className="row center-xs centrar">
                     <div className="center-xs-12 margin_top ">
@@ -150,8 +153,9 @@ SeleccionFechitasArreglos(){
                         <EditableList  listado={this.state.total} />
                     </div>
                 </div>  
-                <div className="col-md-6">
+                <div className="col-md-7 ">
                   <Imprimir onClick={this.enviar} listado={this.state.totalnuevo} conceptos={this.props.conceptos} alumno={this.props.alumno}/> 
+                </div>
                 </div>
             </div>  
         )

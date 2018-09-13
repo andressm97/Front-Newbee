@@ -64,8 +64,6 @@ class App extends React.Component {
     this.select = [];
     this.onChangePage = this.onChangePage.bind(this);
     this.seleccionar=this.seleccionar.bind(this);
-    this.editarFecha=this.editarFecha.bind(this);
-    this.guardarFecha=this.guardarFecha.bind(this);
     this.enviar=this.enviar.bind(this);
     this.Funcion=this.Funcion.bind(this);
     this.Regresar=this.Regresar.bind(this);
@@ -212,7 +210,7 @@ componentDidUpdate(){
         
          console.log(pagos);
          console.log("UN IDREC");
-         console.log(pagos[1].idRec);
+        // console.log(pagos[1].idRec);
         var auxPagos = pagos;
         
       var alumnoDetalle = {
@@ -323,7 +321,6 @@ componentDidUpdate(){
           </div>
           <div className="SplitPane row center-xs">
                <button onClick={this.Filtrar}  className="waves-effect waves-light btn-large botonazul2" type="submit">Filtrar<i className="large material-icons left">filter_list</i></button>
-            
           </div>
           <hr />
           {
@@ -333,23 +330,7 @@ componentDidUpdate(){
             </button>
             
             </div>                         
-          }{
-            <div className="margenFECHA">
-            <button onClick={this.editarFecha} className="waves-effect waves-light btn-small botonazul2 start">
-            <i className="large material-icons">border_color</i>
-            </button>
-            
-            </div> 
           }
-          {
-            <div className="margenFECHA2">
-            <button onClick={this.guardarFecha} className="waves-effect waves-light btn-small botonazul2 start">
-            <i className="large material-icons">save</i>
-            </button>
-          
-            </div>
-          }
-          
           {this.state.aparecer?(<div className="SplitPane row center-xs">
             <div className="  center-xs-12">
               <table className=" total table ">
@@ -358,23 +339,32 @@ componentDidUpdate(){
               </table>
               <div className="margen_top"> <Paginacion items={this.state.pagocero} onChangePage={this.onChangePage}/></div>
               <div className="row">
-                <div className="col-md-7">
+                <div className="col-md-4">
                   <Importe importe={this.CalcularImporte()} />
                 </div>
-                <div className="col-md-5">
+                <div className="col-md-4">
+                  <div>
+                  <button  onClick={this.enviar2} listado={this.state.pagocero} className="waves-effect waves-light btn-large botonazul2">Fucking button<i className="large material-icons left">XD</i></button>    
+                  </div>
+                </div>
+                <div className="col-md-4">
                   <Imprimir onClick={this.enviar} listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno}/> 
                 </div>
-
-                
-                <button  onClick={this.enviar2} listado={this.state.pagocero} className="waves-effect waves-light btn-large botonazul2" type="submit">Filtrar<i className="large material-icons left">XD</i></button>
-
               </div>
             </div>
-          </div>):(
-            <ComponenteEditable  listado={this.state.pagocero}/>  
+          </div>
+          ):(
+            <div>
+            <ComponenteEditable  listado={this.state.pagocero}/>    
+            <div className = "SplitPane row center-xs"> 
+             <div className="col-md-12">
+                  <button  onClick={this.enviar2} listado={this.state.pagocero} className="waves-effect waves-light btn-large botonazul2" type="submit">Filtrar<i className="large material-icons left">XD</i></button>    
+                  </div>
+              </div>
+            </div>
           )
         }
-
+         
            <footer>
             <div className="row center-xs centrar color">
             Realizado por Hardcode © 2018 
@@ -528,7 +518,7 @@ console.error(error)
     return checkbox_seleccionados;
 
   }
-  Funcion(holas){console.log(holas+"cdc");
+  Funcion(holas){
     for(let j=0;j<this.state.pagocero.length;j++){
       if(holas==this.state.pagocero[j].idRec){
         if(this.state.pagocero[j].check==true){
@@ -567,30 +557,7 @@ seleccionar(){
         }           
 }
 
-editarFecha(){
-  var primero;
-  
-  for(let i=0;i<this.state.pagos.length;i++){
-    console.log(":Vvv "+i);
-    primero = this.state.pagos[i].idRec.toString()+this.state.pagos[i].idAlum.toString();
-    document.getElementById(primero).disabled = false;
-  }
-}
 
-guardarFecha(){
- // document.getElementById("thisss").disabled = true;
-  
-    var primero;
-
-  for(let i=0;i<this.state.pagos.length;i++){
-    primero = this.state.pagos[i].idRec.toString()+this.state.pagos[i].idAlum.toString();
-    console.log("a ber :v");
-    console.log(primero);
-    document.getElementById(primero).disabled = true;
-  }
-  
-
-}
 
 
 
@@ -600,11 +567,17 @@ enviar(){
 }
 
 enviar2=(e)=>{
-      
-  this.setState({
-    aparecer:false,
-  });
   
+  if(this.state.aparecer){
+    this.setState({
+      aparecer:false,
+    });
+  }
+  else{
+    this.setState({
+      aparecer:true,
+    });
+  }
   
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import TableHeader from './Table-Header'
+import TableHeaderEditable from './Table-Header-Editable'
 import EditableList from './EditableList'
 import Imprimir from './Imprimir';
 import swal from 'sweetalert';
@@ -29,6 +29,7 @@ class ComponenteEditable extends React.Component{
     }
 
     
+
     render() { 
         return (
 
@@ -45,7 +46,7 @@ class ComponenteEditable extends React.Component{
                 </div>
                  <div className="row center-xs centrar">
                     <div className="center-xs-12 margin_top ">
-                        <TableHeader />
+                        <TableHeaderEditable/>
                         <EditableList  listado={this.state.total} />
                     </div>
                 </div>  
@@ -142,11 +143,9 @@ class ComponenteEditable extends React.Component{
         stringss =  document.getElementById(this.state.total[i].idRec.toString()+this.state.total[i].idAlum.toString()).value
         if(stringss==""){
             new_fechas.push(this.state.total[i].fecha.toString());
-        }else{
-         /*   var a = document.getElementById(this.state.total[i].idRec.toString()+this.state.total[i].idAlum.toString()).value;
-            console.log(a);
-            a = document.getElementById(this.state.total[i].idRec.toString()+this.state.total[i].idAlum.toString()).value.replace(/^(\d{2})[-\/](\d{2})[-||\/](\d{4})$/g,'$3-$2-$1');
-            console.log(a);*/
+        }
+        else
+        {
             new_fechas.push(document.getElementById(this.state.total[i].idRec.toString()+this.state.total[i].idAlum.toString()).value.replace(/^(\d{2})[-\/](\d{2})[-\/](\d{4})$/g,'$3-$2-$1'));
         }
     
@@ -173,7 +172,10 @@ class ComponenteEditable extends React.Component{
       
       
       
-
+           
+          
 }
+
+
 
 export default ComponenteEditable;

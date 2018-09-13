@@ -1,13 +1,17 @@
 import React from 'react'
 import TableHeader from './Table-Header'
 import EditableList from './EditableList'
+import Imprimir from './Imprimir';
 import swal from 'sweetalert';
 import CONFIG from '../Configuracion/Config'
+
 
 class ComponenteEditable extends React.Component{
     constructor(props){
         super(props);
         console.log(this.props.listado)
+        console.log(this.props.alumno)
+        console.log(this.props.conceptos)
         this.state={
             listadopagos : this.props.listado,
             total : []
@@ -29,24 +33,25 @@ class ComponenteEditable extends React.Component{
         return (
 
            <div>
-            <div className="margenFECHA">
-                <button onClick={this.editarFecha} className="waves-effect waves-light btn-small botonazul2 start">
-                <i className="large material-icons">border_color</i>
-                </button>
-            </div> 
-          
-          
-            <div className="margenFECHA2">
-                <button onClick={this.guardarFecha} className="waves-effect waves-light btn-small botonazul2 start">
-                <i className="large material-icons">save</i>
-                </button>
-            </div>
-           <div className="row center-xs centrar">
-                <div className="center-xs-12 margin_top ">
-                    <TableHeader />
-                    <EditableList  listado={this.state.total} />
+                <div className="margenFECHA">
+                    <button onClick={this.editarFecha} className="waves-effect waves-light btn-small botonazul2 start">
+                    <i className="large material-icons">border_color</i>
+                    </button>
+                </div> 
+                <div className="margenFECHA2">
+                    <button onClick={this.guardarFecha} className="waves-effect waves-light btn-small botonazul2 start">
+                    <i className="large material-icons">save</i>
+                    </button>
                 </div>
-            </div>  
+                 <div className="row center-xs centrar">
+                    <div className="center-xs-12 margin_top ">
+                        <TableHeader />
+                        <EditableList  listado={this.state.total} />
+                    </div>
+                </div>  
+                <div className="col-md-6">
+                  <Imprimir onClick={this.enviar} listado={this.state.total} conceptos={this.props.conceptos} alumno={this.props.alumno}/> 
+                </div>
             </div>  
         )
       }
@@ -57,6 +62,16 @@ class ComponenteEditable extends React.Component{
         for(let i=0;i<this.state.total.length;i++){
           primero = this.state.total[i].idRec.toString()+this.state.total[i].idAlum.toString();
           document.getElementById(primero).disabled = false;
+          document.getElementById(primero).style.background='#F2F2F2';
+
+          if(i==0){
+            document.getElementById(primero).disabled = false;
+            document.getElementById(primero).focus();
+           
+          }
+          else{
+            document.getElementById(primero).disabled = false;
+          }
         } 
       }
       
@@ -112,8 +127,8 @@ class ComponenteEditable extends React.Component{
         var primero;
         for(let i=0;i<this.state.total.length;i++){
           primero = this.state.total[i].idRec.toString()+this.state.total[i].idAlum.toString();
-          console.log(this.state.total[i].idRec)
-          document.getElementById(primero).disabled = true; 
+          document.getElementById(primero).style.background='#FFFFFF';
+          document.getElementById(primero).disabled = true;
         }
      
     }

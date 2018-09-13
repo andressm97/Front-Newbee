@@ -355,10 +355,10 @@ componentDidUpdate(){
           </div>
           ):(
             <div>
-            <ComponenteEditable  listado={this.state.pagocero}/>    
-            <div className = "SplitPane row center-xs"> 
-             <div className="col-md-12">
-                  <button  onClick={this.enviar2} listado={this.state.pagocero} className="waves-effect waves-light btn-large botonazul2" type="submit">Filtrar<i className="large material-icons left">XD</i></button>    
+            <ComponenteEditable  listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno}/>    
+            <div className = "row"> 
+             <div className="col-md-6">
+                  <button  onClick={this.enviar2}  className="waves-effect waves-light btn-large botonazul2" type="submit">Filtrar<i className="large material-icons left">XD</i></button>    
                   </div>
               </div>
             </div>

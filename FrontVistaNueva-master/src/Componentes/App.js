@@ -9,7 +9,7 @@ import ConceptoList from './Concepto-list'
 import NumeroRecibo from './NumeroRecibo'
 import '../App.css';
 import PropTypes from 'prop-types';
-import Imprimir from './Imprimir';
+import Imprimir2 from './imprimir2';
 import {browserHistory} from 'react-router-3';
 import swal from 'sweetalert';
 import CONFIG from '../Configuracion/Config'
@@ -277,61 +277,69 @@ componentDidUpdate(){
   render() {
     if (this.state.pagos.length > 0) {
       return (
+        
         <div className="">
+        {this.state.aparecer?(
+        <div>
           <h3>Estado de pagos por alumno
           <ul id="nav-mobile" className="right  hide-on-med-and-down">
               <li ><a className="seleccionar" onClick={this.Regresar} >Regresar<i className="material-icons right">reply</i></a></li>
           </ul>
           </h3>
           <hr/>
-          <div className="SplitPane row">
-            <div className=" col-xs-3">
-              <this.clase alumno={this.state.alumno} />
-            </div>
-            <div className=" col-xs-9">
-            <div className="center-xs-12 margen_top">
-              <h5>Filtros</h5>
+          
+          
+            <div className="SplitPane row">
+              <div className=" col-xs-3">
+                <this.clase alumno={this.state.alumno} />
               </div>
-              <div className="SplitPane row">
-                <div className="inline col-xs-4">
-                  <div>
-                  <label>Del:</label>
-                  <FiltroFecha1 Fechas={this.SeleccionFechaDel} />
+              <div className=" col-xs-9">
+              <div className="center-xs-12 margen_top">
+                <h5>Filtros</h5>
+                </div>
+                <div className="SplitPane row">
+                  <div className="inline col-xs-4">
+                    <div>
+                    <label>Del:</label>
+                    <FiltroFecha1 Fechas={this.SeleccionFechaDel} />
+                    </div>
+                    <div>
+                    <label>Al:</label>
+                    <FiltroFecha1 Fechas={this.SeleccionFechaAl} />
+                    </div>
+                  </div >
+                  <div className="row center-xs-4 block ">
+                    <h4 className=" centrar espacio">Conceptos</h4>
+                    <div className="scroll center-xs ">
+                      <form action="#"><ConceptoList listado={this.state.conceptos} /></form>
+                    </div>
                   </div>
-                  <div>
-                  <label>Al:</label>
-                  <FiltroFecha1 Fechas={this.SeleccionFechaAl} />
-                  </div>
-                </div >
-                <div className="row center-xs-4 block ">
-                  <h4 className=" centrar espacio">Conceptos</h4>
-                  <div className="scroll center-xs ">
-                    <form action="#"><ConceptoList listado={this.state.conceptos} /></form>
+                  <div className="centrar col-xs-4">
+                    <h4 className=" centrar">Recibo</h4>
+                    <div>
+                      <NumeroRecibo Numeros={this.FiltrarNumeros} />
+                    </div>
                   </div>
                 </div>
-                <div className="centrar col-xs-4">
-                  <h4 className=" centrar">Recibo</h4>
-                  <div>
-                    <NumeroRecibo Numeros={this.FiltrarNumeros} />
-                  </div>
-                </div>
               </div>
-            </div>
 
           </div>
           <div className="SplitPane row center-xs">
                <button onClick={this.Filtrar}  className="waves-effect waves-light btn-large botonazul2" type="submit">Filtrar<i className="large material-icons left">filter_list</i></button>
           </div>
           <hr />
-          {
+          
           <div className="margen2">
             <button onClick={this.seleccionar} className="waves-effect waves-light btn-small botonazul2 start">
             Seleccionar todo<i className="large material-icons left">check</i>
             </button>
             
             </div>                         
-          }
-          {this.state.aparecer?(<div className="SplitPane row center-xs">
+          
+
+
+
+          <div className="SplitPane row center-xs">
             <div className="  center-xs-12">
               <table className=" total table ">
                 <TableHeader />
@@ -344,25 +352,39 @@ componentDidUpdate(){
                 </div>
                 <div className="col-md-4">
                   <div>
-                  <button  onClick={this.enviar2} listado={this.state.pagocero} className="waves-effect waves-light btn-large botonazul2">Fucking button<i className="large material-icons left">XD</i></button>    
+                  <button  onClick={this.enviar2} listado={this.state.pagocero} className="waves-effect waves-light btn-large botonazul2">Editar<i className="large material-icons left">border_color</i></button>    
                   </div>
                 </div>
-                <div className="col-md-4">
-                  <Imprimir onClick={this.enviar} listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno}/> 
+                <div className="col-md-12">
+                  <Imprimir2 onClick={this.enviar} listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno}/> 
                 </div>
               </div>
             </div>
           </div>
+        </div>
           ):(
-            <div>
-            <ComponenteEditable  listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno}/>    
-            <div className = "row"> 
-             <div className="col-md-6">
-                  <button  onClick={this.enviar2}  className="waves-effect waves-light btn-large botonazul2" type="submit">Filtrar<i className="large material-icons left">XD</i></button>    
+          
+          <div>
+              <h3>Editable
+          <ul id="nav-mobile" className="right  hide-on-med-and-down"></ul>
+          </h3>
+          <hr/>
+          
+          <div className="SplitPane row center-xs">
+            <div className="  center-xs-12">
+              <table className=" total table ">
+                <ComponenteEditable  listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno}/>    
+              </table> 
+                <div className = "row"> 
+                <div className="col-md-6">
+                      <button  onClick={this.enviar2}  className="waves-effect waves-light btn-large botonazul2" type="submit">Regresar<i className="large material-icons left">arrow_back</i></button>    
+                      </div>
                   </div>
+                </div>
               </div>
-            </div>
+          </div>
           )
+          
         }
          
            <footer>

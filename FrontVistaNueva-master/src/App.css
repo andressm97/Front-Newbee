@@ -31,6 +31,7 @@
   margin-top: 40px;
   margin-bottom: 0px;
 }
+
 .scroll{
   overflow: auto;
   height: 280px;
@@ -152,15 +153,18 @@ label {
   background-color: #4CAF50;
     color: white;
 } */
+.margencomponente{
+  margin-top: 50px;
+}
 .margenFECHA{
-  margin-left: 920px;
-  margin-top: -100px;
+  margin-left: 850px;
+  margin-top: -20px;
   
  } 
 
  .margenFECHA2{
   margin-left: 980px;
-  margin-top: -64px;
+  margin-top: -63px;
 
  } 
  

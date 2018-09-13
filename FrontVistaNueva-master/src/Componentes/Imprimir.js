@@ -84,7 +84,8 @@ class Imprimir extends React.Component {
     var checks=document.getElementsByClassName("checkbox1");
     var checks_normales=Array.from(checks);
 
-    
+    console.log("wea_0")
+    console.log(listadopagos)
     checks_normales.map((checkbox)=>{
      if(checkbox.checked){
        checkbox_selec.push(checkbox.id);
@@ -95,13 +96,14 @@ class Imprimir extends React.Component {
   //  console.log(checkbox_selec);
    
    for(let j=0;j<listadopagos.length;j++){
+       console.log("shitttttttttt :"+listadopagos[j].check)
         if(listadopagos[j].check==true){
             total.push(listadopagos[j]); // ya no hay esas weas de chck box
         }
       }
     console.log("wea")
     console.log(total);
-    listafinal = this.arreglosReporte(this.props.conceptos,total);
+    listafinal = this.arreglosReporte(this.props.conceptos,listadopagos);
 
     importe = this.CalcularImporte(listafinal);
     

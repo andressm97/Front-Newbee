@@ -14,7 +14,8 @@ class ComponenteEditable extends React.Component{
         console.log(this.props.conceptos)
         this.state={
             listadopagos : this.props.listado,
-            total : []
+            total : [],
+            totalnuevo:[]
             
         }
         
@@ -22,12 +23,111 @@ class ComponenteEditable extends React.Component{
             if(this.state.listadopagos[j].check==true){
                 this.state.total.push(this.state.listadopagos[j]); 
             }
+            
         }
-
+        
         this.editarFecha = this.editarFecha.bind(this);
         this.guardarFecha = this.guardarFecha.bind(this);
     }
 
+    guardarFecha(){
+     
+        var idRecaudaciones = [];
+        idRecaudaciones = this.SeleccionRecaudaciones();
+    /*
+        var observ = [];
+        observ = this.SeleccionObsercv();
+    */
+        var fechitasArreglos = [];
+        fechitasArreglos = this.SeleccionFechitasArreglos();
+
+        //http://localhost:8080/recaudaciones/alumno/concepto      CONFIG+'recaudaciones/alumno/concepto/listar/filtrar'                  
+        fetch(CONFIG+"recaudaciones/alumno/concepto/actualizar",
+        {
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify(
+        {
+            "idRec": idRecaudaciones,
+            "fecha": fechitasArreglos,
+     //       "observacion": observ
+        }
+        
+        )
+    })
+    .then((response) => {
+    return response.json()
+    })
+    .then((resp) => {
+    if(resp.length > 0){
+        this.setState({
+            totalnuevo: resp,
+          }
+        );     
+        for(let y = 0;y<this.state.totalnuevo.length;y++){
+            this.state.totalnuevo[y].fecha = this.formateador(this.state.totalnuevo[y].fecha)
+        }
+        console.log(this.state.totalnuevo);
+        //console.log(cadena.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3-$2-$1') + "xd")
+        //console.log(this.state.totalnuevo[0].fecha.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3-$2-$1'));//);
+    swal("Editado exitoso!","","success");
+    }else{
+        swal("Oops","","info");
+    }
+    
+    })
+    .catch(error => {
+    
+    swal("Oops, Algo salió mal!!", "","error")
+    console.error(error)
+    });
+        
+        
+        
+    
+    var primero;
+    for(let i=0;i<this.state.total.length;i++){
+      primero = this.state.total[i].idRec.toString()+this.state.total[i].idAlum.toString();
+      document.getElementById(primero).style.background='#FFFFFF';
+      document.getElementById(primero).disabled = true;
+    }
+ 
+}
+
+formateador(milis){
+        var cadena = "";
+        var d = new Date(milis),
+         month = '' + (d.getMonth() + 1),
+         day = '' + d.getDate(),
+         year = d.getFullYear();
+
+        if (month.length < 2) month = '0' + month;
+        if (day.length < 2) day = '0' + day;
+
+        return  cadena = year+"-"+month+"-"+day;
+}
+
+SeleccionFechitasArreglos(){
+
+    var new_fechas = [];
+    var stringss;
+    for(var i=0;i<this.state.total.length;i++){
+    stringss =  document.getElementById(this.state.total[i].idRec.toString()+this.state.total[i].idAlum.toString()).value
+    if(stringss==""){
+        new_fechas.push(this.state.total[i].fecha.toString());
+    }
+    else
+    {
+        new_fechas.push(document.getElementById(this.state.total[i].idRec.toString()+this.state.total[i].idAlum.toString()).value.replace(/^(\d{2})[-\/](\d{2})[-\/](\d{4})$/g,'$3-$2-$1'));
+    }
+
+    }
+
+    return new_fechas;
+
+}
     
 
     render() { 
@@ -51,7 +151,7 @@ class ComponenteEditable extends React.Component{
                     </div>
                 </div>  
                 <div className="col-md-6">
-                  <Imprimir onClick={this.enviar} listado={this.state.total} conceptos={this.props.conceptos} alumno={this.props.alumno}/> 
+                  <Imprimir onClick={this.enviar} listado={this.state.totalnuevo} conceptos={this.props.conceptos} alumno={this.props.alumno}/> 
                 </div>
             </div>  
         )
@@ -75,85 +175,6 @@ class ComponenteEditable extends React.Component{
           }
         } 
       }
-      
-      guardarFecha(){
-     
-            var idRecaudaciones = [];
-            idRecaudaciones = this.SeleccionRecaudaciones();
-        /*
-            var observ = [];
-            observ = this.SeleccionObsercv();
-        */
-            var fechitasArreglos = [];
-            fechitasArreglos = this.SeleccionFechitasArreglos();
-
-            //http://localhost:8080/recaudaciones/alumno/concepto      CONFIG+'recaudaciones/alumno/concepto/listar/filtrar'                  
-            fetch(CONFIG+"recaudaciones/alumno/concepto/actualizar",
-            {
-            headers: {
-            'Content-Type': 'application/json'
-            },
-            method: "POST",
-            body: JSON.stringify(
-            {
-                "idRec": idRecaudaciones,
-                "fecha": fechitasArreglos,
-         //       "observacion": observ
-            }
-            
-            )
-        })
-        .then((response) => {
-        return response.json()
-        })
-        .then((resp) => {
-        if(resp){
-            
-        console.log("resp: "+resp);
-        swal("Editado exitoso!","","success");
-        }else{
-            swal("Oops","","info");
-        }
-        
-        })
-        .catch(error => {
-        
-        swal("Oops, Algo salió mal!!", "","error")
-        console.error(error)
-        });
-            
-            
-            
-        
-        var primero;
-        for(let i=0;i<this.state.total.length;i++){
-          primero = this.state.total[i].idRec.toString()+this.state.total[i].idAlum.toString();
-          document.getElementById(primero).style.background='#FFFFFF';
-          document.getElementById(primero).disabled = true;
-        }
-     
-    }
-
-
-    SeleccionFechitasArreglos(){
-    
-        var new_fechas = [];
-        var stringss;
-        for(var i=0;i<this.state.total.length;i++){
-        stringss =  document.getElementById(this.state.total[i].idRec.toString()+this.state.total[i].idAlum.toString()).value
-        if(stringss==""){
-            new_fechas.push(this.state.total[i].fecha.toString());
-        }
-        else
-        {
-            new_fechas.push(document.getElementById(this.state.total[i].idRec.toString()+this.state.total[i].idAlum.toString()).value.replace(/^(\d{2})[-\/](\d{2})[-\/](\d{4})$/g,'$3-$2-$1'));
-        }
-    
-        }
-    
-        return new_fechas;
-    
-    }
       
         SeleccionRecaudaciones(){
     

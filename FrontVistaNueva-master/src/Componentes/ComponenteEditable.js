@@ -28,7 +28,7 @@ class ComponenteEditable extends React.Component{
         
         this.editarFecha = this.editarFecha.bind(this);
         this.guardarFecha = this.guardarFecha.bind(this);
-        this.enviar = this.enviar.bind(this);
+       
     }
 
     guardarFecha(){
@@ -43,7 +43,7 @@ class ComponenteEditable extends React.Component{
         fechitasArreglos = this.SeleccionFechitasArreglos();
 
         //http://localhost:8080/recaudaciones/alumno/concepto      CONFIG+'recaudaciones/alumno/concepto/listar/filtrar'                  
-        fetch("http://localhost:8080/recaudaciones/alumno/concepto/actualizar",
+        fetch(CONFIG+"recaudaciones/alumno/concepto/actualizar",
         {
         headers: {
         'Content-Type': 'application/json'
@@ -98,16 +98,6 @@ class ComponenteEditable extends React.Component{
  
 }
 
-enviar(){
-    console.log("mami_0")
-    if(!this.state.flag){console.log("mami")
-        this.setState({
-            totalnuevo: this.state.total,
-           // flag:true
-          }
-        ); 
-    }
-}
 formateador(milis){
         var cadena = "";
         var d = new Date(milis),

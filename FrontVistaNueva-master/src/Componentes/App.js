@@ -572,11 +572,13 @@ enviar2=(e)=>{
     this.setState({
       aparecer:false,
     });
+   
   }
   else{
     this.setState({
       aparecer:true,
     });
+    window.location.reload();
   }
   
 }

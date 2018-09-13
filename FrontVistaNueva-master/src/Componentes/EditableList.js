@@ -1,5 +1,5 @@
 import React from 'react'
-import PagoRow from './Pago-row'
+import EditableRow from './editable-row'
 
 class EditableList extends React.Component {
 
@@ -11,7 +11,7 @@ class EditableList extends React.Component {
         <tbody>
           {
             this.props.listado.map((pago) => {
-              return <PagoRow Funciones={this.props.funcion} key={pago.idRec} 
+              return <EditableRow Funciones={this.props.funcion} key={pago.idRec} 
                                   pago={pago} />
             })
           }

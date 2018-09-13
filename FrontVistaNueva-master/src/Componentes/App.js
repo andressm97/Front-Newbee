@@ -567,7 +567,20 @@ enviar(){
 }
 
 enviar2=(e)=>{
-  
+  console.log("lo que envio:");
+  console.log(this.state.pagocero);
+  let flac=false;
+  for(let i=0;i<this.state.pagocero.length;i++){
+    
+    if(this.state.pagocero[i].check==true){
+      flac=true;break
+    }
+
+  }
+
+
+  if(flac){
+
   if(this.state.aparecer){
     this.setState({
       aparecer:false,
@@ -580,7 +593,11 @@ enviar2=(e)=>{
     });
     window.location.reload();
   }
-  
+}
+else{
+  swal("Seleccione al menos un estado de pago","","info");
+}
+
 }
 
 

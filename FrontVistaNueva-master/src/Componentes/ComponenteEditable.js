@@ -15,8 +15,8 @@ class ComponenteEditable extends React.Component{
         this.state={
             listadopagos : this.props.listado,
             total : [],
-            totalnuevo:[]
-            
+            totalnuevo:[],
+            flag:false
         }
         
         for(let j=0;j<this.state.listadopagos.length;j++){
@@ -28,6 +28,7 @@ class ComponenteEditable extends React.Component{
         
         this.editarFecha = this.editarFecha.bind(this);
         this.guardarFecha = this.guardarFecha.bind(this);
+        this.enviar = this.enviar.bind(this);
     }
 
     guardarFecha(){
@@ -42,7 +43,7 @@ class ComponenteEditable extends React.Component{
         fechitasArreglos = this.SeleccionFechitasArreglos();
 
         //http://localhost:8080/recaudaciones/alumno/concepto      CONFIG+'recaudaciones/alumno/concepto/listar/filtrar'                  
-        fetch(CONFIG+"recaudaciones/alumno/concepto/actualizar",
+        fetch("http://localhost:8080/recaudaciones/alumno/concepto/actualizar",
         {
         headers: {
         'Content-Type': 'application/json'
@@ -64,6 +65,7 @@ class ComponenteEditable extends React.Component{
     if(resp.length > 0){
         this.setState({
             totalnuevo: resp,
+            flag:true
           }
         );     
         for(let y = 0;y<this.state.totalnuevo.length;y++){
@@ -96,6 +98,16 @@ class ComponenteEditable extends React.Component{
  
 }
 
+enviar(){
+    console.log("mami_0")
+    if(!this.state.flag){console.log("mami")
+        this.setState({
+            totalnuevo: this.state.total,
+           // flag:true
+          }
+        ); 
+    }
+}
 formateador(milis){
         var cadena = "";
         var d = new Date(milis),
@@ -103,6 +115,10 @@ formateador(milis){
          day = '' + d.getDate(),
          year = d.getFullYear();
 
+        console.log("dh: "+milis); 
+        console.log("d: "+d.getDate());
+        console.log("m: "+d.getMonth());
+        console.log("y: "+d.getFullYear());
         if (month.length < 2) month = '0' + month;
         if (day.length < 2) day = '0' + day;
 
@@ -115,6 +131,7 @@ SeleccionFechitasArreglos(){
     var stringss;
     for(var i=0;i<this.state.total.length;i++){
     stringss =  document.getElementById(this.state.total[i].idRec.toString()+this.state.total[i].idAlum.toString()).value
+    console.log(document.getElementById(this.state.total[i].idRec.toString()+this.state.total[i].idAlum.toString()).value);
     if(stringss==""){
         new_fechas.push(this.state.total[i].fecha.toString());
     }
@@ -154,7 +171,10 @@ SeleccionFechitasArreglos(){
                     </div>
                 </div>  
                 <div className="col-md-7 ">
-                  <Imprimir onClick={this.enviar} listado={this.state.totalnuevo} conceptos={this.props.conceptos} alumno={this.props.alumno}/> 
+                  {this.state.flag?(
+                    <Imprimir listado={this.state.totalnuevo} conceptos={this.props.conceptos} alumno={this.props.alumno}/> 
+                   ):(<Imprimir listado={this.state.total} conceptos={this.props.conceptos} alumno={this.props.alumno}/> )
+                  }
                 </div>
                 </div>
                 </div>

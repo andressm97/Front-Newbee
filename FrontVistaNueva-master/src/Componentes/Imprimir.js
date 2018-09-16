@@ -1,5 +1,4 @@
 import React from 'react'
-import swal from 'sweetalert';
 
 var jsPDF = require('jspdf');
 require('jspdf-autotable');
@@ -8,9 +7,8 @@ class Imprimir extends React.Component {
   
   componentDidMount() {
 
-    // console.log('PrintThisComponent mounted!')
-
   }
+
   CalcularImporte(listado) { 
   	
     let pagos = listado; 
@@ -45,6 +43,16 @@ class Imprimir extends React.Component {
     return importecito;
   }
 
+  demoTwoPageDocument() {
+    var doc = new jsPDF('landscape');
+    doc.text(20, 20, 'Hello world!');
+    doc.text(20, 30, 'This is client-side Javascript, pumping out a PDF.');
+    doc.addPage();
+    doc.text(20, 20, 'Do you like that?');
+    
+    // Save the PDF
+    doc.save('Test.pdf');
+}
 
   arreglosReporte(con,pag){
         var lista = [];
@@ -105,12 +113,15 @@ class Imprimir extends React.Component {
     console.log(total);
     listafinal = this.arreglosReporte(this.props.conceptos,listadopagos);
 
+    //EL IMPORTE FINAL
     importe = this.CalcularImporte(listafinal);
     
     console.log("total")
     console.log(total);
-    console.log("listafinal")
+    console.log("listafinalLLLLL")
     console.log(listafinal);
+
+    console.log("listado de conceptos obtenidos");
 
 /*
     for (let i = 0; i<total.length; i++) {
@@ -134,6 +145,29 @@ class Imprimir extends React.Component {
      pdf.fromHTML(window.document.getElementById('historial'), 10, 10,{'width': 180});
      pdf.save('test.pdf');
      */
+
+    var conceptos=[];
+  
+    for (let j = 0; j<total.length; j++) {
+      
+        var auxConcepto = total[j].concepto;
+        console.log("aux concepto")
+        console.log(auxConcepto);
+        var lista2 = conceptos.filter(h => h === auxConcepto);
+        console.log("lista2");
+        console.log(lista2);
+        console.log("longitud");
+        console.log(lista2.length);
+        if(!lista2.length){
+          conceptos.push(auxConcepto);
+        }
+     
+    }
+  console.log("listado de conceptos obtenidos");
+  console.log(conceptos);
+
+
+
 
 
    // var columns = ["Concepto","Numero Recibo","Dependencia","Fecha","Moneda","Importe"];

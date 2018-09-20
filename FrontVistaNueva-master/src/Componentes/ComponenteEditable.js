@@ -136,7 +136,6 @@ SeleccionFechitasArreglos(){
 
 }
     
-
     render() { 
         return (
 
@@ -204,14 +203,7 @@ SeleccionFechitasArreglos(){
         return new_recaudaciones;
     
     }
-    
       
-      
-      
-           
-          
 }
-
-
 
 export default ComponenteEditable;

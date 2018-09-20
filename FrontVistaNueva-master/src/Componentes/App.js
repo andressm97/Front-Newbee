@@ -469,31 +469,24 @@ Filtrar=(e)=>{
   }
   console.log("json enviado")
   console.log(json);
-  fetch(CONFIG+'recaudaciones/alumno/concepto/listar/filtrar',
+  fetch(CONFIG+'recaudaciones/alumno/concepto/listar/filtrar', //CONFIG+'recaudaciones/alumno/concepto/listar/filtrar'
   {
   headers: {
     'Content-Type': 'application/json'
   },
   method: "POST",
   body: JSON.stringify(
-    {
+    { 
       "nom_ape": nombrenuevoFiltro,
       "fechaInicial": filtrodel,
       "fechaFinal": filtroal,
       "conceptos": concep,
       "recibos":this.state.filtroNumeros
-    }/*
-    {
-      "nom_ape": "RAUL NAUPARI QUIROZ",
-      "fechaInicial": "0000-00-00",
-      "fechaFinal": "9999-12-12",
-      "conceptos": ["210011"],
-      "recibos":["10509204","10509205"]
-    }*/
+    }
     
   )
-})
-.then((response) => {
+}
+).then((response) => {
 return response.json()
 })
 .then((pagos) => {
@@ -503,7 +496,8 @@ this.setState({
   pagocero: pagos
 });
 swal("Filtro realizado exitosamente!","","success");
-}else{console.log(pagos+"cc");
+}else{
+  console.log(pagos);
   swal("No se encontraron registros","","info");
 }
 /*

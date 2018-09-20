@@ -31,13 +31,13 @@ class formulario extends React.Component{
         var Resolucion=document.getElementById("resolucion").value;
         var Autorizacion=document.getElementById("autorizacion").value;
         var Fecha=document.getElementById("fecha").value;
-        
-        // console.log(this.props.codigo);
+        console.log("guardado");
+         console.log(Beneficio+" "+Condicion+" "+Resolucion+" ");
         // var codigo=this.props.codigo;
         // var programa=this.props.idprograma;
 
        console.log(Beneficio+" "+Condicion+" "+Resolucion+" "+Autorizacion+" "+Fecha); 
-        
+    if(Beneficio!="" && Condicion!=""&& Resolucion!="" && Autorizacion!="" && Fecha!=""){
        fetch(CONFIG+"beneficio/insertar_b", // "http://localhost:8080/" 
         {
         headers: {
@@ -108,6 +108,7 @@ class formulario extends React.Component{
         console.error(error)
         });
         console.log(this.state.lf+" ko")
+    }else{ swal("Tiene que completar todos los campos", "","warning")}
     }
 
     render(){

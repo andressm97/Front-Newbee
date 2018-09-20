@@ -59,7 +59,7 @@ class App extends React.Component {
     this.SeleccionFechaAl = this.SeleccionFechaAl.bind(this);
     this.SeleccionFechaDel = this.SeleccionFechaDel.bind(this);
     this.Filtrar = this.Filtrar.bind(this);
-
+  
  //   this.arreglosReporte = this.arreglosReporte.bind(this); 
 
     this.select = [];
@@ -377,7 +377,7 @@ componentDidUpdate(){
                     </h3>
                 </div>
 
-              <Formulario />  
+              <Formulario codigo={this.state.name} idprograma={this.state.pagos[0].idPrograma} />  
             </div>
           
 

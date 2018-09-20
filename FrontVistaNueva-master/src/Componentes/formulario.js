@@ -4,6 +4,16 @@ import swal from 'sweetalert';
 import CONFIG from '../Configuracion/Config'
 class formulario extends React.Component{
 
+    constructor(props){
+        super(props)
+        this.state={
+                codigo:this.props.codigo,
+                programa:this.props.idprograma,
+        }
+
+        this.guardar=this.guardar.bind(this)
+    }
+
     habilitar(){
         document.getElementById("beneficio").disabled=false;
         document.getElementById("condicion").disabled=false;
@@ -20,11 +30,14 @@ class formulario extends React.Component{
         var Resolucion=document.getElementById("resolucion").value;
         var Autorizacion=document.getElementById("autorizacion").value;
         var Fecha=document.getElementById("fecha").value;
-
+        
+        // console.log(this.props.codigo);
+        // var codigo=this.props.codigo;
+        // var programa=this.props.idprograma;
 
        console.log(Beneficio+" "+Condicion+" "+Resolucion+" "+Autorizacion+" "+Fecha); 
         
-       fetch(CONFIG+"",
+       fetch(CONFIG+"beneficio/insertar_b",
         {
         headers: {
         'Content-Type': 'application/json'
@@ -32,36 +45,65 @@ class formulario extends React.Component{
         method: "POST",
         body: JSON.stringify(
         {
-            "": Beneficio,
-            "": Condicion,
-            "":Resolucion,
-            "":Autorizacion,
-            "":Fecha
+            "beneficios": Beneficio,
+            "condicion": Condicion,
+            "resolucion":Resolucion,
+            "autorizacion":Autorizacion,
+            "fecha":Fecha,
         }
         
         )
-    })
-    .then((resp) => {
+        })
 
-        if(resp){
-            swal("Editado exitoso!","","success");
-        }
-        else{
-            swal("Oops, Algo salió mal!!", "","error");
-        }
-    
-    
-    })
-    .catch(error => {
-    
-    swal("Oops, Algo salió mal!!", "","error")
-    console.error(error)
-    });
+        .then((resp) => {
 
+            if(resp){
+                
+                console.log("funcionaxd");
+                
+            }
+            else{
+                swal("Oops, Algo salió mal!!", "","error");
+            }
+        
+        
+        })
+        .catch(error => {
+        
+        swal("Oops, Algo salió mal!!", "","error")
+        console.error(error)
+        });
+        fetch(CONFIG+"beneficio/insertar_ab",
+                {
+                    headers: {
+                    'Content-Type': 'application/json'
+                    },
+                    method: "POST",
+                    body: JSON.stringify(
+                    {
+                        "cod_alumno": this.state.codigo,
+                        "id_programa":this.state.programa,
+                        
+                    }
+                    
+                    )
+                    }
+                    .then((resp)=>{
+                        if(resp){
+                            swal("Editado exitoso!","","success");
+                        }    
+                    }
+                    
+                    )
+        
+                )
+                
 
     }
 
     render(){
+        console.log(this.props.codigo)
+        console.log(this.props.idprograma)
         return(
             <div>
                 {/* <div >

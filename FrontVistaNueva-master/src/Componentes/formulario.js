@@ -38,7 +38,7 @@ class formulario extends React.Component{
 
        console.log(Beneficio+" "+Condicion+" "+Resolucion+" "+Autorizacion+" "+Fecha); 
         
-       fetch("http://localhost:8080/"+"beneficio/insertar_b", // CONFIG
+       fetch(CONFIG+"beneficio/insertar_b", // "http://localhost:8080/" 
         {
         headers: {
         'Content-Type': 'application/json'
@@ -60,7 +60,7 @@ class formulario extends React.Component{
             console.log(resp)
             console.log(this.state.lf);
             if(resp){
-                fetch("http://localhost:8080/"+"beneficio/insertar_ab", // CONFIG
+                fetch( CONFIG+"beneficio/insertar_ab", // "http://localhost:8080/"
                 {
                 headers: {
                 'Content-Type': 'application/json'

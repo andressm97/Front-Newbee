@@ -178,7 +178,7 @@ GuardarFecth=()=>{
         idConceptoG = this.SeleccionIdConceptoG();
 
         //http://localhost:8080/recaudaciones/alumno/concepto      CONFIG+'recaudaciones/alumno/concepto/listar/filtrar'                  
-        fetch("http://localhost:8080/"+"recaudaciones/alumno/concepto/actualizar",
+        fetch(CONFIG+"recaudaciones/alumno/concepto/actualizar",
         {
         headers: {
         'Content-Type': 'application/json'

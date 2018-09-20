@@ -13,6 +13,7 @@ import Imprimir2 from './imprimir2';
 import {browserHistory} from 'react-router-3';
 import swal from 'sweetalert';
 import CONFIG from '../Configuracion/Config'
+import Formulario from './formulario';
 import ComponenteEditable from './ComponenteEditable'
 
 
@@ -282,8 +283,10 @@ componentDidUpdate(){
         {this.state.aparecer?(
         <div>
           <h3>Estado de pagos por alumno
-          <ul id="nav-mobile" className="right  hide-on-med-and-down">
-              <li ><a className="seleccionar" onClick={this.Regresar} >Regresar<i className="material-icons right">reply</i></a></li>
+          <ul id="nav-mobile" className=" row right  hide-on-med-and-down">
+              <li ><a className="seleccionar col" onClick={this.enviarFormulario} >Revisar Beneficio<i className="material-icons right">edit</i></a></li>
+              <li ><a className="seleccionar col" onClick={this.Regresar} >Regresar<i className="material-icons right">reply</i></a></li>
+              
           </ul>
           </h3>
           <hr/>
@@ -363,33 +366,47 @@ componentDidUpdate(){
           </div>
         </div>
           ):(
-          
-          <div>
-              <h3>Editable
-          <ul id="nav-mobile" className="right  hide-on-med-and-down"></ul>
-          </h3>
-          <hr/>
-          
-          <div className="SplitPane row center-xs">
-            <div className="  center-xs-12">
-              <table className=" total table ">
-                <ComponenteEditable  listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno}/>    
-              </table> 
-                <div className = "row"> 
-                <div className="col-md-6">
-                      <button  onClick={this.enviar2}  className="waves-effect waves-light btn-large botonazul2" type="submit">Regresar<i className="large material-icons left">arrow_back</i></button>    
-                      </div>
-                  </div>
+         
+            <div>
+              <div className="">
+                    <h3>Datos del beneficio
+                    <ul id="nav-mobile" className="row right hide-on-med-and-down">
+                    <li ><a className="seleccionar col" onClick={this.enviarFormulario} >Regresar<i className="material-icons right">reply</i></a></li>
+
+                    </ul>
+                    </h3>
                 </div>
-              </div>
-          </div>
+
+              <Formulario />  
+            </div>
+          
+
+          // <div>
+          //     <h3>Editable
+          // <ul id="nav-mobile" className="right  hide-on-med-and-down"></ul>
+          // </h3>
+          // <hr/>
+          
+          // <div className="SplitPane row center-xs">
+          //   <div className="  center-xs-12">
+          //     <table className=" total table ">
+          //       <ComponenteEditable  listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno}/>    
+          //     </table> 
+          //       <div className = "row"> 
+          //       <div className="col-md-6">
+          //             <button  onClick={this.enviar2}  className="waves-effect waves-light btn-large botonazul2" type="submit">Regresar<i className="large material-icons left">arrow_back</i></button>    
+          //             </div>
+          //         </div>
+          //       </div>
+          //     </div>
+          // </div>
           )
           
         }
          
            <footer>
             <div className="row center-xs centrar color">
-            Realizado por Hardcode © 2018 
+            Realizado por Newbee  © 2018 
             </div>
             </footer>
 
@@ -580,7 +597,22 @@ seleccionar(){
 }
 
 
+enviarFormulario=(e)=>{
+  if(this.state.aparecer){
+    this.setState({
+      aparecer:false,
+    });
+   
+  }
 
+  else{
+    this.setState({
+      aparecer:true,
+    });
+    
+  }
+
+}
 
 
 enviar(){

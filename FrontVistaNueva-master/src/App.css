@@ -87,7 +87,7 @@ border-radius: 8px;
 .colorI{
   color: #215c75;
 }
-input{
+/* input{
     width: 190px;
     padding: 12px 20px;
     margin: 8px 3;
@@ -97,7 +97,7 @@ input{
     box-sizing: border-box;
     background-position: 2px 10px; 
     background-repeat: no-repeat;
-}
+} */
 
 label {
  
@@ -162,6 +162,23 @@ label {
   
  } 
 
+ .container{
+   margin-top: 20px;
+  background:#eceaea;
+  border-radius: 15px;
+  padding: 30px;
+  width: 500px;
+  
+  
+   
+ }
+ .sombra{
+   background: #e8e5e5;
+   margin-top: 5px;
+   border-radius: 15px;
+ }
+ 
+
  .margenFECHA2{
   margin-left: 980px;
   margin-top: -63px;
@@ -187,6 +204,7 @@ label {
   padding-left: 10px;
   padding-right: 40px;
 }
+
 h3{
   background-color:black;
   color:  lightblue;

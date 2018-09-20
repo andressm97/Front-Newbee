@@ -233,7 +233,7 @@ GuardarFecth=()=>{
      </td>
 
       <td className="td">
-        
+        {this.props.numero+1}
       </td>
 
       <td className="td">

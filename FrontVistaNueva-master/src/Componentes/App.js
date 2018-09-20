@@ -355,7 +355,7 @@ componentDidUpdate(){
                 </div>
                 <div className="col-md-4">
                   <div>
-                  <button  onClick={this.enviar2} listado={this.state.pagocero} className="waves-effect waves-light btn-large botonazul2">Editar<i className="large material-icons left">border_color</i></button>    
+                  {/* <button  onClick={this.enviar2} listado={this.state.pagocero} className="waves-effect waves-light btn-large botonazul2">Editar<i className="large material-icons left">border_color</i></button>     */}
                   </div>
                 </div>
                 <div className="col-md-12">

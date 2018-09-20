@@ -12,6 +12,7 @@
 
 ::placeholder { 
   color: black;
+  text-align: center;
   opacity: 1; 
 }
 
@@ -60,7 +61,9 @@
 .th{
   
 height: 10px;
-text-align: center;/*Alineamos el texto al centro ---th por defecto esta alineado al centro*/
+text-align: center;/*Alineamos el texto al centro ---th por defecto e
+
+alineado al centro*/
  /* vertical-align: bottom; Alineamos el texto verticalmente hacia abajo*/
 padding: 3px;
 background-color:#215c75;

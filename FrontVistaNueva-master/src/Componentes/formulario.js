@@ -9,6 +9,7 @@ class formulario extends React.Component{
         this.state={
                 codigo:this.props.codigo,
                 programa:this.props.idprograma,
+                lf:false
         }
 
         this.guardar=this.guardar.bind(this)
@@ -37,30 +38,63 @@ class formulario extends React.Component{
 
        console.log(Beneficio+" "+Condicion+" "+Resolucion+" "+Autorizacion+" "+Fecha); 
         
-       fetch(CONFIG+"beneficio/insertar_b",
+       fetch("http://localhost:8080/"+"beneficio/insertar_b", // CONFIG
         {
         headers: {
         'Content-Type': 'application/json'
         },
         method: "POST",
-        body: JSON.stringify(
-        {
-            "beneficios": Beneficio,
-            "condicion": Condicion,
-            "resolucion":Resolucion,
-            "autorizacion":Autorizacion,
-            "fecha":Fecha,
-        }
+            body: JSON.stringify(
+            {
+                "beneficio": Beneficio,
+                "condicion": Condicion,
+                "resolucion":Resolucion,
+                "autorizacion":Autorizacion,
+                "fecha":Fecha,
+            }
         
         )
         })
 
         .then((resp) => {
-
+            console.log(resp)
+            console.log(this.state.lf);
             if(resp){
+                fetch("http://localhost:8080/"+"beneficio/insertar_ab", // CONFIG
+                {
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                method: "POST",
+                body: JSON.stringify(
+                    {
+                        "cod_alumno": this.state.codigo,
+                        "id_programa":this.state.programa,
+                    }
+                  )
+                })
+        
+                .then((resp_) => {
+        
+                    if(resp_){
+                        
+                        swal("Guardado Exitoso!!", "","success")
+                        
+                    }
+                    else{
+                        swal("Oops, Algo salió mal!!", "","error");
+                    }
                 
-                console.log("funcionaxd");
                 
+                })
+                .catch(error => {
+                
+                swal("Oops, Algo salió mal!!", "","error")
+                console.error(error)
+                });
+               
+                console.log("funciona beneficio");
+                console.log(this.state.lf);
             }
             else{
                 swal("Oops, Algo salió mal!!", "","error");
@@ -73,32 +107,7 @@ class formulario extends React.Component{
         swal("Oops, Algo salió mal!!", "","error")
         console.error(error)
         });
-        fetch(CONFIG+"beneficio/insertar_ab",
-                {
-                    headers: {
-                    'Content-Type': 'application/json'
-                    },
-                    method: "POST",
-                    body: JSON.stringify(
-                    {
-                        "cod_alumno": this.state.codigo,
-                        "id_programa":this.state.programa,
-                        
-                    }
-                    
-                    )
-                    }
-                    .then((resp)=>{
-                        if(resp){
-                            swal("Editado exitoso!","","success");
-                        }    
-                    }
-                    
-                    )
-        
-                )
-                
-
+        console.log(this.state.lf+" ko")
     }
 
     render(){

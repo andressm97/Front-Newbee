@@ -89,10 +89,10 @@ SeleccionFecha=()=>{
   var stringss;
   var prueba;
   stringss=this.props.pago.idRec.toString()+this.props.pago.idAlum.toString();
-  prueba = document.getElementById(stringss).value;
+  prueba = document.getElementById(stringss).value.replace(/^(\d{2})[-\/](\d{2})[-\/](\d{4})$/g,'$3-$2-$1');
   
   if(prueba==""){
-    prueba = this.props.pago.fecha;
+    prueba = this.props.pago.fecha.replace(/^(\d{2})[-\/](\d{2})[-\/](\d{4})$/g,'$3-$2-$1');
   }else{
     
     return prueba;
@@ -178,7 +178,7 @@ GuardarFecth=()=>{
         idConceptoG = this.SeleccionIdConceptoG();
 
         //http://localhost:8080/recaudaciones/alumno/concepto      CONFIG+'recaudaciones/alumno/concepto/listar/filtrar'                  
-        fetch(CONFIG+"recaudaciones/alumno/concepto/actualizar",
+        fetch("http://localhost:8080/"+"recaudaciones/alumno/concepto/actualizar",
         {
         headers: {
         'Content-Type': 'application/json'
@@ -189,9 +189,9 @@ GuardarFecth=()=>{
             "idRec": idRecG,
             "ciclo": cicloG,
             "concepto": conceptoG,
-            "numero": numeroReciboG,
+            "recibo": numeroReciboG,
             "fecha": fechaG,
-            "idconcepto": idConceptoG
+            "id_concepto": idConceptoG
         }
         
         )
@@ -199,7 +199,7 @@ GuardarFecth=()=>{
     .then((response) => {
     return response.json()
     })
-    .then((resp) => {
+    .then((resp) => {console.log(resp);
     if(resp == true){
       
     swal("Editado exitoso!","","success");

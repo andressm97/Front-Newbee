@@ -296,7 +296,16 @@ GuardarFecth=()=>{
 
       <td className="td">{this.props.pago.moneda}</td>
       <td className="td">{'S/. '+this.props.pago.importe}</td>
-      <td className="td">{this.props.pago.observacion}</td>
+
+      <td className="td">
+        <button
+          
+          className="waves-effect waves-light btn-small">
+          <i className="large material-icons center">search</i>
+        </button>
+      </td>
+
+
       <td className="td">
             <button
               onClick={this.editarFila}

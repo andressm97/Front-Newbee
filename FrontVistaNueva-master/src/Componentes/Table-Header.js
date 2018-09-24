@@ -16,7 +16,7 @@ class TableHeader extends React.Component {
         <th className="th">FECHA</th>
         <th className="th">MONEDA</th>
         <th className="th">IMPORTE</th>
-        <th className="th">OBSERVACION</th>
+        <th className="th">OBSV</th>
         <th className="th">EDITAR</th>
         <th className="th">GUARDAR</th>
       </tr>

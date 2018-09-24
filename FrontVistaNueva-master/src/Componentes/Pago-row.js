@@ -1,7 +1,7 @@
 import React from 'react'
 import CONFIG from '../Configuracion/Config'
 import swal from 'sweetalert';
-
+import swal2 from 'sweetalert2';
 class PagoRow extends React.Component {
   
   colocar=()=>{
@@ -121,6 +121,75 @@ SeleccionCiclo=()=>{
   return prueba;
 
 }
+
+
+editarObservacion=()=>{
+
+  var obs = this.props.pago.observacion;
+  var idRecG = "";
+  idRecG = this.SeleccionIdRec();
+
+  swal("Editar Observacion:",{
+    buttons: true,
+    closeOnEsc: false,
+    content: {
+      element: "input",
+      attributes: {
+        value : obs
+      },
+    },
+  })
+  .then((value) => {
+    if (value!="") {
+      console.log("CANCELADO LA OBSERVACION");
+      swal(`The returned value is: ${value}`);
+      fetch(CONFIG+"recaudaciones/alumno/concepto/actualizar"+"/"+value+"/"+idRecG)
+    .then((response) => {
+    return response
+    })
+    .then((resp) => {console.log(resp);
+    if(resp == true){
+      
+    swal("Editado exitoso!","","success");
+    }else{
+        swal("Oops","","info");
+    }
+    
+    })
+    .catch(error => {
+    
+    swal("Oops, Algo salió mal!!", "","error")
+    console.error(error)
+    });
+
+    } else {
+      console.log("si entro la observacion");
+      swal(`The returned value is: ${value}`);
+/*
+      fetch(CONFIG+"recaudaciones/alumno/concepto/actualizar"+"/"+value+"/"+idRecG)
+    .then((response) => {
+    return response.json()
+    })
+    .then((resp) => {console.log(resp);
+    if(resp == true){
+      
+    swal("Editado exitoso!","","success");
+    }else{
+        swal("Oops","","info");
+    }
+    
+    })
+    .catch(error => {
+    
+    swal("Oops, Algo salió mal!!", "","error")
+    console.error(error)
+    });*/
+    }
+
+  });
+
+}
+
 
 SeleccionIdRec=()=>{
 
@@ -299,7 +368,7 @@ GuardarFecth=()=>{
 
       <td className="td">
         <button
-          
+          onClick={this.editarObservacion}
           className="waves-effect waves-light btn-small">
           <i className="large material-icons center">search</i>
         </button>

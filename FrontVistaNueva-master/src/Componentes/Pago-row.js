@@ -1,6 +1,7 @@
 import React from 'react'
 import CONFIG from '../Configuracion/Config'
 import swal from 'sweetalert';
+import swal2 from 'sweetalert2';
 
 class PagoRow extends React.Component {
 
@@ -128,44 +129,51 @@ editarObservacion=()=>{
       var obs = this.props.pago.observacion;
       var idRecG = "";
       idRecG = this.SeleccionIdRec();
-
-      swal("Editar Observacion:",{ // ya funciona la wea todo este tiempo estuvo mal la url :v
-        buttons: true,
-        closeOnEsc: false,
-        content: {
-          element: "input",
-          attributes: {
-            value : obs
+     
+    swal({
+      title: "Desea editar la observacion?",
+      text: "Observacion: "+obs,
+      icon: "warning",
+      buttons: true,
+      //dangerMode: true,
+      closeOnClickOutside:false,
+      closeOnEsc: false,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        swal({
+          closeOnClickOutside:false,
+          closeOnEsc: false,
+          
+          content: {
+            element: "input",
+            attributes: {
+              value : obs
+            },
           },
-        },
-    })// arregla esta wea del swet abel of mrd porque el boton cancelar ejecuta el fetch tambien
-      .then((value) => {
-          if (value!=="") {
-              console.log("CANCELADO LA OBSERVACION");
-              swal(`The returned value is: ${value}`);
-              fetch(CONFIG+'recaudaciones/alumno/concepto/obs/'+value+'/'+idRecG)
-                .then((resp) => {
-                    console.log(resp);
-                    if(resp === true){
+      })
+        .then((value) => {
+                fetch(CONFIG+'recaudaciones/alumno/concepto/obs/'+value+'/'+idRecG)
+                  .then((resp) => {
+                      console.log(resp);
+                      if(resp === true){
+                          swal("Editado exitoso!","","success");
+                      }
+                      else{
                         swal("Editado exitoso!","","success");
-                    }
-                    else{
-                        swal("Oops :v","","info");
-                    }
+                      }
+  
+                  })
+                  .catch(error => {
+                      swal("Oops, Algo salió mal!!", "","error")
+                      console.error(error)
+                  });
+       });
+      } else {
+        
+      }
+    });
 
-                })
-                .catch(error => {
-                    swal("Oops, Algo salió mal!!", "","error")
-                    console.error(error)
-                });
-
-            }
-            else
-            {
-                console.log("si entro la observacion");
-                swal(`The returned value is: ${value}`);
-            }
-     });
 }
 
 

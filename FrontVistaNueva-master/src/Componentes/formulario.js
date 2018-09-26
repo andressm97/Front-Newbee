@@ -19,7 +19,10 @@ class formulario extends React.Component{
                 OpcionCondicion:null,
                 codigo:this.props.codigo,
                 programa:this.props.idprograma,
-                lf:false
+                lf:false,
+                valorTipo:'',
+                valorCondicion:''
+               
         }
 
         this.guardar=this.guardar.bind(this)
@@ -99,14 +102,15 @@ class formulario extends React.Component{
                 document.getElementById("fecha").value=datos.fecha;
                 this.setState({
                     OpcionBeneficio:{value:datos.tipo,label:datos.tipo},
-                    OpcionCondicion:{value:datos.condicion,label:datos.condicion}
+                    OpcionCondicion:{value:datos.condicion,label:datos.condicion},
+                    valorTipo:this.leertipo(datos.tipo),
+                    valorCondicion:this.leercondicion(datos.condicion),
                 })
-                console.log("opcion");
-                console.log(this.state.OpcionBeneficio);
+                
                 
             }
             else{
-                this.state.OpcionBeneficio="xddd";
+                //this.state.OpcionBeneficio="xddd";
                 // document.getElementById("resolucion").value="xddd";
                 swal("xdd","","warning");
                
@@ -127,27 +131,23 @@ class formulario extends React.Component{
 
 
     handleChangeBeneficio =(Opcion)=>{
-        this.setState({OpcionBeneficio:Opcion});
-        console.log("Opcion elegida : ",Opcion);
 
+        this.setState({OpcionBeneficio:Opcion,
+                        valorTipo:this.leertipo(Opcion.value)});
+        console.log("Opcion elegida : ",Opcion);
         for(let i=0;i<this.state.listas.length;i++){
             if(this.state.listas[i].tipo==Opcion.value){
                 document.getElementById("resolucion").value=this.state.listas[i].resolucion;
                 document.getElementById("importemaximo").value=this.state.listas[i].beneficio_max;
             }
         }
-        
 
-        // if(Opcion.value=="DOCENTE UNMSM"){
-        //     document.getElementById("autorizacion").value="xddd"
-        // }
-        // else{
-        //     document.getElementById("autorizacion").value="no hay wee"
-        // }
     }
     handleChangeCondicion=(Opcion)=>{
-        this.setState({OpcionCondicion:Opcion});
-        console.log("Opcion elegida : ",Opcion);
+        
+        this.setState({OpcionCondicion:Opcion,
+                        valorCondicion:this.leercondicion(Opcion.value)});
+        console.log("Opcion elegidaCondicion : ",Opcion);
 
     }
 
@@ -159,19 +159,34 @@ class formulario extends React.Component{
         
     }
 
-    guardar(){
-        var id_tipo="";
-        var id_tcondicion="";
+    leertipo(valor){
+        let id_tipo="";
         for(let i=0; i<this.state.listas.length;i++){
-            if(this.state.OpcionBeneficio.value==this.state.listas[i].tipo){
-                id_tipo=i;
+            if(valor==this.state.listas[i].tipo){
+                 id_tipo=i;
             }
         }
+        return id_tipo;
+    }
+    leercondicion(valor){
+        let id_tcondicion="";
         for(let i=0; i<this.state.listacondicion.length;i++){
-            if(this.state.OpcionCondicion.value==this.state.listacondicion[i].condicion){
-                id_tcondicion=i;
-            }
-        }
+                if(valor==this.state.listacondicion[i].condicion){
+                  id_tcondicion=i;
+                }
+         }
+         return id_tcondicion;
+    }
+
+    guardar(){
+       
+
+      
+        console.log("condicion")
+        console.log(this.state.valorCondicion)
+        console.log("valor");    
+        console.log(this.state.valorTipo);
+        
         var Observacion=document.getElementById("observacion").value;
         var valor=document.getElementById("beneficio").value;
         var Autorizacion=document.getElementById("autorizacion").value;
@@ -186,7 +201,7 @@ class formulario extends React.Component{
     
 
 
-       if(valor!="" && fecha!=""){
+       if(true){
        fetch(CONFIG+"beneficio/insertar", // "http://localhost:8080/" 
         {
         headers: {
@@ -196,11 +211,11 @@ class formulario extends React.Component{
             body: JSON.stringify(
             {
                 "beneficio_otorgado":valor,
-                "id_bcondicion": id_tcondicion,
+                "id_bcondicion": this.state.valorCondicion,
                 "autorizacion":Autorizacion,
                 "fecha":fecha,
                 "observacion":Observacion,
-                "id_beneficio":id_tipo,
+                "id_beneficio":this.state.valorTipo,
                 "cod_alumno":this.props.codigo,
                 "id_programa":this.props.idprograma
             }
@@ -297,6 +312,7 @@ class formulario extends React.Component{
                                         
 
                                     />
+                                    
                             
                             </div>
                         </div>

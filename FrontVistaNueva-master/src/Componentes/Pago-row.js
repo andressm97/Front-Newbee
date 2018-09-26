@@ -1,7 +1,7 @@
 import React from 'react'
 import CONFIG from '../Configuracion/Config'
 import swal from 'sweetalert';
-import swal2 from 'sweetalert2';
+
 
 class PagoRow extends React.Component {
 
@@ -129,7 +129,7 @@ editarObservacion=()=>{
       var obs = this.props.pago.observacion;
       var idRecG = "";
       idRecG = this.SeleccionIdRec();
-     
+
     swal({
       title: "Desea editar la observacion?",
       text: "Observacion: "+obs,
@@ -144,7 +144,7 @@ editarObservacion=()=>{
         swal({
           closeOnClickOutside:false,
           closeOnEsc: false,
-          
+
           content: {
             element: "input",
             attributes: {
@@ -162,7 +162,7 @@ editarObservacion=()=>{
                       else{
                         swal("Editado exitoso!","","success");
                       }
-  
+
                   })
                   .catch(error => {
                       swal("Oops, Algo salió mal!!", "","error")
@@ -170,7 +170,7 @@ editarObservacion=()=>{
                   });
        });
       } else {
-        
+
       }
     });
 

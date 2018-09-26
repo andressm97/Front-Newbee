@@ -1,7 +1,7 @@
 import React from 'react'
 import CONFIG from '../Configuracion/Config'
 import swal from 'sweetalert';
-//import swal2 from 'sweetalert2';
+
 
 class PagoRow extends React.Component {
 
@@ -16,7 +16,7 @@ class PagoRow extends React.Component {
 
     var estadoAlumno;
     estadoAlumno = this.props.pago.estado;
-    
+
     if(estadoAlumno=="M"){
       var editConcepto;
     editConcepto=this.props.pago.idRec.toString()+this.props.pago.concepto;
@@ -56,7 +56,7 @@ class PagoRow extends React.Component {
       console.log("No tiene permiso para editar");
       swal("No es posible realizar cambios", "", "info");
     }
-    
+
   }
 
 
@@ -157,7 +157,7 @@ editarObservacion=()=>{
             swal({
               closeOnClickOutside:false,
               closeOnEsc: false,
-              
+
               content: {
                 element: "input",
                 attributes: {
@@ -175,7 +175,7 @@ editarObservacion=()=>{
                           else{
                             swal("Editado exitoso!","","success");
                           }
-      
+
                       })
                       .catch(error => {
                           swal("Oops, Algo salió mal!!", "","error")
@@ -183,15 +183,15 @@ editarObservacion=()=>{
                       });
            });
           } else {
-            
+
           }
         });
       }else{
         swal("No es posible realizar cambios", "", "info");
         console.log("No tiene permiso para editar la observacion");
       }
-     
-   
+
+
 
 }
 
@@ -297,7 +297,7 @@ GuardarFecth=()=>{
     swal("No es posible realizar cambios", "", "info");
   }
 
-        
+
 
 }
 

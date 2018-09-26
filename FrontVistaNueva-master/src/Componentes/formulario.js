@@ -201,7 +201,7 @@ class formulario extends React.Component{
     
 
 
-       if(true){
+       if(valor!="" && fecha!=""){
        fetch(CONFIG+"beneficio/insertar", // "http://localhost:8080/" 
         {
         headers: {

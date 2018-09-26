@@ -17,7 +17,7 @@ class PagoRow extends React.Component {
     var estadoAlumno;
     estadoAlumno = this.props.pago.estado;
 
-    if(estadoAlumno=="m"){
+    if(estadoAlumno=="M"){
       var editConcepto;
     editConcepto=this.props.pago.idRec.toString()+this.props.pago.concepto;
 
@@ -54,6 +54,7 @@ class PagoRow extends React.Component {
     }
     else{
       console.log("No tiene permiso para editar");
+      swal("No tiene permiso para editar");
     }
 
   }
@@ -141,7 +142,7 @@ editarObservacion=()=>{
       var idRecG = "";
       idRecG = this.SeleccionIdRec();
 
-      if(estadoAlumno=="m"){
+      if(estadoAlumno=="M"){
         swal({
           title: "Desea editar la observacion?",
           text: "Observacion: "+obs,
@@ -186,6 +187,7 @@ editarObservacion=()=>{
           }
         });
       }else{
+        swal("No tiene permiso para editar la observacion");
         console.log("No tiene permiso para editar la observacion");
       }
 
@@ -235,7 +237,7 @@ GuardarFecth=()=>{
   var estadoAlumno;
   estadoAlumno = this.props.pago.estado;
 
-  if(estadoAlumno=="m"){
+  if(estadoAlumno=="M"){
     var cicloG = "";
         cicloG = this.SeleccionCiclo();
 
@@ -292,6 +294,7 @@ GuardarFecth=()=>{
     });
   }else{
     console.log("No tiene permiso para guargar")
+    swal("No tiene permiso para guardar");
   }
 
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import CONFIG from '../Configuracion/Config'
 import swal from 'sweetalert';
-import swal2 from 'sweetalert2';
+//import swal2 from 'sweetalert2';
 
 class PagoRow extends React.Component {
 

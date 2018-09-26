@@ -359,6 +359,7 @@ componentDidUpdate(){
                   </div>
                 </div>
                 <div className="col-md-12">
+               
                   <Imprimir2 onClick={this.enviar} listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno}/> 
                 </div>
               </div>

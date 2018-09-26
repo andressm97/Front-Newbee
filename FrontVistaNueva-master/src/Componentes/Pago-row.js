@@ -17,7 +17,7 @@ class PagoRow extends React.Component {
     var estadoAlumno;
     estadoAlumno = this.props.pago.estado;
     
-    if(estadoAlumno=="m"){
+    if(estadoAlumno=="M"){
       var editConcepto;
     editConcepto=this.props.pago.idRec.toString()+this.props.pago.concepto;
 
@@ -141,7 +141,7 @@ editarObservacion=()=>{
       var idRecG = "";
       idRecG = this.SeleccionIdRec();
 
-      if(estadoAlumno=="m"){
+      if(estadoAlumno=="M"){
         swal({
           title: "Desea editar la observacion?",
           text: "Observacion: "+obs,
@@ -235,7 +235,7 @@ GuardarFecth=()=>{
   var estadoAlumno;
   estadoAlumno = this.props.pago.estado;
 
-  if(estadoAlumno=="m"){
+  if(estadoAlumno=="M"){
     var cicloG = "";
         cicloG = this.SeleccionCiclo();
 

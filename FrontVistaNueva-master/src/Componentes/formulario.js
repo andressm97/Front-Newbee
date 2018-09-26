@@ -29,20 +29,7 @@ class formulario extends React.Component{
 
     componentWillMount(){
 
-        fetch(CONFIG+'/beneficio/listar/' + this.state.codigo)
-        .then((response)=>{
-            return response.json()
-        }).then((datos)=>{
-            console.log("xddddddd");
-            console.log(datos);
-
-            this.setState({
-                datosiniciales:datos
-            });
-        })
-        .catch(error=>{
-            console.error(error)
-        });
+        
 
         fetch(CONFIG+'/beneficio/tipo')
         .then((response)=>{
@@ -98,27 +85,43 @@ class formulario extends React.Component{
     }
     componentDidMount(){
 
+        fetch(CONFIG+'/beneficio/listar/' + this.state.codigo)
+        .then((response)=>{
+            return response.json()
+        }).then((datos)=>{
+            if(datos.cod_alumno!=null){
+
+                document.getElementById("resolucion").value=datos.resolucion;
+                document.getElementById("autorizacion").value=datos.autorizacion;
+                document.getElementById("observacion").value=datos.observacion;
+                document.getElementById("beneficio").value=datos.benef_otrogado;
+                document.getElementById("importemaximo").value=datos.benef_max;
+                document.getElementById("fecha").value=datos.fecha;
+                this.setState({
+                    OpcionBeneficio:{value:datos.tipo,label:datos.tipo},
+                    OpcionCondicion:{value:datos.condicion,label:datos.condicion}
+                })
+                console.log("opcion");
+                console.log(this.state.OpcionBeneficio);
+                
+            }
+            else{
+                this.state.OpcionBeneficio="xddd";
+                // document.getElementById("resolucion").value="xddd";
+                swal("xdd","","warning");
+               
+                
+            }
     
-        if(this.state.datosiniciales.cod_alumno!=null){
 
-            document.getElementById("resolucion").value=this.state.datosiniciales.resolucion;
-            document.getElementById("autorizacion").value=this.state.datosiniciales.autorizacion;
-            document.getElementById("observacion").value=this.state.datosiniciales.observacion;
-            this.setState({
-                OpcionBeneficio:{value:this.state.datosiniciales.tipo,value:this.state.datosiniciales.tipo},
-                OpcionCondicion:{value:this.state.datosiniciales.condicion,value:this.state.datosiniciales.condicion}
-            })
+          
+        })
+        .catch(error=>{
+            console.error(error)
+        });
 
-            
-        }
-        else{
-            this.state.OpcionBeneficio="xddd";
-            // document.getElementById("resolucion").value="xddd";
-            swal("xdd","","warning");
-           
-            
-        }
-
+       
+        
 
     }
 
@@ -229,8 +232,8 @@ class formulario extends React.Component{
     }
 
     render(){
-    console.log("tipooooo");
-    console.log(this.state.listas);
+        console.log("wewewexd");
+        console.log(this.state.datosiniciales);
         //console.log(this.props.codigo)
         //console.log(this.props.idprograma)
         return(

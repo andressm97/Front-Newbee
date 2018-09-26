@@ -2,6 +2,7 @@ import React from 'react'
 
 
 class AlumnoCodigo extends React.Component {
+  
   render() {
       
         if(this.props.alumno){
@@ -16,6 +17,7 @@ class AlumnoCodigo extends React.Component {
         </div>
         <div className="negro">
         {this.props.alumno.apeNom}
+        
          </div>
          </div>
      {/*    <div className="center datos">
@@ -35,6 +37,7 @@ class AlumnoCodigo extends React.Component {
         }
  
   }
+  
 }
 
 export default AlumnoCodigo;

@@ -3,11 +3,7 @@ import '../App.css'
 import swal from 'sweetalert';
 import CONFIG from '../Configuracion/Config'
 import Select from 'react-select';
-const options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-  ];
+
 
 class formulario extends React.Component{
     
@@ -15,6 +11,7 @@ class formulario extends React.Component{
         super(props)
         this.state={
                 listas:[],
+                listacondicion:[],
                 tipo:[],
                 condicion:[],
                 datosiniciales:[],
@@ -85,7 +82,8 @@ class formulario extends React.Component{
             }
 
             this.setState({
-                condicion:array2
+                condicion:array2,
+                listacondicion:condicion
             });
         })
         .catch(error=>{
@@ -106,15 +104,19 @@ class formulario extends React.Component{
             document.getElementById("resolucion").value=this.state.datosiniciales.resolucion;
             document.getElementById("autorizacion").value=this.state.datosiniciales.autorizacion;
             document.getElementById("observacion").value=this.state.datosiniciales.observacion;
-            
+            this.setState({
+                OpcionBeneficio:{value:this.state.datosiniciales.tipo,value:this.state.datosiniciales.tipo},
+                OpcionCondicion:{value:this.state.datosiniciales.condicion,value:this.state.datosiniciales.condicion}
+            })
 
             
         }
         else{
-
+            this.state.OpcionBeneficio="xddd";
             // document.getElementById("resolucion").value="xddd";
             swal("xdd","","warning");
-            //this.state.OpcionSeleccionada="xdddddd";
+           
+            
         }
 
 
@@ -148,29 +150,41 @@ class formulario extends React.Component{
 
     habilitar(){
         document.getElementById("beneficio").disabled=false;
-        //document.getElementById("condicion").disabled=false;
-        document.getElementById("resolucion").disabled=false;
         document.getElementById("autorizacion").disabled=false;
         document.getElementById("fecha").disabled=false;
-
-
+        document.getElementById("observacion").disabled=false;
+        
     }
 
     guardar(){
-        var Beneficio=document.getElementById("beneficio").value;
-        var Condicion=document.getElementById("condicion").value;
-        var Resolucion=document.getElementById("resolucion").value;
+        var id_tipo="";
+        var id_tcondicion="";
+        for(let i=0; i<this.state.listas.length;i++){
+            if(this.state.OpcionBeneficio.value==this.state.listas[i].tipo){
+                id_tipo=i;
+            }
+        }
+        for(let i=0; i<this.state.listacondicion.length;i++){
+            if(this.state.OpcionCondicion.value==this.state.listacondicion[i].condicion){
+                id_tcondicion=i;
+            }
+        }
+        var Observacion=document.getElementById("observacion").value;
+        var valor=document.getElementById("beneficio").value;
         var Autorizacion=document.getElementById("autorizacion").value;
-        var Fecha=document.getElementById("fecha").value;
-        console.log("guardado");
-         console.log(Beneficio+" "+Condicion+" "+Resolucion+" ");
-        // var codigo=this.props.codigo;
-        // var programa=this.props.idprograma;
+        var fecha=document.getElementById("fecha").value.replace(/^(\d{2})[-\/](\d{2})[-\/](\d{4})$/g,'$3-$2-$1');
+        // console.log("xdddd");
+        // console.log(id_tipo);
+        // console.log(id_tbeneficio);
+        // console.log(Observacion);
+        // console.log(valor);
+        // console.log(Autorizacion);
+        // console.log(fecha);
+    
 
-       console.log(Beneficio+" "+Condicion+" "+Resolucion+" "+Autorizacion+" "+Fecha); 
 
-       if(Beneficio!="" && Condicion!=""&& Resolucion!="" && Autorizacion!="" && Fecha!=""){
-       fetch(CONFIG+"beneficio/insertar_b", // "http://localhost:8080/" 
+       if(valor!="" && fecha!=""){
+       fetch(CONFIG+"beneficio/insertar", // "http://localhost:8080/" 
         {
         headers: {
         'Content-Type': 'application/json'
@@ -178,11 +192,14 @@ class formulario extends React.Component{
         method: "POST",
             body: JSON.stringify(
             {
-                "beneficio": Beneficio,
-                "condicion": Condicion,
-                "resolucion":Resolucion,
+                "beneficio_otorgado":valor,
+                "id_bcondicion": id_tcondicion,
                 "autorizacion":Autorizacion,
-                "fecha":Fecha,
+                "fecha":fecha,
+                "observacion":Observacion,
+                "id_beneficio":id_tipo,
+                "cod_alumno":this.props.codigo,
+                "id_programa":this.props.idprograma
             }
         
         )
@@ -192,38 +209,6 @@ class formulario extends React.Component{
             console.log(resp)
             console.log(this.state.lf);
             if(resp){
-                fetch( CONFIG+"beneficio/insertar_ab", // "http://localhost:8080/"
-                {
-                headers: {
-                'Content-Type': 'application/json'
-                },
-                method: "POST",
-                body: JSON.stringify(
-                    {
-                        "cod_alumno": this.state.codigo,
-                        "id_programa":this.state.programa,
-                    }
-                  )
-                })
-        
-                .then((resp_) => {
-        
-                    if(resp_){
-                        
-                        swal("Guardado Exitoso!!", "","success")
-                        
-                    }
-                    else{
-                        swal("Oops, Algo salió mal!!", "","error");
-                    }
-                
-                
-                })
-                .catch(error => {
-                
-                swal("Oops, Algo salió mal!!", "","error")
-                console.error(error)
-                });
                
                 console.log("funciona beneficio");
                 console.log(this.state.lf);
@@ -244,7 +229,7 @@ class formulario extends React.Component{
     }
 
     render(){
-        console.log("tipooooo");
+    console.log("tipooooo");
     console.log(this.state.listas);
         //console.log(this.props.codigo)
         //console.log(this.props.idprograma)
@@ -275,6 +260,7 @@ class formulario extends React.Component{
                                 value={this.state.OpcionBeneficio}
                                 options={this.state.tipo} 
                                 onChange={this.handleChangeBeneficio}
+                                
                                 />
                             </div>
                             <div className="col-md-4">
@@ -298,9 +284,13 @@ class formulario extends React.Component{
                             {/* <div className="col-md-12"><input type="text" id="condicion" placeholder="Condicion"disabled/></div> */}
                             <div className="col-md-8"> 
                                     <Select 
+                                       
+                                        className="selectCondicion"
                                         value={this.state.OpcionCondicion}
                                         options={this.state.condicion}
                                         onChange={this.handleChangeCondicion}
+                                        
+                                        
                                         
 
                                     />
@@ -325,7 +315,7 @@ class formulario extends React.Component{
                             {/* <div className="col-md-2"><h4 >Autorizacion:</h4></div> */}
                             <div className="col-md-12">
                             {/* <input type="text" id="autorizacion" placeholder="Observacion"disabled /> */}
-                            <textarea class="form-control " id="observacion" placeholder="Observaciones..." rows="3"></textarea>
+                            <textarea class="form-control " id="observacion" placeholder="Observaciones..." rows="3"disabled></textarea>
                             </div>
                         </div>
                         

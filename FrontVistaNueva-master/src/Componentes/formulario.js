@@ -6,7 +6,7 @@ import Select from 'react-select';
 
 
 class formulario extends React.Component{
-    
+
     constructor(props){
         super(props)
         this.state={
@@ -22,7 +22,7 @@ class formulario extends React.Component{
                 lf:false,
                 valorTipo:'',
                 valorCondicion:''
-               
+
         }
 
         this.guardar=this.guardar.bind(this)
@@ -32,7 +32,7 @@ class formulario extends React.Component{
 
     componentWillMount(){
 
-        
+
 
         fetch(CONFIG+'/beneficio/tipo')
         .then((response)=>{
@@ -45,7 +45,7 @@ class formulario extends React.Component{
             for(var i=0;i<listas.length;i++){
                 var e={value:listas[i].tipo,label:listas[i].tipo}
                 array.push(e);
-            
+
             }
 
             this.setState({
@@ -68,7 +68,7 @@ class formulario extends React.Component{
             for(var i=0;i<condicion.length;i++){
                 var e={value:condicion[i].condicion,label:condicion[i].condicion}
                 array2.push(e);
-            
+
             }
 
             this.setState({
@@ -79,9 +79,9 @@ class formulario extends React.Component{
         .catch(error=>{
             console.error(error)
         });
-        
-    
-        
+
+
+
 
 
 
@@ -106,26 +106,26 @@ class formulario extends React.Component{
                     valorTipo:this.leertipo(datos.tipo),
                     valorCondicion:this.leercondicion(datos.condicion),
                 })
-                
-                
+
+
             }
             else{
                 //this.state.OpcionBeneficio="xddd";
                 // document.getElementById("resolucion").value="xddd";
                 swal("xdd","","warning");
-               
-                
-            }
-    
 
-          
+
+            }
+
+
+
         })
         .catch(error=>{
             console.error(error)
         });
 
-       
-        
+
+
 
     }
 
@@ -144,7 +144,7 @@ class formulario extends React.Component{
 
     }
     handleChangeCondicion=(Opcion)=>{
-        
+
         this.setState({OpcionCondicion:Opcion,
                         valorCondicion:this.leercondicion(Opcion.value)});
         console.log("Opcion elegidaCondicion : ",Opcion);
@@ -156,7 +156,7 @@ class formulario extends React.Component{
         document.getElementById("autorizacion").disabled=false;
         document.getElementById("fecha").disabled=false;
         document.getElementById("observacion").disabled=false;
-        
+
     }
 
     leertipo(valor){
@@ -166,43 +166,44 @@ class formulario extends React.Component{
                  id_tipo=i;
             }
         }
-        return id_tipo;
+        return id_tipo + 1;
     }
     leercondicion(valor){
         let id_tcondicion="";
         for(let i=0; i<this.state.listacondicion.length;i++){
                 if(valor==this.state.listacondicion[i].condicion){
-                  id_tcondicion=i;
+                  id_tcondicion=i; console.log("i wanna"+this.state.listacondicion[i].condicion+" "+i)
                 }
          }
-         return id_tcondicion;
+         return id_tcondicion + 1;
     }
 
     guardar(){
-       
 
-      
+
+
         console.log("condicion")
         console.log(this.state.valorCondicion)
-        console.log("valor");    
+        console.log("valor");
         console.log(this.state.valorTipo);
-        
+
         var Observacion=document.getElementById("observacion").value;
         var valor=document.getElementById("beneficio").value;
         var Autorizacion=document.getElementById("autorizacion").value;
         var fecha=document.getElementById("fecha").value.replace(/^(\d{2})[-\/](\d{2})[-\/](\d{4})$/g,'$3-$2-$1');
-        // console.log("xdddd");
+        // console.log();
         // console.log(id_tipo);
         // console.log(id_tbeneficio);
         // console.log(Observacion);
         // console.log(valor);
         // console.log(Autorizacion);
         // console.log(fecha);
-    
 
-
+        console.log("fuck")
+        console.log("id_beneficio. "+this.state.valorTipo);
+        console.log("id_bcondicion. "+this.state.valorCondicion);
        if(valor!="" && fecha!=""){
-       fetch(CONFIG+"beneficio/insertar", // "http://localhost:8080/" 
+       fetch(CONFIG+"beneficio/insertar", // "http://localhost:8080/"
         {
         headers: {
         'Content-Type': 'application/json'
@@ -219,7 +220,7 @@ class formulario extends React.Component{
                 "cod_alumno":this.props.codigo,
                 "id_programa":this.props.idprograma
             }
-        
+
         )
         })
 
@@ -227,18 +228,18 @@ class formulario extends React.Component{
             console.log(resp)
             console.log(this.state.lf);
             if(resp){
-               
+
                 console.log("funciona beneficio");
                 console.log(this.state.lf);
             }
             else{
                 swal("Oops, Algo salió mal!!", "","error");
             }
-        
-        
+
+
         })
         .catch(error => {
-        
+
         swal("Oops, Algo salió mal!!", "","error")
         console.error(error)
         });
@@ -260,13 +261,13 @@ class formulario extends React.Component{
                     </ul>
                     </h3>
                 </div> */}
-                    
+
                 <div className="container" >
 
-                    
-                    
+
+
                         <div className="row ">
-                            <div className="col-md-12"><h4 >Datos del beneficio</h4></div>   
+                            <div className="col-md-12"><h4 >Datos del beneficio</h4></div>
                         </div>
 
 
@@ -274,11 +275,11 @@ class formulario extends React.Component{
                             <div className="col-md-4"><h6 >Beneficio:</h6></div>
                             {/* <div className="col-md-12"><input type="text" id="beneficio" placeholder="Beneficios" disabled/></div> */}
                             <div className="col-md-8 ">
-                            <Select 
+                            <Select
                                 value={this.state.OpcionBeneficio}
-                                options={this.state.tipo} 
+                                options={this.state.tipo}
                                 onChange={this.handleChangeBeneficio}
-                                
+
                                 />
                             </div>
                             <div className="col-md-4">
@@ -290,78 +291,78 @@ class formulario extends React.Component{
                             <div className="col-md-4">
                             <h6>Valor otorgado: </h6>
                             </div>
-                            
-                            <div className="col-md-2 ">                            
+
+                            <div className="col-md-2 ">
                             <input className="form-control estilo" type="text" id="beneficio" placeholder="" disabled/>
                             </div>
-                            
-                            
+
+
                         </div>
                         <div className="row sombra">
                             <div className="col-md-4"><h6 >Condicion:</h6></div>
                             {/* <div className="col-md-12"><input type="text" id="condicion" placeholder="Condicion"disabled/></div> */}
-                            <div className="col-md-8"> 
-                                    <Select 
-                                       
+                            <div className="col-md-8">
+                                    <Select
+
                                         className="selectCondicion"
                                         value={this.state.OpcionCondicion}
                                         options={this.state.condicion}
                                         onChange={this.handleChangeCondicion}
-                                        
-                                        
-                                        
+
+
+
 
                                     />
-                                    
-                            
+
+
                             </div>
                         </div>
                         <div className="row sombra">
-                        
+
                             {/* <div className="col-md-3"><h6 >Resolucion:</h6></div> */}
                             <div className="col-md-12"><input type="text" id="resolucion" placeholder="Resolucion"disabled/></div>
                             {/* <div className="col-md-9">
                             <Select/>
                             </div> */}
-                            
+
                         </div>
 
-                        <div className="row sombra">   
+                        <div className="row sombra">
                             {/* <div className="col-md-2"><h4 >Autorizacion:</h4></div> */}
                             <div className="col-md-12"><input type="text" id="autorizacion" placeholder="Autorizacion"disabled /></div>
                         </div>
-                        <div className="row sombra2">   
+                        <div className="row sombra2">
                             {/* <div className="col-md-2"><h4 >Autorizacion:</h4></div> */}
                             <div className="col-md-12">
                             {/* <input type="text" id="autorizacion" placeholder="Observacion"disabled /> */}
                             <textarea class="form-control " id="observacion" placeholder="Observaciones..." rows="3"disabled></textarea>
                             </div>
                         </div>
-                        
-                        <div className="row sombra">   
+
+                        <div className="row sombra">
                             {/* <div className="col-md-2"><h4 >Fecha:</h4></div> */}
                             <div className="col-md-6"><input type="date" id="fecha" placeholder="Fecha"disabled/></div>
                         </div>
-                        
-                       
+
+
 
                         <div className="row">
-                               
-                                <div className=" col-md-6">
-                                    <button  onClick={this.habilitar} className="  waves-effect waves-light btn-large botonazul2  " type="submit">Editar<i className=" material-icons left">check</i></button>    
-                                </div>
-                                <div className=" col-md-6">
-                                    <button  onClick={this.guardar} className="  waves-effect waves-light btn-large botonazul2  " type="submit">Guardar<i className=" material-icons left">save</i></button>    
-                                </div>
-                            
-                            
-                        </div>
-                      
-                    
 
-                
+                                <div className=" col-md-6">
+                                    <button  onClick={this.habilitar} className="  waves-effect waves-light btn-large botonazul2  " type="submit">Editar<i className=" material-icons left">check</i></button>
+                                </div>
+                                <div className=" col-md-6">
+                                    <button  onClick={this.guardar} className="  waves-effect waves-light btn-large botonazul2  " type="submit">Guardar<i className=" material-icons left">save</i></button>
+                                </div>
+
+
+                        </div>
+
+
+
+
                 </div>
-                
+
 
             </div>
         )

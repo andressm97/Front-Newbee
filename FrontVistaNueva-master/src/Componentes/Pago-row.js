@@ -1,27 +1,28 @@
 import React from 'react'
 import CONFIG from '../Configuracion/Config'
 import swal from 'sweetalert';
+import swal2 from 'sweetalert2';
 
 class PagoRow extends React.Component {
-  
+
   colocar=()=>{
     var hola=document.getElementById(this.props.pago.idRec);
     console.log(hola.id);
     var holas=hola.id;
     this.props.Funciones(holas);
     }
-  
+
   editarFila=()=>{
 
     var editConcepto;
     editConcepto=this.props.pago.idRec.toString()+this.props.pago.concepto;
-    
+
     var conceptoEdit = this.props.pago.concepto;
-   
+
     document.getElementById(editConcepto).value= conceptoEdit;
     document.getElementById(editConcepto).disabled = false;
     document.getElementById(editConcepto).style.background='#F2F2F2';
-    
+
 
     var editFecha;
     var fechaEdit = this.props.pago.fecha;
@@ -33,7 +34,7 @@ class PagoRow extends React.Component {
     var editCiclo;
     var num = 250296;
     editCiclo=this.props.pago.idRec.toString()+num.toString();
-    
+
     document.getElementById(editCiclo).disabled = false;
     document.getElementById(editCiclo).style.background='#F2F2F2';
     document.getElementById(editCiclo).focus();
@@ -54,14 +55,14 @@ class PagoRow extends React.Component {
     var prueba;
     stringss=this.props.pago.idRec.toString()+this.props.pago.numero;
     prueba = document.getElementById(stringss).value;
-    
+
     if(prueba==""){
       prueba = this.props.pago.numero;
     }else{
-      
+
       return prueba;
     }
-    
+
     return prueba;
 
 }
@@ -72,14 +73,14 @@ SeleccionConcepto=()=>{
   var prueba;
   stringss=this.props.pago.idRec.toString()+this.props.pago.concepto;
   prueba = document.getElementById(stringss).value;
-  
+
   if(prueba==""){
     prueba = this.props.pago.concepto;
   }else{
-    
+
     return prueba;
   }
-  
+
   return prueba;
 
 }
@@ -90,14 +91,14 @@ SeleccionFecha=()=>{
   var prueba;
   stringss=this.props.pago.idRec.toString()+this.props.pago.idAlum.toString();
   prueba = document.getElementById(stringss).value.replace(/^(\d{2})[-\/](\d{2})[-\/](\d{4})$/g,'$3-$2-$1');
-  
+
   if(prueba==""){
     prueba = this.props.pago.fecha.replace(/^(\d{2})[-\/](\d{2})[-\/](\d{4})$/g,'$3-$2-$1');
   }else{
-    
+
     return prueba;
   }
-  
+
   return prueba;
 
 }
@@ -110,31 +111,85 @@ SeleccionCiclo=()=>{
   var prueba;
   stringss=this.props.pago.idRec.toString()+num.toString();
   prueba = document.getElementById(stringss).value;
-  
+
   if(prueba==""){
     prueba = "null";
   }else{
-   
+
     return prueba;
   }
- 
+
   return prueba;
 
 }
+
+
+editarObservacion=()=>{
+
+      var obs = this.props.pago.observacion;
+      var idRecG = "";
+      idRecG = this.SeleccionIdRec();
+     
+    swal({
+      title: "Desea editar la observacion?",
+      text: "Observacion: "+obs,
+      icon: "warning",
+      buttons: true,
+      //dangerMode: true,
+      closeOnClickOutside:false,
+      closeOnEsc: false,
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        swal({
+          closeOnClickOutside:false,
+          closeOnEsc: false,
+          
+          content: {
+            element: "input",
+            attributes: {
+              value : obs
+            },
+          },
+      })
+        .then((value) => {
+                fetch(CONFIG+'recaudaciones/alumno/concepto/obs/'+value+'/'+idRecG)
+                  .then((resp) => {
+                      console.log(resp);
+                      if(resp === true){
+                          swal("Editado exitoso!","","success");
+                      }
+                      else{
+                        swal("Editado exitoso!","","success");
+                      }
+  
+                  })
+                  .catch(error => {
+                      swal("Oops, Algo salió mal!!", "","error")
+                      console.error(error)
+                  });
+       });
+      } else {
+        
+      }
+    });
+
+}
+
 
 SeleccionIdRec=()=>{
 
   var stringss;
   var prueba;
   stringss=this.props.pago.idRec.toString();
-  
+
   if(stringss==""){
     stringss = "null";
   }else{
-    
+
     return stringss;
   }
- 
+
   return stringss;
 
 }
@@ -142,16 +197,16 @@ SeleccionIdRec=()=>{
 SeleccionIdConceptoG=()=>{
 
   var stringss;
-  
+
   stringss=this.props.pago.idconcepto;
-  
+
   if(stringss==null){
     stringss = null;
   }else{
-    
+
     return stringss;
   }
-  
+
   return stringss;
 
 }
@@ -167,7 +222,7 @@ GuardarFecth=()=>{
 
         var numeroReciboG = "";
         numeroReciboG = this.SeleccionNumeroRecibo();
-        
+
         var fechaG = "";
         fechaG = this.SeleccionFecha();
 
@@ -177,7 +232,7 @@ GuardarFecth=()=>{
         var idConceptoG = "";
         idConceptoG = this.SeleccionIdConceptoG();
 
-        //http://localhost:8080/recaudaciones/alumno/concepto      CONFIG+'recaudaciones/alumno/concepto/listar/filtrar'                  
+        //http://localhost:8080/recaudaciones/alumno/concepto      CONFIG+'recaudaciones/alumno/concepto/listar/filtrar'
         fetch(CONFIG+"recaudaciones/alumno/concepto/actualizar",
         {
         headers: {
@@ -193,7 +248,7 @@ GuardarFecth=()=>{
             "fecha": fechaG,
             "id_concepto": idConceptoG
         }
-        
+
         )
     })
     .then((response) => {
@@ -201,15 +256,15 @@ GuardarFecth=()=>{
     })
     .then((resp) => {console.log(resp);
     if(resp == true){
-      
+
     swal("Editado exitoso!","","success");
     }else{
         swal("Oops","","info");
     }
-    
+
     })
     .catch(error => {
-    
+
     swal("Oops, Algo salió mal!!", "","error")
     console.error(error)
     });
@@ -264,7 +319,7 @@ GuardarFecth=()=>{
       </td>
 
       <td className="td">
-      
+
       <form action="#">
           <label className="row center-xs color_white">
             <input
@@ -275,8 +330,8 @@ GuardarFecth=()=>{
               type="text" />
               <span> </span>
           </label>
-        </form>      
-      </td>	
+        </form>
+      </td>
 
       <td className="td">{this.props.pago.nombre}</td>
 
@@ -299,7 +354,7 @@ GuardarFecth=()=>{
 
       <td className="td">
         <button
-          
+          onClick={this.editarObservacion}
           className="waves-effect waves-light btn-small">
           <i className="large material-icons center">search</i>
         </button>

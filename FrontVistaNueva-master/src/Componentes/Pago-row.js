@@ -54,6 +54,7 @@ class PagoRow extends React.Component {
     }
     else{
       console.log("No tiene permiso para editar");
+      swal("No tiene permiso para editar");
     }
     
   }
@@ -186,6 +187,7 @@ editarObservacion=()=>{
           }
         });
       }else{
+        swal("No tiene permiso para editar la observacion");
         console.log("No tiene permiso para editar la observacion");
       }
      
@@ -292,6 +294,7 @@ GuardarFecth=()=>{
     });
   }else{
     console.log("No tiene permiso para guargar")
+    swal("No tiene permiso para guardar");
   }
 
         

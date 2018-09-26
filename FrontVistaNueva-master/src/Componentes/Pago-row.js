@@ -14,7 +14,11 @@ class PagoRow extends React.Component {
 
   editarFila=()=>{
 
-    var editConcepto;
+    var estadoAlumno;
+    estadoAlumno = this.props.pago.estado;
+    
+    if(estadoAlumno=="m"){
+      var editConcepto;
     editConcepto=this.props.pago.idRec.toString()+this.props.pago.concepto;
 
     var conceptoEdit = this.props.pago.concepto;
@@ -46,6 +50,12 @@ class PagoRow extends React.Component {
     document.getElementById(numRecibo).value= numReciboEdit;
     document.getElementById(numRecibo).disabled = false;
     document.getElementById(numRecibo).style.background='#F2F2F2';
+    console.log(estadoAlumno);
+    }
+    else{
+      console.log("No tiene permiso para editar");
+    }
+    
   }
 
 
@@ -127,52 +137,59 @@ SeleccionCiclo=()=>{
 editarObservacion=()=>{
 
       var obs = this.props.pago.observacion;
+      var estadoAlumno = this.props.pago.estado;
       var idRecG = "";
       idRecG = this.SeleccionIdRec();
-     
-    swal({
-      title: "Desea editar la observacion?",
-      text: "Observacion: "+obs,
-      icon: "warning",
-      buttons: true,
-      //dangerMode: true,
-      closeOnClickOutside:false,
-      closeOnEsc: false,
-    })
-    .then((willDelete) => {
-      if (willDelete) {
+
+      if(estadoAlumno=="m"){
         swal({
+          title: "Desea editar la observacion?",
+          text: "Observacion: "+obs,
+          icon: "warning",
+          buttons: true,
+          //dangerMode: true,
           closeOnClickOutside:false,
           closeOnEsc: false,
-          
-          content: {
-            element: "input",
-            attributes: {
-              value : obs
-            },
-          },
-      })
-        .then((value) => {
-                fetch(CONFIG+'recaudaciones/alumno/concepto/obs/'+value+'/'+idRecG)
-                  .then((resp) => {
-                      console.log(resp);
-                      if(resp === true){
-                          swal("Editado exitoso!","","success");
-                      }
-                      else{
-                        swal("Editado exitoso!","","success");
-                      }
-  
-                  })
-                  .catch(error => {
-                      swal("Oops, Algo salió mal!!", "","error")
-                      console.error(error)
-                  });
-       });
-      } else {
-        
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            swal({
+              closeOnClickOutside:false,
+              closeOnEsc: false,
+              
+              content: {
+                element: "input",
+                attributes: {
+                  value : obs
+                },
+              },
+          })
+            .then((value) => {
+                    fetch(CONFIG+'recaudaciones/alumno/concepto/obs/'+value+'/'+idRecG)
+                      .then((resp) => {
+                          console.log(resp);
+                          if(resp === true){
+                              swal("Editado exitoso!","","success");
+                          }
+                          else{
+                            swal("Editado exitoso!","","success");
+                          }
+      
+                      })
+                      .catch(error => {
+                          swal("Oops, Algo salió mal!!", "","error")
+                          console.error(error)
+                      });
+           });
+          } else {
+            
+          }
+        });
+      }else{
+        console.log("No tiene permiso para editar la observacion");
       }
-    });
+     
+   
 
 }
 
@@ -214,7 +231,12 @@ SeleccionIdConceptoG=()=>{
 
 
 GuardarFecth=()=>{
-        var cicloG = "";
+
+  var estadoAlumno;
+  estadoAlumno = this.props.pago.estado;
+
+  if(estadoAlumno=="m"){
+    var cicloG = "";
         cicloG = this.SeleccionCiclo();
 
         var conceptoG = "";
@@ -268,6 +290,11 @@ GuardarFecth=()=>{
     swal("Oops, Algo salió mal!!", "","error")
     console.error(error)
     });
+  }else{
+    console.log("No tiene permiso para guargar")
+  }
+
+        
 
 }
 

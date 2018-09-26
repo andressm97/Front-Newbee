@@ -295,6 +295,8 @@ componentDidUpdate(){
             <div className="SplitPane row">
               <div className=" col-xs-3">
                 <this.clase alumno={this.state.alumno} />
+                <h6 align="center" className="Alumno"><b>Nombres:</b></h6>
+                <h6 align="center" className="negro">{this.state.pagos[0].apeNom}</h6>
               </div>
               <div className=" col-xs-9">
               <div className="center-xs-12 margen_top">

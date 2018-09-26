@@ -406,7 +406,7 @@ componentDidUpdate(){
          
            <footer>
             <div className="row center-xs centrar color">
-            Realizado por Newbee  © 2018 
+            Realizado por Newbee  © 2018 #hachikonight
             </div>
             </footer>
 

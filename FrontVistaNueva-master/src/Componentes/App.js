@@ -34,6 +34,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      datosformulario:{},
       aparecer:true,
       todos:false,
       checkbox_:[],
@@ -195,10 +196,24 @@ componentDidUpdate(){
       }); 
 
 
-
     }
     else{
       this.clase=AlumnoCodigo
+      fetch(CONFIG+'/beneficio/listar/' + nombrenuevo)
+        .then((response)=>{
+            return response.json()
+        }).then((datos)=>{
+          
+          
+          console.log("datos")
+          console.log(datos)
+          this.setState({datosformulario:datos})
+      
+        })
+        .catch(error=>{
+            console.error(error)
+        });
+
       fetch(CONFIG+'recaudaciones/alumno/concepto/listar_cod/' + nombrenuevo)
       .then((response) => {
         return response.json()
@@ -263,7 +278,17 @@ componentDidUpdate(){
       });   
 
     }
-  
+    
+
+
+
+
+
+
+
+
+
+
   }
 
 
@@ -362,7 +387,7 @@ componentDidUpdate(){
                 </div>
                 <div className="col-md-12">
                
-                  <Imprimir2 onClick={this.enviar} listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno}/> 
+                  <Imprimir2 onClick={this.enviar} listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno} datos={this.state.datosformulario}/> 
                 </div>
               </div>
             </div>
@@ -599,14 +624,14 @@ enviarFormulario=(e)=>{
     this.setState({
       aparecer:false,
     });
-   
+    
   }
 
   else{
     this.setState({
       aparecer:true,
     });
-    
+    window.location.reload();
   }
 
 }

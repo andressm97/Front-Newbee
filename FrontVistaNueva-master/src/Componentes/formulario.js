@@ -270,9 +270,9 @@ class formulario extends React.Component{
 
 
                         <div className="row sombra">
-                            <div className="col-md-4"><h6 >Beneficio:</h6></div>
+                            <div className="col-md-3"><h6 >Beneficio:</h6></div>
                             {/* <div className="col-md-12"><input type="text" id="beneficio" placeholder="Beneficios" disabled/></div> */}
-                            <div className="col-md-8 ">
+                            <div className="col-md-9 ">
                             <Select
                                 value={this.state.OpcionBeneficio}
                                 options={this.state.tipo}
@@ -280,26 +280,29 @@ class formulario extends React.Component{
 
                                 />
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-3">
                             <h6>Importe maximo: </h6>
                             </div>
                             <div className="col-md-2">
                             <input className="form-control estilo" type="text" id="importemaximo" placeholder="" disabled/>
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-3">
                             <h6>Valor otorgado: </h6>
                             </div>
 
                             <div className="col-md-2 ">
                             <input className="form-control estilo" type="number"  id="beneficio" placeholder="" max={this.state.maximo} disabled/>
                             </div>
+                            <div className="col-md-1">
+                            <h6>%</h6>
+                            </div>
 
 
                         </div>
                         <div className="row sombra">
-                            <div className="col-md-4"><h6 >Condicion:</h6></div>
+                            <div className="col-md-3"><h6 >Condicion:</h6></div>
                             {/* <div className="col-md-12"><input type="text" id="condicion" placeholder="Condicion"disabled/></div> */}
-                            <div className="col-md-8">
+                            <div className="col-md-9">
                                     <Select
 
                                         className="selectCondicion"
@@ -317,8 +320,8 @@ class formulario extends React.Component{
                         </div>
                         <div className="row sombra">
 
-                            <div className="col-md-4"><h6 >Resolucion:</h6></div>
-                            <div className="col-md-8"><input className="estilo" type="text" id="resolucion" disabled/></div>
+                            <div className="col-md-3"><h6 >Resolucion:</h6></div>
+                            <div className="col-md-9"><input className="estilo" type="text" id="resolucion" disabled/></div>
                             {/* <div className="col-md-9">
                             <Select/>
                             </div> */}
@@ -326,21 +329,21 @@ class formulario extends React.Component{
                         </div>
 
                         <div className="row sombra">
-                            <div className="col-md-4"><h6 >Autorizacion:</h6></div>
-                            <div className="col-md-8"><input className="estilo" type="text" id="autorizacion" disabled /></div>
+                            <div className="col-md-3"><h6 >Autorizacion:</h6></div>
+                            <div className="col-md-9"><input className="estilo" type="text" id="autorizacion" disabled /></div>
                         </div>
                         <div className="row sombra2">
                             {/* <div className="col-md-2"><h4 >Autorizacion:</h4></div> */}
-                            <div className="col-md-4"><h6 >Observacion</h6></div>
-                            <div className="col-md-8">
+                            <div className="col-md-3"><h6 >Observacion</h6></div>
+                            <div className="col-md-9">
                           
                             <textarea class="form-control " id="observacion"  rows="3"disabled></textarea>
                             </div>
                         </div>
 
                         <div className="row sombra">
-                            <div className="col-md-4"><h6 >Fecha:</h6></div>
-                            <div className="col-md-8"><input  className="estilo" type="date" id="fecha" disabled/></div>
+                            <div className="col-md-3"><h6 >Fecha:</h6></div>
+                            <div className="col-md-9"><input  className="estilo" type="date" id="fecha" disabled/></div>
                         </div>
 
 

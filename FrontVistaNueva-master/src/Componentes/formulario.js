@@ -190,11 +190,17 @@ class formulario extends React.Component{
 
         var Observacion=document.getElementById("observacion").value;
         var valor=document.getElementById("beneficio").value;
+        if(parseInt(valor)>parseInt(this.state.maximo)){swal("ta weon","","warning")}
+
 
         var Autorizacion=document.getElementById("autorizacion").value;
         var fecha=document.getElementById("fecha").value.replace(/^(\d{2})[-\/](\d{2})[-\/](\d{4})$/g,'$3-$2-$1');
-       if(valor!="" && fecha!=""&& Autorizacion!=""&& this.state.valorCondicion!=""
+       
+       
+        if(valor!="" && fecha!=""&& Autorizacion!=""&& this.state.valorCondicion!=""
        &&this.state.valorTipo!=""){
+
+        if(parseInt(valor)<=parseInt(this.state.maximo)){
        fetch(CONFIG+"beneficio/insertar", // "http://localhost:8080/"
         {
         headers: {
@@ -238,7 +244,7 @@ class formulario extends React.Component{
         console.log(this.state.lf+" ko")
 
         
-
+    } else {swal("El valor sobrepasa el "+this.state.maximo+" %","","warning")}   
     }else{ swal("Tiene que completar todos los campos", "","warning")}
     }
 
@@ -311,8 +317,8 @@ class formulario extends React.Component{
                         </div>
                         <div className="row sombra">
 
-                            {/* <div className="col-md-3"><h6 >Resolucion:</h6></div> */}
-                            <div className="col-md-12"><input type="text" id="resolucion" placeholder="Resolucion"disabled/></div>
+                            <div className="col-md-4"><h6 >Resolucion:</h6></div>
+                            <div className="col-md-8"><input className="estilo" type="text" id="resolucion" disabled/></div>
                             {/* <div className="col-md-9">
                             <Select/>
                             </div> */}
@@ -320,20 +326,21 @@ class formulario extends React.Component{
                         </div>
 
                         <div className="row sombra">
-                            {/* <div className="col-md-2"><h4 >Autorizacion:</h4></div> */}
-                            <div className="col-md-12"><input type="text" id="autorizacion" placeholder="Autorizacion"disabled /></div>
+                            <div className="col-md-4"><h6 >Autorizacion:</h6></div>
+                            <div className="col-md-8"><input className="estilo" type="text" id="autorizacion" disabled /></div>
                         </div>
                         <div className="row sombra2">
                             {/* <div className="col-md-2"><h4 >Autorizacion:</h4></div> */}
-                            <div className="col-md-12">
-                            {/* <input type="text" id="autorizacion" placeholder="Observacion"disabled /> */}
-                            <textarea class="form-control " id="observacion" placeholder="Observaciones..." rows="3"disabled></textarea>
+                            <div className="col-md-4"><h6 >Observacion</h6></div>
+                            <div className="col-md-8">
+                          
+                            <textarea class="form-control " id="observacion"  rows="3"disabled></textarea>
                             </div>
                         </div>
 
                         <div className="row sombra">
-                            {/* <div className="col-md-2"><h4 >Fecha:</h4></div> */}
-                            <div className="col-md-6"><input type="date" id="fecha" placeholder="Fecha"disabled/></div>
+                            <div className="col-md-4"><h6 >Fecha:</h6></div>
+                            <div className="col-md-8"><input  className="estilo" type="date" id="fecha" disabled/></div>
                         </div>
 
 

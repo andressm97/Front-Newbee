@@ -21,8 +21,8 @@ class formulario extends React.Component{
                 programa:this.props.idprograma,
                 lf:false,
                 valorTipo:'',
-                valorCondicion:''
-
+                valorCondicion:'',
+                maximo:''
         }
 
         this.guardar=this.guardar.bind(this)
@@ -105,14 +105,14 @@ class formulario extends React.Component{
                     OpcionCondicion:{value:datos.condicion,label:datos.condicion},
                     valorTipo:this.leertipo(datos.tipo),
                     valorCondicion:this.leercondicion(datos.condicion),
+                    maximo:datos.benef_max.substring(0,2)
                 })
 
 
             }
             else{
-                //this.state.OpcionBeneficio="xddd";
-                // document.getElementById("resolucion").value="xddd";
-                swal("xdd","","warning");
+                
+                swal("No existen datos","","info");
 
 
             }
@@ -131,9 +131,8 @@ class formulario extends React.Component{
 
 
     handleChangeBeneficio =(Opcion)=>{
-
-        this.setState({OpcionBeneficio:Opcion,
-                        valorTipo:this.leertipo(Opcion.value)});
+        if(Opcion!=null){
+        
         console.log("Opcion elegida : ",Opcion);
         for(let i=0;i<this.state.listas.length;i++){
             if(this.state.listas[i].tipo==Opcion.value){
@@ -141,14 +140,23 @@ class formulario extends React.Component{
                 document.getElementById("importemaximo").value=this.state.listas[i].beneficio_max;
             }
         }
+        let numero=document.getElementById("importemaximo").value;
+        this.setState({OpcionBeneficio:Opcion,
+            valorTipo:this.leertipo(Opcion.value),
+            maximo:numero.substring(0,2)});
+        
+        
+        console.log("xd")
+        console.log(numero.substring(0,2))
 
+        }else swal("Escoja un beneficio","","warning")
     }
     handleChangeCondicion=(Opcion)=>{
-
+        if(Opcion!=null){
         this.setState({OpcionCondicion:Opcion,
                         valorCondicion:this.leercondicion(Opcion.value)});
         console.log("Opcion elegidaCondicion : ",Opcion);
-
+         }else swal("Escoja una condicion","","warning")
     }
 
     habilitar(){
@@ -172,7 +180,7 @@ class formulario extends React.Component{
         let id_tcondicion="";
         for(let i=0; i<this.state.listacondicion.length;i++){
                 if(valor==this.state.listacondicion[i].condicion){
-                  id_tcondicion=i; console.log("i wanna"+this.state.listacondicion[i].condicion+" "+i)
+                  id_tcondicion=i; 
                 }
          }
          return id_tcondicion + 1;
@@ -180,29 +188,13 @@ class formulario extends React.Component{
 
     guardar(){
 
-
-
-        console.log("condicion")
-        console.log(this.state.valorCondicion)
-        console.log("valor");
-        console.log(this.state.valorTipo);
-
         var Observacion=document.getElementById("observacion").value;
         var valor=document.getElementById("beneficio").value;
+
         var Autorizacion=document.getElementById("autorizacion").value;
         var fecha=document.getElementById("fecha").value.replace(/^(\d{2})[-\/](\d{2})[-\/](\d{4})$/g,'$3-$2-$1');
-        // console.log();
-        // console.log(id_tipo);
-        // console.log(id_tbeneficio);
-        // console.log(Observacion);
-        // console.log(valor);
-        // console.log(Autorizacion);
-        // console.log(fecha);
-
-        console.log("fuck")
-        console.log("id_beneficio. "+this.state.valorTipo);
-        console.log("id_bcondicion. "+this.state.valorCondicion);
-       if(valor!="" && fecha!=""){
+       if(valor!="" && fecha!=""&& Autorizacion!=""&& this.state.valorCondicion!=""
+       &&this.state.valorTipo!=""){
        fetch(CONFIG+"beneficio/insertar", // "http://localhost:8080/"
         {
         headers: {
@@ -226,11 +218,11 @@ class formulario extends React.Component{
 
         .then((resp) => {
             console.log(resp)
-            console.log(this.state.lf);
+            
             if(resp){
-
+                swal("guardado exitoso...!","","success")
                 console.log("funciona beneficio");
-                console.log(this.state.lf);
+                
             }
             else{
                 swal("Oops, Algo salió mal!!", "","error");
@@ -244,14 +236,14 @@ class formulario extends React.Component{
         console.error(error)
         });
         console.log(this.state.lf+" ko")
+
+        
+
     }else{ swal("Tiene que completar todos los campos", "","warning")}
     }
 
     render(){
-        console.log("wewewexd");
-        console.log(this.state.datosiniciales);
-        //console.log(this.props.codigo)
-        //console.log(this.props.idprograma)
+      
         return(
             <div>
                 {/* <div >
@@ -293,7 +285,7 @@ class formulario extends React.Component{
                             </div>
 
                             <div className="col-md-2 ">
-                            <input className="form-control estilo" type="text" id="beneficio" placeholder="" disabled/>
+                            <input className="form-control estilo" type="number"  id="beneficio" placeholder="" max={this.state.maximo} disabled/>
                             </div>
 
 

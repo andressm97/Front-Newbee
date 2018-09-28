@@ -204,7 +204,8 @@ class LoginForm2 extends React.Component {
         </div>
         <footer>
               <div className="row center-xs centrar color">
-              Realizado por Newbee ft. Hardcode © 2018 
+              <img src="https://png.icons8.com/ios/1600/hachiko.png" height="25"/>
+            #HachikoNight © 2018 
               </div>
           </footer>
         </div>

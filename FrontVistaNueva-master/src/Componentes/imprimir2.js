@@ -532,61 +532,61 @@ class Imprimir2 extends React.Component {
 
     if(this.props.datos.benef_otrogado==null){
       doc.setFont("helvetica");
-      doc.setFontType("noraml");
-      doc.setFontSize(8);
+      doc.setFontType("normal");
+      doc.setFontSize(9);
       doc.text("", 120, 232); //AQUI VA EL BENEFICIO
     }else{
       doc.setFont("helvetica");
-    doc.setFontType("noraml");
-    doc.setFontSize(8);
-    doc.text(this.props.datos.benef_otrogado+" %", 120, 232); //AQUI VA EL BENEFICIO
+    doc.setFontType("normal");
+    doc.setFontSize(9);
+    doc.text("DESCUENTO "+this.props.datos.benef_otrogado+" %", 120, 232); //AQUI VA EL BENEFICIO
     }
     
     if(this.props.datos.autorizacion==null){
       doc.setFont("helvetica");
       doc.setFontType("normal");
-      doc.setFontSize(8);
+      doc.setFontSize(9);
       doc.text("", 120, 252); //AQUI VA LA AUTORIZACION
     }else{
       doc.setFont("helvetica");
     doc.setFontType("normal");
-    doc.setFontSize(8);
+    doc.setFontSize(9);
     doc.text(this.props.datos.autorizacion, 120, 252); //AQUI VA LA AUTORIZACION
     }
     
     if(this.props.datos.condicion==null){
       doc.setFont("helvetica");
       doc.setFontType("normal");
-      doc.setFontSize(8);
+      doc.setFontSize(9);
       doc.text("", 360, 232); //AQUI VA LA CONDICION
     }else{
 doc.setFont("helvetica");
     doc.setFontType("normal");
-    doc.setFontSize(8);
+    doc.setFontSize(9);
     doc.text(this.props.datos.condicion, 360, 232); //AQUI VA LA CONDICION
     }
     
 if(this.props.datos.fecha==null){
 doc.setFont("helvetica");
     doc.setFontType("normal");
-    doc.setFontSize(8);
+    doc.setFontSize(9);
     doc.text("", 360, 252); //AQUI VA LA FECHA
 }else{
   doc.setFont("helvetica");
   doc.setFontType("normal");
-  doc.setFontSize(8);
+  doc.setFontSize(9);
   doc.text(this.props.datos.fecha, 360, 252); //AQUI VA LA FECHA
 }
     
 if(this.props.datos.resolucion==null){
   doc.setFont("helvetica");
   doc.setFontType("normal");
-  doc.setFontSize(8);
+  doc.setFontSize(9);
   doc.text("", 620, 232); //AQUI VA LA RESOLUCION
 }else{
   doc.setFont("helvetica");
     doc.setFontType("normal");
-    doc.setFontSize(8);
+    doc.setFontSize(9);
     doc.text(this.props.datos.resolucion, 620, 232); //AQUI VA LA RESOLUCION
 }
     

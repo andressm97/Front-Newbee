@@ -258,6 +258,21 @@ select {
 .botonazul{
   margin-top: 30px;
 }
+
+.newbotonFiltrar{
+  margin-top: -80px;
+  margin-left: 1000px;
+  margin-bottom: 30px;
+}
+
+.newbotonSeleccionar{
+  margin-top: -20px;
+}
+
+.arribaSube{
+  margin-top: -20px;
+}
+
 .botonazul2{
   margin-top: 10px;
 }

@@ -355,12 +355,12 @@ componentDidUpdate(){
 
           </div>
           <div className="SplitPane row center-xs">
-               <button onClick={this.Filtrar}  className="waves-effect waves-light btn-large botonazul2" type="submit">Filtrar<i className="large material-icons left">filter_list</i></button>
+               <button onClick={this.Filtrar}  className="waves-effect waves-light btn-large newbotonFiltrar" type="submit">Filtrar<i className="large material-icons left">filter_list</i></button>
           </div>
           <hr />
           
           <div className="margen2">
-            <button onClick={this.seleccionar} className="waves-effect waves-light btn-small botonazul2 start">
+            <button onClick={this.seleccionar} className="waves-effect waves-light btn-small newbotonSeleccionar start">
             Seleccionar todo<i className="large material-icons left">check</i>
             </button>
             
@@ -369,10 +369,10 @@ componentDidUpdate(){
 
 
 
-          <div className="SplitPane row center-xs">
+          <div className="SplitPane row center-xs arribaSube">
             <div className="  center-xs-12">
               <table className=" total table ">
-                <TableHeader />
+                <TableHeader   />
                 <PagoList funcion={this.Funcion} listado={this.state.pageOfItems} />
               </table>
               <div className="margen_top"> <Paginacion items={this.state.pagocero} onChangePage={this.onChangePage}/></div>

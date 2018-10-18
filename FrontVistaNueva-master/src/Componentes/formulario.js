@@ -17,6 +17,7 @@ class formulario extends React.Component{
                 id:this.props.params.codigo,
                 listas:[],
                 listacondicion:[],
+                idprograma:'',
                 tipo:[],
                 condicion:[],
                 datosiniciales:[],
@@ -24,7 +25,6 @@ class formulario extends React.Component{
                 OpcionCondicion:null,
                 OpcionCriterio:null,
                 codigo:this.props.codigo,
-                programa:this.props.idprograma,
                 lf:false,
                 valorTipo:'',
                 valorCondicion:'',
@@ -148,7 +148,8 @@ class formulario extends React.Component{
                     valorCondicion:this.leercondicion(datos[lista].condicion),
                     valorCriterio:this.leercriterio(datos[lista].criterio),
                     maximo:datos[lista].benef_max.substring(0,2),
-                    abp:datos[lista].id_abp
+                    abp:datos[lista].id_abp,
+                    idprograma:datos[lista].id_programa
                 })
 
 
@@ -257,7 +258,7 @@ class formulario extends React.Component{
         var Autorizacion=document.getElementById("autorizacion").value;
         var fecha=document.getElementById("fecha").value.replace(/^(\d{2})[-\/](\d{2})[-\/](\d{4})$/g,'$3-$2-$1');
        
-       
+       console.log("")
         if(valor!="" && fecha!=""&& Autorizacion!=""&& this.state.valorCondicion!=""
        &&this.state.valorTipo!=""){
 
@@ -277,7 +278,7 @@ class formulario extends React.Component{
                 "observacion":Observacion,
                 "id_beneficio":this.state.valorTipo,
                 "cod_alumno":this.state.codigo2,
-                "id_programa":this.props.idprograma,
+                "id_programa":this.state.idprograma,
                 "id_abp":this.state.abp,
                 "id_bcc":this.state.valorCriterio
 

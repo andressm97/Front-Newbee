@@ -31,7 +31,7 @@ class formulario extends React.Component{
                 maximo:'',
                 abp:'',
         }
-        
+
         this.guardar=this.guardar.bind(this)
         this.handleChangeBeneficio=this.handleChangeBeneficio.bind(this)
         this.handleChangeCondicion=this.handleChangeCondicion.bind(this)
@@ -39,8 +39,8 @@ class formulario extends React.Component{
     }
 
     componentWillMount(){
-       
-        
+
+
 
         fetch(CONFIG+'/beneficio/tipo')
         .then((response)=>{
@@ -151,11 +151,11 @@ class formulario extends React.Component{
                     idprograma:datos[lista].id_programa
                 })
                 console.log("xdddid"+datos[lista].id_abp)
-              
-                
 
-            
-            
+
+
+
+
 
 
 
@@ -172,7 +172,7 @@ class formulario extends React.Component{
 
     handleChangeBeneficio =(Opcion)=>{
         if(Opcion!=null){
-        
+
         console.log("Opcion elegida : ",Opcion);
         for(let i=0;i<this.state.listas.length;i++){
             if(this.state.listas[i].tipo==Opcion.value){
@@ -184,8 +184,8 @@ class formulario extends React.Component{
         this.setState({OpcionBeneficio:Opcion,
             valorTipo:this.leertipo(Opcion.value),
             maximo:numero.substring(0,2)});
-        
-        
+
+
         console.log("xd")
         console.log(numero.substring(0,2))
 
@@ -227,7 +227,7 @@ class formulario extends React.Component{
         let id_tcondicion="";
         for(let i=0; i<this.state.listacondicion.length;i++){
                 if(valor==this.state.listacondicion[i].condicion){
-                  id_tcondicion=i; 
+                  id_tcondicion=i;
                 }
          }
          return id_tcondicion + 1;
@@ -237,15 +237,15 @@ class formulario extends React.Component{
         let id_tcriterio="";
         for(let i=0; i<this.state.listacriterio.length;i++){
                 if(valor==this.state.listacriterio[i].descripcion){
-                  id_tcriterio=i; 
+                  id_tcriterio=i;
                 }
          }
          return id_tcriterio + 1;
     }
-    
+
 
     guardar(){
-        
+
 
         var Observacion=document.getElementById("observacion").value;
         var valor=document.getElementById("beneficio").value;
@@ -254,7 +254,7 @@ class formulario extends React.Component{
 
         var Autorizacion=document.getElementById("autorizacion").value;
         var fecha=document.getElementById("fecha").value.replace(/^(\d{2})[-\/](\d{2})[-\/](\d{4})$/g,'$3-$2-$1');
-       
+
         console.log("xdddd  "+this.state.lista)
         console.log("beneficio_otorgado : "+valor)
         console.log( "id_bcondicion: "+ this.state.valorCondicion)
@@ -288,7 +288,7 @@ class formulario extends React.Component{
                 "observacion":Observacion,
                 "id_beneficio":this.state.valorTipo,
                 "cod_alumno":this.state.codigo2,
-                "id_programa":this.state.idprograma,
+                //"id_programa":this.state.idprograma,
                 "id_abp":this.state.abp,
                 "id_bcc":this.state.valorCriterio
 
@@ -299,14 +299,14 @@ class formulario extends React.Component{
 
         .then((resp) => {
             console.log(resp)
-            
+
             if(resp){
                 swal("guardado exitoso...!","","success")
                 console.log("funciona beneficio");
-                
+
             }
             else{
-                swal("Oops, Algo salió mal!!", "","error");
+                swal("Oops, el beneficio no fue editado", "","error");
             }
 
 
@@ -316,8 +316,6 @@ class formulario extends React.Component{
         swal("Oops, Algo salió mal!!", "","error")
         console.error(error)
         });
-        console.log(this.state.lf+" ko")
-
     } else{
         fetch(CONFIG+"beneficio/insertar", // "http://localhost:8080/"
         {
@@ -334,7 +332,7 @@ class formulario extends React.Component{
                 "observacion":Observacion,
                 "id_beneficio":this.state.valorTipo,
                 "cod_alumno":this.state.codigo2,
-                "id_programa":4,
+            //    "id_programa":4,
                 "id_bcc":this.state.valorCriterio
 
             }
@@ -343,15 +341,15 @@ class formulario extends React.Component{
         })
 
         .then((resp) => {
-            console.log(resp)
-            
+            console.log("need a little: "+resp)
+
             if(resp){
                 swal("guardado exitoso...!","","success")
                 console.log("funciona beneficio");
-                
+
             }
             else{
-                swal("Oops, Algo salió mal!!", "","error");
+                swal("Oops, El beneficio no fue ingresado!!", "","error");
             }
 
 
@@ -361,14 +359,9 @@ class formulario extends React.Component{
         swal("Oops, Algo salió mal!!", "","error")
         console.error(error)
         });
-        console.log(this.state.lf+" ko")
-
-
-
-
 
     }
-    } else {swal("El valor sobrepasa el "+this.state.maximo+" %","","warning")}   
+    } else {swal("El valor sobrepasa el "+this.state.maximo+" %","","warning")}
     }else{ swal("Tiene que completar todos los campos", "","warning")}
     }
     Regresar=(e)=>{
@@ -377,7 +370,7 @@ class formulario extends React.Component{
     }
 
     render(){
-      
+
         return(
             <div>
                 <div >
@@ -387,7 +380,7 @@ class formulario extends React.Component{
                     </ul>
                     </h3>
                 </div>
-      
+
 
                 <div className="container" >
 
@@ -483,7 +476,7 @@ class formulario extends React.Component{
                             {/* <div className="col-md-2"><h4 >Autorizacion:</h4></div> */}
                             <div className="col-md-3"><h6 >Observacion</h6></div>
                             <div className="col-md-9">
-                          
+
                             <textarea class="form-control " id="observacion"  rows="3"></textarea>
                             </div>
                         </div>

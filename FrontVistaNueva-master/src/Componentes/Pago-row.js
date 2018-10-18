@@ -30,15 +30,31 @@ class PagoRow extends React.Component {
 
     var editFecha;
     var fechaEdit = this.props.pago.fecha;
+    var anioFecha = fechaEdit.substring(0,4);
+      console.log("AÑO");
+      console.log(anioFecha);
+
+      var mesFecha = fechaEdit.substring(5,7);
+      console.log("MES");
+      console.log(mesFecha);
+      var diaFecha = fechaEdit.substring(8,10);
+      console.log("DIA");
+      console.log(diaFecha);
+
+      var fechaVolteada = diaFecha+"-"+mesFecha+"-"+anioFecha;
+
     editFecha=this.props.pago.idRec.toString()+this.props.pago.idAlum.toString();
-    document.getElementById(editFecha).value= fechaEdit;
+    document.getElementById(editFecha).value= fechaVolteada;
     document.getElementById(editFecha).disabled = false;
     document.getElementById(editFecha).style.background='#F2F2F2';
+
 
     var editCiclo;
     var num = 250296;
     editCiclo=this.props.pago.idRec.toString()+num.toString();
+    var _ciclo_= this.props.pago.ciclo;
 
+    document.getElementById(editCiclo).value = _ciclo_;
     document.getElementById(editCiclo).disabled = false;
     document.getElementById(editCiclo).style.background='#F2F2F2';
     document.getElementById(editCiclo).focus();
@@ -53,8 +69,16 @@ class PagoRow extends React.Component {
     console.log(estadoAlumno);
     }
     else{
-      console.log("No tiene permiso para editar");
-      swal("No es posible realizar cambios", "", "info");
+      //console.log("No tiene permiso para editar");
+      //swal("No es posible realizar cambios", "", "info");
+
+      var editCiclo;
+    var num = 250296;
+    editCiclo=this.props.pago.idRec.toString()+num.toString();
+
+    document.getElementById(editCiclo).disabled = false;
+    document.getElementById(editCiclo).style.background='#F2F2F2';
+    document.getElementById(editCiclo).focus();
     }
 
   }
@@ -102,7 +126,8 @@ SeleccionFecha=()=>{
   var prueba;
   stringss=this.props.pago.idRec.toString()+this.props.pago.idAlum.toString();
   prueba = document.getElementById(stringss).value.replace(/^(\d{2})[-\/](\d{2})[-\/](\d{4})$/g,'$3-$2-$1');
-
+  console.log("cueva ctm")
+  console.log(prueba)
   if(prueba==""){
     prueba = this.props.pago.fecha.replace(/^(\d{2})[-\/](\d{2})[-\/](\d{4})$/g,'$3-$2-$1');
   }else{
@@ -124,7 +149,7 @@ SeleccionCiclo=()=>{
   prueba = document.getElementById(stringss).value;
 
   if(prueba==""){
-    prueba = "null";
+    prueba = 0;
   }else{
 
     return prueba;
@@ -138,11 +163,10 @@ SeleccionCiclo=()=>{
 editarObservacion=()=>{
 
       var obs = this.props.pago.observacion;
-      var estadoAlumno = this.props.pago.estado;
+      //var estadoAlumno = this.props.pago.estado;
       var idRecG = "";
       idRecG = this.SeleccionIdRec();
 
-      if(estadoAlumno=="M"){
         swal({
           title: "Desea editar la observacion?",
           text: "Observacion: "+obs,
@@ -186,13 +210,6 @@ editarObservacion=()=>{
 
           }
         });
-      }else{
-        swal("No es posible realizar cambios", "", "info");
-        console.log("No tiene permiso para editar la observacion");
-      }
-
-
-
 }
 
 
@@ -281,9 +298,12 @@ GuardarFecth=()=>{
     .then((resp) => {console.log(resp);
     if(resp == true){
 
-    swal("Editado exitoso!","","success");
+    swal("Editado exitoso!","","success",).then(function(){
+        window.location.reload();
+   }
+);
     }else{
-        swal("Oops","","info");
+        swal("Oops, el editado no se concreto","","info");
     }
 
     })
@@ -326,6 +346,7 @@ GuardarFecth=()=>{
           <label className="row center-xs color_white">
             <input
               id={this.props.pago.idRec.toString()+"250296"}
+              placeholder = {this.props.pago.ciclo}
               disabled = "true"
               type="text" />
               <span> </span>

@@ -354,8 +354,6 @@ GuardarFecth=()=>{
         </form>
       </td>
 
-      <td className="td">{this.props.pago.apeNom}</td>
-
       <td className="td">
         <form action="#">
           <label className="row center-xs color_white">

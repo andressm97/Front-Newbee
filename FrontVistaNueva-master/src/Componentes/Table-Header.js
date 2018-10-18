@@ -9,7 +9,7 @@ class TableHeader extends React.Component {
         <th className="th">SELECCIONAR</th>
         <th className="th">N°</th>
         <th className="th">CICLO</th>
-        <th className="th">NOMBRE/APELLIDOS</th>
+      
         <th className="th">CONCEPTO</th>
         <th className="th">NUMERORECIBO</th>
         <th className="th">DEPENDENCIA</th>

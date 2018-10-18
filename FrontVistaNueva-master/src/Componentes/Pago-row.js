@@ -163,6 +163,7 @@ SeleccionCiclo=()=>{
 editarObservacion=()=>{
 
       var obs = this.props.pago.observacion;
+      console.log("obs: "+obs)
       //var estadoAlumno = this.props.pago.estado;
       var idRecG = "";
       idRecG = this.SeleccionIdRec();
@@ -193,11 +194,17 @@ editarObservacion=()=>{
                     fetch(CONFIG+'recaudaciones/alumno/concepto/obs/'+value+'/'+idRecG)
                       .then((resp) => {
                           console.log(resp);
-                          if(resp === true){
-                              swal("Editado exitoso!","","success");
+                          if(resp == true){
+                              swal("Editado exitoso!","","success").then(function(){ // te descubri abel fake :v
+                                  window.location.reload();
+                                  }
+                              );
                           }
                           else{
-                            swal("Editado exitoso!","","success");
+                              swal("Editado exitoso!","","success").then(function(){ // te descubri abel fake :v
+                                  window.location.reload();
+                                  }
+                              );
                           }
 
                       })
@@ -297,11 +304,10 @@ GuardarFecth=()=>{
     })
     .then((resp) => {console.log(resp);
     if(resp == true){
-
-    swal("Editado exitoso!","","success",).then(function(){
-        window.location.reload();
-   }
-);
+        swal("Editado exitoso!","","success",).then(function(){
+            window.location.reload();
+            }
+        );
     }else{
         swal("Oops, el editado no se concreto","","info");
     }

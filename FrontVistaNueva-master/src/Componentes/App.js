@@ -13,7 +13,7 @@ import Imprimir2 from './imprimir2';
 import {browserHistory} from 'react-router-3';
 import swal from 'sweetalert';
 import CONFIG from '../Configuracion/Config'
-import Formulario from './formulario';
+import FormularioIntermio from './formulario-intermedio';
 import ComponenteEditable from './ComponenteEditable'
 
 
@@ -397,7 +397,8 @@ componentDidUpdate(){
          
             <div>
               <div className="">
-                    <h3>Datos del beneficio
+                    <h3>
+                    Lista de Beneficios
                     <ul id="nav-mobile" className="row right hide-on-med-and-down">
                     <li ><a className="seleccionar col" onClick={this.enviarFormulario} >Regresar<i className="material-icons right">reply</i></a></li>
 
@@ -405,7 +406,7 @@ componentDidUpdate(){
                     </h3>
                 </div>
 
-              <Formulario codigo={this.state.name} idprograma={this.state.pagos[0].idPrograma} />  
+              <FormularioIntermio codigo={this.state.name} idprograma={this.state.pagos[0].idPrograma} />  
             </div>
           
 
@@ -632,7 +633,7 @@ enviarFormulario=(e)=>{
     this.setState({
       aparecer:true,
     });
-    window.location.reload();
+    // window.location.reload();
   }
 
 }

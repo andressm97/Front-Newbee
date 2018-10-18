@@ -30,7 +30,7 @@ class Index extends React.Component {
             <Route path="/vista/tabla" component={ VistaTablaNuevo}></Route>
             <Route path="/vista/loginNyA" component={LoginFormNombreApellidos}></Route>
             <Route path="/vista/imprimir" component={ComponenteEditable}></Route>
-            <Route path="/xd/xd" component={Formulario}></Route>
+            <Route path="/formulario/:codigo" component={Formulario}></Route>
             
           </Router>
           )

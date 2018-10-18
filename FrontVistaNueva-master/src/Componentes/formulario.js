@@ -6,7 +6,6 @@ import Select from 'react-select';
 import {browserHistory} from 'react-router-3';
 
 class formulario extends React.Component{
-
     constructor(props){
         super(props)
         this.state={
@@ -30,9 +29,9 @@ class formulario extends React.Component{
                 valorCondicion:'',
                 valorCriterio:'',
                 maximo:'',
-                abp:''
+                abp:'',
         }
-
+        
         this.guardar=this.guardar.bind(this)
         this.handleChangeBeneficio=this.handleChangeBeneficio.bind(this)
         this.handleChangeCondicion=this.handleChangeCondicion.bind(this)
@@ -132,8 +131,8 @@ class formulario extends React.Component{
         .then((response)=>{
             return response.json()
         }).then((datos)=>{
-            if(codigo!=null){
-               
+
+                 console.log("xdddid222"+datos[lista].id_abp)
                 document.getElementById("resolucion").value=datos[lista].resolucion;
                 document.getElementById("autorizacion").value=datos[lista].autorizacion;
                 document.getElementById("observacion").value=datos[lista].observacion;
@@ -151,15 +150,12 @@ class formulario extends React.Component{
                     abp:datos[lista].id_abp,
                     idprograma:datos[lista].id_programa
                 })
-
-
-            }
-            else{
+                console.log("xdddid"+datos[lista].id_abp)
+              
                 
-                swal("No existen datos","","info");
 
-
-            }
+            
+            
 
 
 
@@ -249,6 +245,7 @@ class formulario extends React.Component{
     
 
     guardar(){
+        
 
         var Observacion=document.getElementById("observacion").value;
         var valor=document.getElementById("beneficio").value;
@@ -258,11 +255,24 @@ class formulario extends React.Component{
         var Autorizacion=document.getElementById("autorizacion").value;
         var fecha=document.getElementById("fecha").value.replace(/^(\d{2})[-\/](\d{2})[-\/](\d{4})$/g,'$3-$2-$1');
        
-       console.log("")
+        console.log("xdddd  "+this.state.lista)
+        console.log("beneficio_otorgado : "+valor)
+        console.log( "id_bcondicion: "+ this.state.valorCondicion)
+        console.log( "autorizacion"+ Autorizacion)
+        console.log("fecha "+fecha)
+        console.log("observacion "+Observacion)
+        console.log("id_beneficio "+this.state.valorTipo)
+        console.log("cod_alumno "+this.state.codigo2)
+        console.log("idprograma : "+this.state.idprograma)
+        console.log("id_abp: "+this.state.abp)
+        console.log("id_bcc: "+this.state.valorCriterio)
         if(valor!="" && fecha!=""&& Autorizacion!=""&& this.state.valorCondicion!=""
        &&this.state.valorTipo!=""){
 
         if(parseInt(valor)<=parseInt(this.state.maximo)){
+
+            if(this.state.lista!=""){
+                console.log("entro we  "+this.state.lista)
        fetch(CONFIG+"beneficio/insertar", // "http://localhost:8080/"
         {
         headers: {
@@ -308,7 +318,56 @@ class formulario extends React.Component{
         });
         console.log(this.state.lf+" ko")
 
-        
+    } else{
+        fetch(CONFIG+"beneficio/insertar", // "http://localhost:8080/"
+        {
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        method: "POST",
+            body: JSON.stringify(
+            {
+                "beneficio_otorgado":valor,
+                "id_bcondicion": this.state.valorCondicion,
+                "autorizacion":Autorizacion,
+                "fecha":fecha,
+                "observacion":Observacion,
+                "id_beneficio":this.state.valorTipo,
+                "cod_alumno":this.state.codigo2,
+                "id_programa":4,
+                "id_bcc":this.state.valorCriterio
+
+            }
+
+        )
+        })
+
+        .then((resp) => {
+            console.log(resp)
+            
+            if(resp){
+                swal("guardado exitoso...!","","success")
+                console.log("funciona beneficio");
+                
+            }
+            else{
+                swal("Oops, Algo salió mal!!", "","error");
+            }
+
+
+        })
+        .catch(error => {
+
+        swal("Oops, Algo salió mal!!", "","error")
+        console.error(error)
+        });
+        console.log(this.state.lf+" ko")
+
+
+
+
+
+    }
     } else {swal("El valor sobrepasa el "+this.state.maximo+" %","","warning")}   
     }else{ swal("Tiene que completar todos los campos", "","warning")}
     }

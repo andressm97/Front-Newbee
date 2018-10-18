@@ -34,7 +34,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      datosformulario:{},
+      datosformulario:[],
       aparecer:true,
       todos:false,
       checkbox_:[],
@@ -205,14 +205,16 @@ componentDidUpdate(){
         }).then((datos)=>{
           
           
-          console.log("datos")
-          console.log(datos)
-          this.setState({datosformulario:datos})
+          console.log("datos");
+          console.log(datos);
+          this.setState({datosformulario: datos})
       
         })
         .catch(error=>{
             console.error(error)
         });
+
+
 
       fetch(CONFIG+'recaudaciones/alumno/concepto/listar_cod/' + nombrenuevo)
       .then((response) => {
@@ -277,20 +279,12 @@ componentDidUpdate(){
         console.error(error)
       });   
 
+
+  
     }
     
 
-
-
-
-
-
-
-
-
-
   }
-
 
 
   Regresar=(e)=>{
@@ -383,10 +377,12 @@ componentDidUpdate(){
                 <div className="col-md-4">
                   <div>
                   {/* <button  onClick={this.enviar2} listado={this.state.pagocero} className="waves-effect waves-light btn-large botonazul2">Editar<i className="large material-icons left">border_color</i></button>     */}
+                  
                   </div>
                 </div>
+              
                 <div className="col-md-12">
-               
+                    
                   <Imprimir2 onClick={this.enviar} listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno} datos={this.state.datosformulario}/> 
                 </div>
               </div>

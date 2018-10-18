@@ -114,7 +114,6 @@ class Imprimir2 extends React.Component {
     var checks=document.getElementsByClassName("checkbox1");
     var checks_normales=Array.from(checks);
 
-    
     checks_normales.map((checkbox)=>{
      if(checkbox.checked){
        checkbox_selec.push(checkbox.id);
@@ -139,6 +138,7 @@ class Imprimir2 extends React.Component {
       console.log("listafinal")
       console.log(listafinal);
 
+
       var conceptos=[];
   
       for (let j = 0; j<total.length; j++) {
@@ -154,6 +154,10 @@ class Imprimir2 extends React.Component {
       }
     console.log("listado de conceptos obtenidos");
   console.log(conceptos);
+
+      var datosDelformulario=[];
+
+
 
   var listadoFinalFormato = [];
 
@@ -209,8 +213,9 @@ class Imprimir2 extends React.Component {
         // Only pt supported (not mm or in)
 
 
-      var columns = ["N°","Ciclo","Concepto","Fecha","Documento","Numero","Observacion","Importe"];
+    var columns = ["N°","Ciclo","Concepto","Fecha","Documento","Numero","Observacion","Importe"];
      var columns2 = ["  ","     ","        ","     ","         ","      ","           ","       "];
+     var columnsBenf2 = ["         ","            ","         ","     ","             "];
       var data = "Hola";
 
       var doc = new jsPDF('landscape','pt');
@@ -227,9 +232,52 @@ class Imprimir2 extends React.Component {
             console.log(sumitaDeImportes);
     
     
-    if(listadoFinalFormato.length>0){
+    if(this.props.datos.length>0){
       
-    
+      var listadoFinalBeneficio = [];
+      console.log("Cantidad de beneficio");
+      console.log(this.props.datos.length);
+
+     for (let m = 0; m<this.props.datos.length; m++) {
+  
+        var beneficio_ = [this.props.datos[m].benef_otrogado,this.props.datos[m].autorizacion,
+        this.props.datos[m].condicion,this.props.datos[m].fecha,
+        this.props.datos[m].resolucion]
+  
+        listadoFinalBeneficio.push(beneficio_);
+    }
+
+console.log("listado final del benefico para el reporte del pdf");
+console.log(listadoFinalBeneficio);
+
+      doc.autoTable(columnsBenf2, listadoFinalBeneficio, {
+        theme: 'grid',
+        styles: {
+            cellPadding: 5, // a number, array or object (see margin below)
+            fontSize: 8,
+            font: "helvetica", // helvetica, times, courier
+            lineColor: 0,
+            lineWidth: 0,
+            fontStyle: 'normal', // normal, bold, italic, bolditalic
+            overflow: 'ellipsize', // visible, hidden, ellipsize or linebreak
+            fillColor: false, // false for transparent or a color as described below
+            textColor: 300,
+            halign: 'center', // left, center, right
+            valign: 'middle', // top, middle, bottom
+            columnWidth: 'auto' // 'auto', 'wrap' or a number
+        },
+        headerStyles: {fillColor: [300, 300, 300],
+        textColor:0,
+        fontStyle:'bold'},
+        startY : 350,
+        showHeader:'firstPage'
+        
+    });
+
+      var first = doc.autoTable.previous;
+
+
+      
     //Mostramos el encabezado de la primera tabla
         doc.autoTable(columns2, listadoFinalFormato[0], {
           theme: 'grid',
@@ -250,7 +298,7 @@ class Imprimir2 extends React.Component {
           headerStyles: {fillColor: [300, 300, 300],
           textColor:0,
           fontStyle:'bold'},
-          startY : 430,
+          startY : first.finalY + 30,
           showHeader:'firstPage'
           
       });
@@ -279,16 +327,65 @@ class Imprimir2 extends React.Component {
             headerStyles: {fillColor: [300, 300, 300],
             textColor:0,
             fontStyle:'bold'},
-            startY : first.finalY + 40,
+            startY : first.finalY + 30,
             showHeader:'firstPage'
         });  
     
       }
       }else{
-        doc.setFont("helvetica");
-        doc.setFontType("normal");
-        doc.setFontSize(10);
-        doc.text("No se encontraron pagos", 350, 220);
+        
+        doc.autoTable(columns2, listadoFinalFormato[0], {
+          theme: 'grid',
+          styles: {
+              cellPadding: 5, // a number, array or object (see margin below)
+              fontSize: 8,
+              font: "helvetica", // helvetica, times, courier
+              lineColor: 0,
+              lineWidth: 0,
+              fontStyle: 'normal', // normal, bold, italic, bolditalic
+              overflow: 'ellipsize', // visible, hidden, ellipsize or linebreak
+              fillColor: false, // false for transparent or a color as described below
+              textColor: 300,
+              halign: 'center', // left, center, right
+              valign: 'middle', // top, middle, bottom
+              columnWidth: 'auto' // 'auto', 'wrap' or a number
+          },
+          headerStyles: {fillColor: [300, 300, 300],
+          textColor:0,
+          fontStyle:'bold'},
+          startY : 400,
+          showHeader:'firstPage'
+          
+      });
+
+      for (let k = 1; k<listadoFinalFormato.length; k++) {
+        var first = doc.autoTable.previous;
+
+        doc.autoTable(columns2, listadoFinalFormato[k], {
+          theme: 'grid',
+          styles: {
+              cellPadding: 5, // a number, array or object (see margin below)
+              fontSize: 8,
+              font: "helvetica", // helvetica, times, courier
+              lineColor: 0,
+              lineWidth: 0,
+              fontStyle: 'normal', // normal, bold, italic, bolditalic
+              overflow: 'ellipsize', // visible, hidden, ellipsize or linebreak
+              fillColor: false, // false for transparent or a color as described below
+              textColor: 300,
+              halign: 'center', // left, center, right
+              valign: 'middle', // top, middle, bottom
+              columnWidth: 'auto' // 'auto', 'wrap' or a number
+          },
+          headerStyles: {fillColor: [300, 300, 300],
+          textColor:0,
+          fontStyle:'bold'},
+          startY : first.finalY + 30,
+          showHeader:'firstPage'
+      });  
+
+    }
+
     }
 
         //FOOTER
@@ -467,6 +564,9 @@ class Imprimir2 extends React.Component {
 
     //SEGUNDA CUADRO DE INFORMACION
 
+    /* ESTO TODAVIA NO WE
+
+
     doc.setDrawColor(0, 0, 0);
     doc.setLineWidth(0.5);
     doc.line(35, 212,750, 212);
@@ -540,8 +640,12 @@ class Imprimir2 extends React.Component {
     doc.setFontType("normal");
     doc.setFontSize(9);
     doc.text("DESCUENTO "+this.props.datos.benef_otrogado+" %", 120, 232); //AQUI VA EL BENEFICIO
+    
     }
     
+    console.log("DATOS DEL BENEFICIO");
+    console.log(this.props.datos.benef_otrogado);
+
     if(this.props.datos.autorizacion==null){
       doc.setFont("helvetica");
       doc.setFontType("normal");
@@ -591,65 +695,73 @@ if(this.props.datos.resolucion==null){
 }
     
 
+
+*/
+
      //TERCER CUADRO DE INFORMACION
 
      doc.setDrawColor(0, 0, 0);
      doc.setLineWidth(0.5);
-     doc.line(35, 285,750, 285);
+     doc.line(35, 212,750, 212);
  
      doc.setDrawColor(0, 0, 0);
      doc.setLineWidth(0.5);
-     doc.line(35, 280, 35, 285);
+     doc.line(35, 207, 35, 212);
 
     doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(11);
-    doc.text("Datos del Costo del Programa", 37, 282); 
+    doc.text("Datos del Costo del Programa", 37, 210); 
 
     doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(9);
-    doc.text("Costo Real", 35, 304);
+    doc.text("Costo Real", 35, 230);
 
     doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(9);
-    doc.text("Matricula UPG", 35, 324);
+    doc.text("Matricula UPG", 35, 250);
 
     doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(9);
-    doc.text("Matricula EPG", 35, 344);
+    doc.text("Matricula EPG", 35, 270);
 
     doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(9);
-    doc.text("Derecho Enseñanza", 35, 364);
+    doc.text("Derecho Enseñanza", 35, 290);
 
     doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(9);
-    doc.text("Total", 35, 384);
+    doc.text("Total", 35, 310);
 
     doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(8);
-    doc.text(":", 140, 324);
+    doc.text(":", 140, 230);
 
     doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(8);
-    doc.text(":", 140, 344);
+    doc.text(":", 140, 250);
 
     doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(8);
-    doc.text(":", 140, 364);
+    doc.text(":", 140, 270);
 
     doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(8);
-    doc.text(":", 140, 384);
+    doc.text(":", 140, 290);
+
+    doc.setFont("helvetica");
+    doc.setFontType("bold");
+    doc.setFontSize(8);
+    doc.text(":", 140, 310);
 
     doc.setFont("helvetica");
     doc.setFontType("bold");
@@ -675,47 +787,52 @@ if(this.props.datos.resolucion==null){
     doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(9);
-    doc.text("Costo Final", 500, 304);
+    doc.text("Costo Final", 500, 230);
 
     doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(9);
-    doc.text("Matricula UPG", 500, 324);
+    doc.text("Matricula UPG", 500, 250);
 
     doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(9);
-    doc.text("Matricula EPG", 500, 344);
+    doc.text("Matricula EPG", 500, 270);
 
     doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(9);
-    doc.text("Derecho Enseñanza", 500, 364);
+    doc.text("Derecho Enseñanza", 500, 290);
 
     doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(9);
-    doc.text("Total", 500, 384);
+    doc.text("Total", 500, 310);
 
     doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(8);
-    doc.text(":", 600, 324);
+    doc.text(":", 600, 230);
 
     doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(8);
-    doc.text(":", 600, 344);
+    doc.text(":", 600, 250);
 
     doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(8);
-    doc.text(":", 600, 364);
+    doc.text(":", 600, 270);
 
     doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(8);
-    doc.text(":", 600, 384);
+    doc.text(":", 600, 290);
+
+    doc.setFont("helvetica");
+    doc.setFontType("bold");
+    doc.setFontSize(8);
+    doc.text(":", 600, 310);
 
     doc.setFont("helvetica");
     doc.setFontType("bold");
@@ -741,98 +858,81 @@ if(this.props.datos.resolucion==null){
 
     doc.addImage(imgData, 'JPG', 35, 12, 50, 60);
 
-
-
-/*
-        var columns2 = ["ID","Importe","Documento","Concepto","Fecha","Numero"];
-        var marginT = 270;
-
-        for(let i=0;i<listafinal.length;i++){
-      
-          var uff = [];
-          var menes = [];
-          for( let a=0;a<listafinal[i].length;a++){
         
-            var mesisto = listafinal[i][a].fecha.substr(5,2);
-            var dia = listafinal[i][a].fecha.substr(8,2);
-            var añito = listafinal[i][a].fecha.substr(0,4);
+    doc.setDrawColor(0, 0, 0);
+    doc.setLineWidth(0.5);
+    doc.line(35, 344,750, 344);
 
-            var fechita = dia+'/'+mesisto+'/'+añito;
+    doc.setDrawColor(0, 0, 0);
+    doc.setLineWidth(0.5);
+    doc.line(35, 339, 35, 344);
+
+    doc.setFont("helvetica");
+    doc.setFontType("bold");
+    doc.setFontSize(11);
+    doc.text("Datos del Beneficio", 37, 340); 
+
+        if(this.props.datos.length>0){
+          
+          var listadoFinalBeneficio = [];
+          console.log("Cantidad de beneficio");
+          console.log(this.props.datos.length);
+
+         for (let m = 0; m<this.props.datos.length; m++) {
+      
+            var beneficio_ = [this.props.datos[m].benef_otrogado+"%",this.props.datos[m].autorizacion,
+            this.props.datos[m].condicion,this.props.datos[m].fecha,
+            this.props.datos[m].resolucion]
+      
+            listadoFinalBeneficio.push(beneficio_);
+        }
+  
+  console.log("listado final del benefico para el reporte del pdf");
+  console.log(listadoFinalBeneficio);
+
+          var columnsBenf = ["Beneficio","Autorizacion","Condicion","Fecha","Resolucionion"];
+
+          doc.autoTable(columnsBenf, listadoFinalBeneficio, {
+            theme: 'grid',
+            styles: {
+                cellPadding: 5, // a number, array or object (see margin below)
+                fontSize: 8,
+                font: "helvetica", // helvetica, times, courier
+                lineColor: 0,
+                lineWidth: 0.5,
+                fontStyle: 'normal', // normal, bold, italic, bolditalic
+                overflow: 'ellipsize', // visible, hidden, ellipsize or linebreak
+                fillColor: false, // false for transparent or a color as described below
+                textColor: 0,
+                halign: 'center', // left, center, right
+                valign: 'middle', // top, middle, bottom
+                columnWidth: 'auto' // 'auto', 'wrap' or a number
+            },
+            headerStyles: {fillColor: [180, 180, 180],
+            textColor:0,
+            fontStyle:'bold'},
+            startY : 350,
+            showHeader:'firstPage'
             
-            uff = [a+1,"S/."+this.comita(listafinal[i][a].importe.toString()),"RECIBO",listafinal[i][a].concepto,fechita,listafinal[i][a].numero];
-            menes.push(uff);
-        
-            if(a==listafinal[i].length-1){
-              uff = ["","TOTAL S/."+this.comita(importe[i].toString())];
-              menes.push(uff);
-            }
+        });
 
-          }
+          var first = doc.autoTable.previous;
 
-        var conceptitos = listafinal[i][0].concepto.substr(0,3)+'-'+listafinal[i][0].concepto.substr(3,3);
-
-        if(this.props.conceptos[i].descripcion!=null){
-          doc.text("CONCEPTO DE PAGO "+conceptitos+" "+this.props.conceptos[i].descripcion,192,marginT-10);
-        }
-        else{
-          doc.text("CONCEPTO DE PAGO "+conceptitos,240,marginT-10);
-        }
-      
-      
-        doc.autoTable(columns2,menes,
-         {
+           //Mostramos el encabezado de la primera tabla
+           doc.setFont("helvetica");
+           doc.setFontType("bold");
+           doc.setFontSize(10);
+           doc.text("PAGO POR CONCEPTO "+conceptos[0],38,first.finalY + 25);
            
-          styles: {
-            cellPadding: 5, // a number, array or object (see margin below)
-            fontSize: 8,
-            font: "helvetica", // helvetica, times, courier
-            lineColor: 0,
-            lineWidth: 0.5,
-            fontStyle: 'normal', // normal, bold, italic, bolditalic
-            overflow: 'ellipsize', // visible, hidden, ellipsize or linebreak
-            fillColor: false, // false for transparent or a color as described below
-            textColor: 0,
-            halign: 'right', // left, center, right
-            valign: 'middle', // top, middle, bottom
-            columnWidth: 'auto' // 'auto', 'wrap' or a number
-        },
-        headerStyles: {fillColor: [180, 180, 180],
-        textColor:0,
-        fontStyle:'bold'},
-          pageBreak : 'always',
-          margin:{ top: marginT }}
-         );  
-         
-        marginT=marginT+20*listafinal[i].length+60;
-
-         if(i==listafinal.length-1){
-            var sumita=0;
-            for(var x=0;x<importe.length;x++){
-              sumita=sumita+importe[x];
-            }
-            doc.setFont("helvetica");
-            doc.setFontType("bold");
-            doc.setFontSize(11);
-            doc.text("TOTAL CANCELADO: S/."+this.comita(sumita.toString()),170,marginT+10);
-         }
-        }
-
-          */
-        
-        if(listadoFinalFormato.length>0){
-          //Mostramos el encabezado de la primera tabla
-          doc.setFont("helvetica");
-          doc.setFontType("bold");
-          doc.setFontSize(10);
-          doc.text("PAGO POR CONCEPTO "+conceptos[0],38, 420);
-          //linea horizontal
-          doc.setDrawColor(0, 0, 0);
-          doc.setLineWidth(0.5);
-          doc.line(35,422 ,200,422);
-          //linea vertical
-          doc.setDrawColor(0, 0, 0);
-          doc.setLineWidth(0.5);
-          doc.line(35, 417, 35, 422);
+           /*
+           //linea horizontal
+           doc.setDrawColor(0, 0, 0);
+           doc.setLineWidth(0.5);
+           doc.line(35,first.finalY + 28 ,200,first.finalY + 28);
+           //linea vertical
+           doc.setDrawColor(0, 0, 0);
+           doc.setLineWidth(0.5);
+           doc.line(35, first.finalY + 22, 35, first.finalY + 28);*/
 
         //Mostramos el encabezado de la primera tabla
             doc.autoTable(columns, listadoFinalFormato[0], {
@@ -854,7 +954,7 @@ if(this.props.datos.resolucion==null){
               headerStyles: {fillColor: [180, 180, 180],
               textColor:0,
               fontStyle:'bold'},
-              startY : 430,
+              startY : first.finalY + 30,
               showHeader:'firstPage'
               
           });
@@ -877,7 +977,7 @@ if(this.props.datos.resolucion==null){
               doc.setFontSize(10);
               doc.text("PAGO POR CONCEPTO "+conceptos[k],38, first.finalY + 25);
               console.log("pago por concepto");
-
+/*
                  //linea horizontal
               doc.setDrawColor(0, 0, 0);
               doc.setLineWidth(0.5);
@@ -886,7 +986,7 @@ if(this.props.datos.resolucion==null){
                 //linea vertical
               doc.setDrawColor(0, 0, 0);
               doc.setLineWidth(0.5);
-              doc.line(35, first.finalY + 22, 35, first.finalY + 28);
+              doc.line(35, first.finalY + 22, 35, first.finalY + 28);*/
       
               //Mostramos el encabezado de cada tabla
       
@@ -909,7 +1009,7 @@ if(this.props.datos.resolucion==null){
                 headerStyles: {fillColor: [180, 180, 180],
                 textColor:0,
                 fontStyle:'bold'},
-                startY : first.finalY + 40,
+                startY : first.finalY + 30,
                 showHeader:'firstPage'
             });  
 
@@ -927,9 +1027,115 @@ if(this.props.datos.resolucion==null){
             doc.setFont("helvetica");
             doc.setFontType("normal");
             doc.setFontSize(10);
-            doc.text("No se encontraron pagos", 350, 220);
-      }
+            doc.text("No se encontraron datos del beneficio", 35, 360);
+      
+      
+            //Mostramos el encabezado de la primera tabla
+           doc.setFont("helvetica");
+           doc.setFontType("bold");
+           doc.setFontSize(10);
+           doc.text("PAGO POR CONCEPTO "+conceptos[0],38,390);
+           
+           /*
+           //linea horizontal
+           doc.setDrawColor(0, 0, 0);
+           doc.setLineWidth(0.5);
+           doc.line(35,first.finalY + 28 ,200,first.finalY + 28);
+           //linea vertical
+           doc.setDrawColor(0, 0, 0);
+           doc.setLineWidth(0.5);
+           doc.line(35, first.finalY + 22, 35, first.finalY + 28);*/
 
+        //Mostramos el encabezado de la primera tabla
+            doc.autoTable(columns, listadoFinalFormato[0], {
+              theme: 'grid',
+              styles: {
+                  cellPadding: 5, // a number, array or object (see margin below)
+                  fontSize: 8,
+                  font: "helvetica", // helvetica, times, courier
+                  lineColor: 0,
+                  lineWidth: 0.5,
+                  fontStyle: 'normal', // normal, bold, italic, bolditalic
+                  overflow: 'ellipsize', // visible, hidden, ellipsize or linebreak
+                  fillColor: false, // false for transparent or a color as described below
+                  textColor: 0,
+                  halign: 'center', // left, center, right
+                  valign: 'middle', // top, middle, bottom
+                  columnWidth: 'auto' // 'auto', 'wrap' or a number
+              },
+              headerStyles: {fillColor: [180, 180, 180],
+              textColor:0,
+              fontStyle:'bold'},
+              startY : 400,
+              showHeader:'firstPage'
+              
+          });
+
+            if(listadoFinalFormato.length==1){
+
+              var first = doc.autoTable.previous;
+              doc.setFont("helvetica");
+              doc.setFontType("bold");
+              doc.setFontSize(11);
+              doc.text("TOTAL CANCELADO: S/."+this.comita(sumitaDeImportes.toString()),620,first.finalY+20);
+            }
+
+            for (let k = 1; k<listadoFinalFormato.length; k++) {
+              var first = doc.autoTable.previous;
+              
+              //Mostramos el encabezado de cada tabla
+              doc.setFont("helvetica");
+              doc.setFontType("bold");
+              doc.setFontSize(10);
+              doc.text("PAGO POR CONCEPTO "+conceptos[k],38, first.finalY + 25);
+              console.log("pago por concepto");
+/*
+                 //linea horizontal
+              doc.setDrawColor(0, 0, 0);
+              doc.setLineWidth(0.5);
+              doc.line(35,first.finalY + 28 ,200,first.finalY + 28 );
+      
+                //linea vertical
+              doc.setDrawColor(0, 0, 0);
+              doc.setLineWidth(0.5);
+              doc.line(35, first.finalY + 22, 35, first.finalY + 28);*/
+      
+              //Mostramos el encabezado de cada tabla
+      
+              doc.autoTable(columns, listadoFinalFormato[k], {
+                theme: 'grid',
+                styles: {
+                    cellPadding: 5, // a number, array or object (see margin below)
+                    fontSize: 8,
+                    font: "helvetica", // helvetica, times, courier
+                    lineColor: 0,
+                    lineWidth: 0.5,
+                    fontStyle: 'normal', // normal, bold, italic, bolditalic
+                    overflow: 'ellipsize', // visible, hidden, ellipsize or linebreak
+                    fillColor: false, // false for transparent or a color as described below
+                    textColor: 0,
+                    halign: 'center', // left, center, right
+                    valign: 'middle', // top, middle, bottom
+                    columnWidth: 'auto' // 'auto', 'wrap' or a number
+                },
+                headerStyles: {fillColor: [180, 180, 180],
+                textColor:0,
+                fontStyle:'bold'},
+                startY : first.finalY + 30,
+                showHeader:'firstPage'
+            });  
+
+              if(k==listadoFinalFormato.length-1){
+                var first = doc.autoTable.previous;
+                doc.setFont("helvetica");
+                doc.setFontType("bold");
+                doc.setFontSize(11);
+                doc.text("TOTAL CANCELADO: S/."+this.comita(sumitaDeImportes.toString()),620,first.finalY+20);
+              }
+
+      
+          }
+        }
       var string = doc.output('datauristring');
       var iframe = "<iframe width='100%' height='100%' src='" + string + "'></iframe>"
       var x = window.open();

@@ -268,97 +268,97 @@ class formulario extends React.Component{
         console.log("id_bcc: "+this.state.valorCriterio)
         if(valor!="" && fecha!=""&& Autorizacion!=""&& this.state.valorCondicion!=""
        &&this.state.valorTipo!=""){
-
+         console.log("la lista fake de sator "+this.state.lista)
         if(parseInt(valor)<=parseInt(this.state.maximo)){
 
-            if(this.state.lista!=""){
-                console.log("entro we  "+this.state.lista)
-       fetch(CONFIG+"beneficio/insertar", // "http://localhost:8080/"
-        {
-        headers: {
-        'Content-Type': 'application/json'
-        },
-        method: "POST",
-            body: JSON.stringify(
-            {
-                "beneficio_otorgado":valor,
-                "id_bcondicion": this.state.valorCondicion,
-                "autorizacion":Autorizacion,
-                "fecha":fecha,
-                "observacion":Observacion,
-                "id_beneficio":this.state.valorTipo,
-                "cod_alumno":this.state.codigo2,
-                //"id_programa":this.state.idprograma,
-                "id_abp":this.state.abp,
-                "id_bcc":this.state.valorCriterio
+            if(this.state.abp >= 0){
+               console.log("entro we  crear"+this.state.lista)
+               fetch(CONFIG+"beneficio/insertar", // "http://localhost:8080/"
+                {
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                method: "POST",
+                    body: JSON.stringify(
+                    {
+                        "beneficio_otorgado":valor,
+                        "id_bcondicion": this.state.valorCondicion,
+                        "autorizacion":Autorizacion,
+                        "fecha":fecha,
+                        "observacion":Observacion,
+                        "id_beneficio":this.state.valorTipo,
+                        "cod_alumno":this.state.codigo2,
+                        //"id_programa":this.state.idprograma,
+                        "id_abp":this.state.abp,
+                        "id_bcc":this.state.valorCriterio
 
-            }
+                    }
 
-        )
-        })
+                )
+                })
 
-        .then((resp) => {
-            console.log(resp)
+                .then((resp) => {
+                    console.log(resp)
 
-            if(resp){
-                swal("guardado exitoso...!","","success")
-                console.log("funciona beneficio");
+                    if(resp){
+                        swal("guardado exitoso...!","","success")
+                        console.log("funciona beneficio");
 
-            }
-            else{
-                swal("Oops, el beneficio no fue editado", "","error");
-            }
-
-
-        })
-        .catch(error => {
-
-        swal("Oops, Algo salió mal!!", "","error")
-        console.error(error)
-        });
-    } else{
-        fetch(CONFIG+"beneficio/insertar", // "http://localhost:8080/"
-        {
-        headers: {
-        'Content-Type': 'application/json'
-        },
-        method: "POST",
-            body: JSON.stringify(
-            {
-                "beneficio_otorgado":valor,
-                "id_bcondicion": this.state.valorCondicion,
-                "autorizacion":Autorizacion,
-                "fecha":fecha,
-                "observacion":Observacion,
-                "id_beneficio":this.state.valorTipo,
-                "cod_alumno":this.state.codigo2,
-            //    "id_programa":4,
-                "id_bcc":this.state.valorCriterio
-
-            }
-
-        )
-        })
-
-        .then((resp) => {
-            console.log("need a little: "+resp)
-
-            if(resp){
-                swal("guardado exitoso...!","","success")
-                console.log("funciona beneficio");
-
-            }
-            else{
-                swal("Oops, El beneficio no fue ingresado!!", "","error");
-            }
+                    }
+                    else{
+                        swal("Oops, el beneficio no fue editado", "","error");
+                    }
 
 
-        })
-        .catch(error => {
+                })
+                .catch(error => {
 
-        swal("Oops, Algo salió mal!!", "","error")
-        console.error(error)
-        });
+                swal("Oops, Algo salió mal!!", "","error")
+                console.error(error)
+                });
+            } else{
+                console.log("entro we update "+this.state.lista)
+                fetch(CONFIG+"beneficio/insertar", // "http://localhost:8080/"
+                {
+                headers: {
+                'Content-Type': 'application/json'
+                },
+                method: "POST",
+                    body: JSON.stringify(
+                    {
+                        "beneficio_otorgado":valor,
+                        "id_bcondicion": this.state.valorCondicion,
+                        "autorizacion":Autorizacion,
+                        "fecha":fecha,
+                        "observacion":Observacion,
+                        "id_beneficio":this.state.valorTipo,
+                        "cod_alumno":this.state.codigo2,
+                    //    "id_programa":4,
+                        "id_bcc":this.state.valorCriterio
+                    }
+
+                )
+                })
+
+                .then((resp) => {
+                    console.log("need a little: "+resp)
+
+                    if(resp){
+                        swal("guardado exitoso...!","","success")
+                        console.log("funciona beneficio");
+
+                    }
+                    else{
+                        swal("Oops, El beneficio no fue ingresado!!", "","error");
+                    }
+
+
+                })
+                .catch(error => {
+
+                swal("Oops, Algo salió mal!!", "","error")
+                console.error(error)
+                });
 
     }
     } else {swal("El valor sobrepasa el "+this.state.maximo+" %","","warning")}

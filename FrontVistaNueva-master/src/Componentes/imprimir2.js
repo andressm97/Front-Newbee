@@ -215,7 +215,7 @@ class Imprimir2 extends React.Component {
 
     var columns = ["N°","Ciclo","Concepto","Fecha","Documento","Numero","Observacion","Importe"];
      var columns2 = ["  ","     ","        ","     ","         ","      ","           ","       "];
-     var columnsBenf2 = ["         ","            ","         ","     ","             "];
+     var columnsBenf2 = ["  ","         ","            ","         ","     ","             "];
       var data = "Hola";
 
       var doc = new jsPDF('landscape','pt');
@@ -240,7 +240,7 @@ class Imprimir2 extends React.Component {
 
      for (let m = 0; m<this.props.datos.length; m++) {
   
-        var beneficio_ = [this.props.datos[m].benef_otrogado,this.props.datos[m].autorizacion,
+        var beneficio_ = [m+1,this.props.datos[m].benef_otrogado,this.props.datos[m].autorizacion,
         this.props.datos[m].condicion,this.props.datos[m].fecha,
         this.props.datos[m].resolucion]
   
@@ -880,7 +880,7 @@ if(this.props.datos.resolucion==null){
 
          for (let m = 0; m<this.props.datos.length; m++) {
       
-            var beneficio_ = [this.props.datos[m].benef_otrogado+"%",this.props.datos[m].autorizacion,
+            var beneficio_ = [m+1,this.props.datos[m].benef_otrogado+"%",this.props.datos[m].autorizacion,
             this.props.datos[m].condicion,this.props.datos[m].fecha,
             this.props.datos[m].resolucion]
       
@@ -890,7 +890,7 @@ if(this.props.datos.resolucion==null){
   console.log("listado final del benefico para el reporte del pdf");
   console.log(listadoFinalBeneficio);
 
-          var columnsBenf = ["Beneficio","Autorizacion","Condicion","Fecha","Resolucionion"];
+          var columnsBenf = ["N°","Beneficio","Autorizacion","Condicion","Fecha","Resolucionion"];
 
           doc.autoTable(columnsBenf, listadoFinalBeneficio, {
             theme: 'grid',

@@ -49,6 +49,7 @@ class App extends React.Component {
       filtroNumeros: [],
       alumno: {},
       conceptos:[],
+      costosP: {},
     }
     this.clase='';
     this.alumno = '';
@@ -199,6 +200,7 @@ componentDidUpdate(){
     }
     else{
       this.clase=AlumnoCodigo
+
       fetch(CONFIG+'/beneficio/listar/' + nombrenuevo)
         .then((response)=>{
             return response.json()
@@ -214,6 +216,21 @@ componentDidUpdate(){
             console.error(error)
         });
 
+
+        fetch(CONFIG+'/beneficio/breporte/' + nombrenuevo)
+        .then((response)=>{
+            return response.json()
+        }).then((costos)=>{
+          
+          
+          console.log("costos");
+          console.log(costos);
+          this.setState({costosP: costos})
+      
+        })
+        .catch(error=>{
+            console.error(error)
+        });
 
 
       fetch(CONFIG+'recaudaciones/alumno/concepto/listar_cod/' + nombrenuevo)
@@ -382,8 +399,8 @@ componentDidUpdate(){
                 </div>
               
                 <div className="col-md-12">
-                    
-                  <Imprimir2 onClick={this.enviar} listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno} datos={this.state.datosformulario}/> 
+                  
+                  <Imprimir2 onClick={this.enviar} listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno} costos={this.state.costosP} datos={this.state.datosformulario}/> 
                 </div>
               </div>
             </div>

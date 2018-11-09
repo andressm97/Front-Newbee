@@ -217,20 +217,8 @@ componentDidUpdate(){
         });
 
 
-        fetch(CONFIG+'/beneficio/breporte/' + nombrenuevo)
-        .then((response)=>{
-            return response.json()
-        }).then((costos)=>{
-          
-          
-          console.log("costos");
-          console.log(costos);
-          this.setState({costosP: costos})
-      
-        })
-        .catch(error=>{
-            console.error(error)
-        });
+        
+        
 
 
       fetch(CONFIG+'recaudaciones/alumno/concepto/listar_cod/' + nombrenuevo)
@@ -267,6 +255,23 @@ componentDidUpdate(){
      })
       // console.log(this.state.pagocero);
       
+      fetch(CONFIG+'/beneficio/breporte/' + nombrenuevo+'/'+auxPagos[0].idPrograma)
+      .then((response)=>{
+          return response.json()
+      }).then((costos)=>{
+        
+        
+        console.log("costos");
+        console.log(costos);
+        this.setState({costosP: costos})
+    
+      })
+      .catch(error=>{
+          console.error(error)
+      });
+
+
+
       }
     )
       .catch(error => {
@@ -397,11 +402,14 @@ componentDidUpdate(){
                   
                   </div>
                 </div>
-              
+            
                 <div className="col-md-12">
                   
                   <Imprimir2 onClick={this.enviar} listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno} costos={this.state.costosP} datos={this.state.datosformulario}/> 
                 </div>
+
+
+
               </div>
             </div>
           </div>

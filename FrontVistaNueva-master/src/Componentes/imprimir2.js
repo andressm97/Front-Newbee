@@ -108,7 +108,8 @@ class Imprimir2 extends React.Component {
 
     var checkbox_selec=[];
     var checks=[];
-    var nombres = this.props.alumno.apeNom; 
+    var nombres = this.props.alumno.apeNom;
+    
     var codigo= this.props.alumno.codigo;
     var importe = 0;
     var listadopagos = this.props.listado;
@@ -117,6 +118,7 @@ class Imprimir2 extends React.Component {
     var total=[];
     var checks=document.getElementsByClassName("checkbox1");
     var checks_normales=Array.from(checks);
+
 
     //DATOS DEL COSTO
     var costoTotal = this.props.costos.total;
@@ -555,7 +557,7 @@ console.log(listadoFinalBeneficio);
     doc.setFont("helvetica");
     doc.setFontType("normal");
     doc.setFontSize(9);
-    doc.text("", 670, 140); //AQUI VA EL PERIODO DE INGRESO
+    doc.text(listafinal[0][0].anio_ingreso, 610, 140); //AQUI VA EL PERIODO DE INGRESO
 
     doc.setFont("helvetica");
     doc.setFontType("normal");
@@ -1009,7 +1011,7 @@ console.log(listadoFinalBeneficio);
            doc.setFontSize(10);
            doc.text("PAGO POR CONCEPTO "+conceptos[0],38,420);
           
-
+            
         //Mostramos el encabezado de la primera tabla
             doc.autoTable(columns, listadoFinalFormato[0], {
               theme: 'grid',

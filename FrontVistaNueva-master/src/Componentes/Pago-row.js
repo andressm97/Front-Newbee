@@ -191,27 +191,32 @@ editarObservacion=()=>{
               },
           })
             .then((value) => {
-                    fetch(CONFIG+'recaudaciones/alumno/concepto/obs/'+value+'/'+idRecG)
-                      .then((resp) => {
-                          console.log(resp);
-                          if(resp == true){
-                              swal("Editado exitoso!","","success").then(function(){ // te descubri abel fake :v
-                                  window.location.reload();
-                                  }
-                              );
-                          }
-                          else{
-                              swal("Editado exitoso!","","success").then(function(){ // te descubri abel fake :v
-                                  window.location.reload();
-                                  }
-                              );
-                          }
+                    if(value != ''){
+                        fetch(CONFIG+'recaudaciones/alumno/concepto/obs/'+value+'/'+idRecG)
+                          .then((resp) => {
+                              console.log(resp)
+                              if(!(resp == true)){
+                                  swal("Editado exitoso!","","success").then(function(){ // te descubri abel fake :v
+                                      window.location.reload();
+                                      }
+                                  );
+                              }
+                              else{
+                                   swal("Oops, Algo salió mal!!", "","error").then(function(){ // te descubri abel fake :v
+                                      window.location.reload();
+                                      }
+                                  );
+                              }
 
-                      })
-                      .catch(error => {
-                          swal("Oops, Algo salió mal!!", "","error")
-                          console.error(error)
-                      });
+                          })
+                          .catch(error => {
+                              swal("Oops, Algo salió mal!!", "","error")
+                              console.error(error)
+                          });
+                    }
+                    else{
+                        swal("No se hizo ningún cambio","","info");
+                    }
            });
           } else {
 

@@ -25,6 +25,7 @@ class Imprimir2 extends React.Component {
         totalimportes.push(importe);
     });
     
+    console.log(this.props.seleccionado);
     console.log("totalimportes");
     console.log(totalimportes);
     return totalimportes;
@@ -191,14 +192,27 @@ class Imprimir2 extends React.Component {
       // var pago = [m+1,arrayAntes[m].nombre,arrayAntes[m].moneda,arrayAntes[m].concepto,arrayAntes[m].numero,
       // arrayAntes[m].fecha.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3-$2-$1'),"S/."+arrayAntes[m].importe,arrayAntes[m].observacion]
       
+      if(this.props.seleccionado){
       var pago = [m+1,"",arrayAntes[m].concepto,arrayAntes[m].fecha.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3-$2-$1'),"RECIBO",arrayAntes[m].numero,
       arrayAntes[m].observacion,"S/."+this.comita(arrayAntes[m].importe.toString())]
-      
       totalizado = totalizado + arrayAntes[m].importe;
       arrayAuxiliar.push(pago);
+      var agregarTotal = [ ,,,,,
+        ,"Total","S/."+this.comita(totalizado.toString())]
+      
+
+      }
+      else{
+        var pago = [m+1,"",arrayAntes[m].concepto,arrayAntes[m].fecha.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3-$2-$1'),"RECIBO",arrayAntes[m].numero
+       ,"S/."+this.comita(arrayAntes[m].importe.toString())]
+      totalizado = totalizado + arrayAntes[m].importe;
+      arrayAuxiliar.push(pago)
+      var agregarTotal = [ ,,,,
+        ,"Total","S/."+this.comita(totalizado.toString())]
+      }
+      ;
     }
-    var agregarTotal = [ ,,,,,
-      ,"Total","S/."+this.comita(totalizado.toString())]
+   
     arrayAuxiliar.push(agregarTotal);
   
     listadoFinalFormato.push(arrayAuxiliar);
@@ -209,12 +223,27 @@ class Imprimir2 extends React.Component {
 
   console.log("listado final con el formato requerido para generar el pdf");
   console.log(listadoFinalFormato);
-
-    
+  console.log("select"+ this.props.seleccionado);
+    if(this.props.seleccionado){
     var columns = ["N°","Ciclo","Concepto","Fecha","Documento","Numero","Observacion","Importe"];
      var columns2 = ["  ","     ","        ","     ","         ","      ","           ","       "];
      var columnsBenf2 = ["  ","         ","            ","         ","     ","             "];
-      var data = "Hola";
+      
+    }
+
+    else{
+      var columns = ["N°","Ciclo","Concepto","Fecha","Documento","Numero","Importe"];
+      var columns2 = ["  ","     ","        ","     ","         ","      ","       "];
+      var columnsBenf2 = ["  ","         ","            ","         ","             "];
+       
+
+    }
+
+
+
+    var data = "Hola";
+
+
 
       var doc = new jsPDF('landscape','pt');
 

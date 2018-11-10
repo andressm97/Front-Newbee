@@ -34,6 +34,7 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      seleccionado:false,
       datosformulario:[],
       aparecer:true,
       todos:false,
@@ -99,7 +100,25 @@ componentDidUpdate(){
         }
  }
 
+  colocar=()=>{
+    
+    var check=document.getElementById("observacion").checked;
+    //console.log(check);
+    if(check){
+      this.setState({
+      
+        seleccionado:true
+      })
+    }
+    if(!check){
+      console.log("nel")
+      this.setState({
+        seleccionado:false
+      })
+    }
+    
 
+  }
 
   componentWillMount() {
     this.pageOfItems = this.pagocero;
@@ -393,19 +412,58 @@ componentDidUpdate(){
               </table>
               <div className="margen_top"> <Paginacion items={this.state.pagocero} onChangePage={this.onChangePage}/></div>
               <div className="row">
-                <div className="col-md-4">
+                <div className="col-md-9">
                   <Importe importe={this.CalcularImporte()} />
                 </div>
-                <div className="col-md-4">
+                <div className="col-md-3">
+                {/* <form action="#">
+                    <label className="row  ">
+            
+                      <input
+                        onClick="{this.colocar}"
+                        className="align-self-center"
+                        id="xd"
+                        type="checkbox" />
+                        <span> observacion</span>
+
+                     
+        
+                        
+                        
+                        </label>
+                    
+                  </form> */}
+                  
                   <div>
                   {/* <button  onClick={this.enviar2} listado={this.state.pagocero} className="waves-effect waves-light btn-large botonazul2">Editar<i className="large material-icons left">border_color</i></button>     */}
                   
                   </div>
                 </div>
+                <div className="col-md-8 "></div>
+                <div className="col-md-1 ">
+                <form action="#">
+                    <label className="row  ">
             
-                <div className="col-md-12">
-                  
-                  <Imprimir2 onClick={this.enviar} listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno} costos={this.state.costosP} datos={this.state.datosformulario}/> 
+                      <input
+                        onClick={this.colocar}
+                        id="observacion"
+                        className="obs"
+                        value="xd"
+                        type="checkbox" />
+                        <span>observacion </span>
+
+                     
+        
+                        
+                        
+                        </label>
+                    
+                  </form>
+                
+                </div>
+                <div className="col-md-3">
+                 
+                  <Imprimir2 onClick={this.enviar}  seleccionado={this.state.seleccionado}listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno} costos={this.state.costosP} datos={this.state.datosformulario}/> 
                 </div>
 
 

@@ -111,7 +111,7 @@ componentDidUpdate(){
       })
     }
     if(!check){
-      console.log("nel")
+    
       this.setState({
         seleccionado:false
       })
@@ -448,7 +448,7 @@ componentDidUpdate(){
                         onClick={this.colocar}
                         id="observacion"
                         className="obs"
-                        value="xd"
+
                         type="checkbox" />
                         <span>observacion </span>
 
@@ -463,7 +463,7 @@ componentDidUpdate(){
                 </div>
                 <div className="col-md-3">
                  
-                  <Imprimir2 onClick={this.enviar}  seleccionado={this.state.seleccionado}listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno} costos={this.state.costosP} datos={this.state.datosformulario}/> 
+                  <Imprimir2 onClick={this.enviar}  seleccionado={this.state.seleccionado} listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno} costos={this.state.costosP} datos={this.state.datosformulario}/> 
                 </div>
 
 

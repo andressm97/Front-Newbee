@@ -1000,24 +1000,15 @@ console.log(listadoFinalBeneficio);
             doc.setFont("helvetica");
             doc.setFontType("normal");
             doc.setFontSize(10);
-            doc.text("No se encontraron datos del beneficio", 35, 360);
+            doc.text("No se encontraron datos del beneficio", 35, 390);
       
       
             //Mostramos el encabezado de la primera tabla
            doc.setFont("helvetica");
            doc.setFontType("bold");
            doc.setFontSize(10);
-           doc.text("PAGO POR CONCEPTO "+conceptos[0],38,390);
-           
-           /*
-           //linea horizontal
-           doc.setDrawColor(0, 0, 0);
-           doc.setLineWidth(0.5);
-           doc.line(35,first.finalY + 28 ,200,first.finalY + 28);
-           //linea vertical
-           doc.setDrawColor(0, 0, 0);
-           doc.setLineWidth(0.5);
-           doc.line(35, first.finalY + 22, 35, first.finalY + 28);*/
+           doc.text("PAGO POR CONCEPTO "+conceptos[0],38,420);
+          
 
         //Mostramos el encabezado de la primera tabla
             doc.autoTable(columns, listadoFinalFormato[0], {
@@ -1039,7 +1030,7 @@ console.log(listadoFinalBeneficio);
               headerStyles: {fillColor: [180, 180, 180],
               textColor:0,
               fontStyle:'bold'},
-              startY : 400,
+              startY : 425,
               showHeader:'firstPage'
               
           });
@@ -1062,16 +1053,7 @@ console.log(listadoFinalBeneficio);
               doc.setFontSize(10);
               doc.text("PAGO POR CONCEPTO "+conceptos[k],38, first.finalY + 25);
               console.log("pago por concepto");
-/*
-                 //linea horizontal
-              doc.setDrawColor(0, 0, 0);
-              doc.setLineWidth(0.5);
-              doc.line(35,first.finalY + 28 ,200,first.finalY + 28 );
-      
-                //linea vertical
-              doc.setDrawColor(0, 0, 0);
-              doc.setLineWidth(0.5);
-              doc.line(35, first.finalY + 22, 35, first.finalY + 28);*/
+
       
               //Mostramos el encabezado de cada tabla
       

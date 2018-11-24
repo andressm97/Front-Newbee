@@ -15,6 +15,7 @@ import swal from 'sweetalert';
 import CONFIG from '../Configuracion/Config'
 import FormularioIntermio from './formulario-intermedio';
 import ComponenteEditable from './ComponenteEditable'
+import ImporteDolar from './ImporteDolar';
 
 
 //ESTA ES LA VISTA PRINCIPAL POR NOMBRES Y APELLIDOS
@@ -476,10 +477,7 @@ componentDidUpdate(){
             </button>
             
             </div>                         
-          
-
-
-
+        
           <div className="SplitPane row center-xs arribaSube">
             <div className="  center-xs-12">
               <table className=" total table  table-condensed table-striped ">
@@ -490,6 +488,7 @@ componentDidUpdate(){
               <div className="row">
                 <div className="col-md-9">
                   <Importe importe={this.CalcularImporte()} />
+                  <ImporteDolar importe={this.CalcularImporteDolar()} />
                 </div>
                 <div className="col-md-3">
                 {/* <form action="#">
@@ -833,12 +832,27 @@ else{
 
 }
 
+CalcularImporteDolar() {
+    
+  let pagos = this.state.pagocero;
+  let importe = 0;
+  console.log("ESTOS SON LOS PAGOS BIEN CHIDORIS");
+  console.log(pagos)
+  for (var indice in pagos) {
+    if(pagos[indice].moneda=="113")
+        importe = importe + pagos[indice].importe;
+  }
+  return importe;
+}
 
 CalcularImporte() {
     
     let pagos = this.state.pagocero;
     let importe = 0;
+    console.log("ESTOS SON LOS PAGOS BIEN CHIDORIS");
+    console.log(pagos)
     for (var indice in pagos) {
+      if(pagos[indice].moneda=="108")
       importe = importe + pagos[indice].importe;
     }
     return importe;

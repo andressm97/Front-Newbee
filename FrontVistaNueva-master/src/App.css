@@ -37,7 +37,10 @@
   margin-top: 40px;
   margin-bottom: 0px;
 }
+.ancho{
+width: 130px !important; /*Aquí va el ancho de la Celda*/
 
+}
 .scroll{
   overflow: auto;
   height: 280px;

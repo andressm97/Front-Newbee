@@ -482,7 +482,7 @@ componentDidUpdate(){
 
           <div className="SplitPane row center-xs arribaSube">
             <div className="  center-xs-12">
-              <table className=" total table ">
+              <table className=" total table  table-condensed table-striped ">
                 <TableHeader   />
                 <PagoList funcion={this.Funcion} listado={this.state.pageOfItems}  conceptos={this.state.concepto} datos={this.state.datos} datosMonedas={this.state.monedas}  monedas={this.state.monedasvl}/>
               </table>

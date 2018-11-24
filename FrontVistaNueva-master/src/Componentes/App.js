@@ -52,7 +52,9 @@ class App extends React.Component {
       conceptos:[],
       costosP: {},
       concepto:[],
-      datos:[]
+      datos:[],
+      monedas:[],
+      monedasvl:[]
     }
     this.clase='';
     this.alumno = '';
@@ -133,7 +135,7 @@ componentDidUpdate(){
        checkbox_selec.push(checkbox.id);
      }
    });
-//aqui van los concetos
+//aqui van los conceptos
    var array=[];
 
    fetch(CONFIG+'/concepto/conceptos')
@@ -167,6 +169,41 @@ componentDidUpdate(){
 
 
 //aqui terminan los conceptos
+
+
+//aqui van las moneditas
+    var array2=[];
+    fetch(CONFIG+'/concepto/monedas')
+    .then((response)=>{
+        return response.json()
+    }).then((listas)=>{
+        console.log("moneditas---------")
+        console.log(listas)
+
+        this.setState({
+          monedas: listas
+        })
+        listas.forEach(function(element) {
+          
+          var e={value:element.moneda,label:element.moneda};
+          array2.push(e);
+        });
+
+
+    })
+    .catch(error=>{
+        console.error(error)
+    });
+    
+    console.log("valores de las weas de monedas");
+    console.log(array2)
+ 
+    this.setState({
+      monedasvl:array2
+    })
+
+
+//aqui terminan las moneditas
 
 
 
@@ -447,7 +484,7 @@ componentDidUpdate(){
             <div className="  center-xs-12">
               <table className=" total table ">
                 <TableHeader   />
-                <PagoList funcion={this.Funcion} listado={this.state.pageOfItems}  conceptos={this.state.concepto} datos={this.state.datos}/>
+                <PagoList funcion={this.Funcion} listado={this.state.pageOfItems}  conceptos={this.state.concepto} datos={this.state.datos} datosMonedas={this.state.monedas}  monedas={this.state.monedasvl}/>
               </table>
               <div className="margen_top"> <Paginacion items={this.state.pagocero} onChangePage={this.onChangePage}/></div>
               <div className="row">

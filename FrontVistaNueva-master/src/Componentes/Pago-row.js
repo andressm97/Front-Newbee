@@ -12,7 +12,9 @@ class PagoRow extends React.Component {
     super(props)
     this.state = {
       selectedOption: null,
+      selectedOption2:null,
       idconcepto:'',
+      idmoneda:'',
       array:this.props.datos
     }
 }
@@ -20,10 +22,9 @@ class PagoRow extends React.Component {
   componentDidMount(){
     this.setState({
       selectedOption:{value:this.props.pago.concepto,label:this.props.pago.concepto},
-      
-      idconcepto : this.idconcepto(this.props.pago.concepto)
-    
-    
+      idconcepto : this.idconcepto(this.props.pago.concepto),
+      selectedOption2:{value:this.props.pago.moneda2,label:this.props.pago.moneda2},
+      idmoneda : this.idmoneda(this.props.pago.moneda2)
     });
       
   }
@@ -44,9 +45,27 @@ class PagoRow extends React.Component {
         console.log("el concepto es : "+id_concepto);
         return id_concepto;
   }
+
+  idmoneda(valor){
+    console.log("MONEDAS");
+    let id_moneda="";
+    console.log("tamaño " +this.props.datosmonedas.length)  ;
+    console.log("valor_monedas:  "+valor);
+
+    for(let i=0; i<this.props.datosmonedas.length;i++){
+      if(valor==this.props.datosmonedas[i].moneda){
+           id_moneda=this.props.datos[i].id_moneda;
+           console.log("el valor la moneda" +valor +"es igual a "+this.props.datos[i].id_moneda);
+      }
+      console.log("la moneda es  : "+id_moneda);
+        return id_moneda;
+
+  }
+
+  }
   
   componentWillUpdate(){
-    console.log("idconcepto : "+this.state.idconcepto);
+    //console.log("idconcepto : "+this.state.idconcepto);
   }
 
   handleChange = (selectedOption) => {
@@ -55,9 +74,19 @@ class PagoRow extends React.Component {
       idconcepto: this.idconcepto(selectedOption.value)
     });
     console.log(`Option selected:`, selectedOption);
-    console.log("idconcepto : "+this.state.idconcepto);
+    console.log("idconcepto : "+this.idconcepto(selectedOption.value));
     
   }
+  handleChange2 = (selectedOption) => {
+    
+    this.setState({ selectedOption2:selectedOption ,
+      idmoneda: this.idmoneda(selectedOption.value)
+    });
+    console.log(`Option selected:`, selectedOption);
+    console.log("idconcepto : "+this.idmoneda(selectedOption.value));
+    
+  }
+
 
   colocar=()=>{
     var hola=document.getElementById(this.props.pago.idRec);
@@ -161,7 +190,7 @@ SeleccionConcepto=()=>{
   var stringss;
   var prueba;
   stringss=this.props.pago.idRec.toString()+this.props.pago.concepto;
-  prueba = document.getElementById(stringss).value;
+  //prueba = document.getElementById(stringss).value;
 
   if(prueba==""){
     prueba = this.props.pago.concepto;
@@ -352,7 +381,8 @@ GuardarFecth=()=>{
             "concepto": conceptoG,
             "recibo": numeroReciboG,
             "fecha": fechaG,
-            "id_concepto": idConceptoG
+            "id_concepto": this.state.idconcepto,
+            "id_moneda":this.state.idmoneda
         }
 
         )
@@ -419,7 +449,8 @@ GuardarFecth=()=>{
             "concepto": conceptoG,
             "recibo": numeroReciboG,
             "fecha": fechaG,
-            "id_concepto": idConceptoG
+            "id_concepto": this.state.idconcepto,
+            "id_moneda":this.state.idmoneda
         }
 
         )
@@ -547,9 +578,9 @@ GuardarFecth=()=>{
         {/* {this.props.pago.moneda} */}
         <Select
 
-          value={this.state.selectedOption}
-          onChange={this.handleChange}
-          options={options}
+          value={this.state.selectedOption2}
+          onChange={this.handleChange2}
+          options={this.props.monedas}
 
 
 

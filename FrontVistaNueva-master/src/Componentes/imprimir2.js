@@ -184,6 +184,9 @@ class Imprimir2 extends React.Component {
 
   var listadoFinalFormato = [];
 
+  console.log("LISTA 100 REAL NO FEIK");
+  console.log(listafinal);
+
   for (let l = 0; l<listafinal.length; l++) {
     var arrayAuxiliar=[];
     var arrayAntes = listafinal[l];
@@ -193,7 +196,7 @@ class Imprimir2 extends React.Component {
       // arrayAntes[m].fecha.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3-$2-$1'),"S/."+arrayAntes[m].importe,arrayAntes[m].observacion]
       
       if(this.props.seleccionado){
-      var pago = [m+1,"",arrayAntes[m].concepto,arrayAntes[m].fecha.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3-$2-$1'),"RECIBO",arrayAntes[m].numero,
+      var pago = [m+1,arrayAntes[m].ciclo.toString(),arrayAntes[m].concepto,arrayAntes[m].fecha.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3-$2-$1'),"RECIBO",arrayAntes[m].numero,
       arrayAntes[m].observacion,"S/."+this.comita(arrayAntes[m].importe.toString())]
       totalizado = totalizado + arrayAntes[m].importe;
       arrayAuxiliar.push(pago);
@@ -203,7 +206,7 @@ class Imprimir2 extends React.Component {
 
       }
       else{
-        var pago = [m+1,"",arrayAntes[m].concepto,arrayAntes[m].fecha.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3-$2-$1'),"RECIBO",arrayAntes[m].numero
+        var pago = [m+1,arrayAntes[m].ciclo.toString(),arrayAntes[m].concepto,arrayAntes[m].fecha.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3-$2-$1'),"RECIBO",arrayAntes[m].numero
        ,"S/."+this.comita(arrayAntes[m].importe.toString())]
       totalizado = totalizado + arrayAntes[m].importe;
       arrayAuxiliar.push(pago)

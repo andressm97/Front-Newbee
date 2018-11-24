@@ -180,7 +180,7 @@ SeleccionFecha=()=>{
   var prueba;
   stringss=this.props.pago.idRec.toString()+this.props.pago.idAlum.toString();
   prueba = document.getElementById(stringss).value.replace(/^(\d{2})[-\/](\d{2})[-\/](\d{4})$/g,'$3-$2-$1');
-  console.log("cueva ctm")
+  
   console.log(prueba)
   if(prueba==""){
     prueba = this.props.pago.fecha.replace(/^(\d{2})[-\/](\d{2})[-\/](\d{4})$/g,'$3-$2-$1');
@@ -321,7 +321,7 @@ GuardarFecth=()=>{
   estadoAlumno = this.props.pago.estado;
 
   if(estadoAlumno=="M"){
-    var cicloG = "";
+        var cicloG = "";
         cicloG = this.SeleccionCiclo();
 
         var conceptoG = "";
@@ -339,7 +339,6 @@ GuardarFecth=()=>{
         var idConceptoG = "";
         idConceptoG = this.SeleccionIdConceptoG();
 
-        //http://localhost:8080/recaudaciones/alumno/concepto      CONFIG+'recaudaciones/alumno/concepto/listar/filtrar'
         fetch(CONFIG+"recaudaciones/alumno/concepto/actualizar",
         {
         headers: {
@@ -377,9 +376,82 @@ GuardarFecth=()=>{
     swal("Oops, Algo salió mal!!", "","error")
     console.error(error)
     });
+
+
+
   }else{
+
+    var cicloG = "";
+        cicloG = this.SeleccionCiclo();
+
+        var conceptoG = "";
+        conceptoG = this.SeleccionConcepto();
+
+        var numeroReciboG = "";
+        numeroReciboG = this.SeleccionNumeroRecibo();
+
+        var fechaG = "";
+        fechaG = this.SeleccionFecha();
+
+        var idRecG = "";
+        idRecG = this.SeleccionIdRec();
+
+        var idConceptoG = "";
+        idConceptoG = this.SeleccionIdConceptoG();
+
+    var fechaG = "";
+    fechaG = this.SeleccionFecha();
+    console.log("FECHA BIEN FEIK");
+    console.log(fechaG);
+
+
+    
+    fetch(CONFIG+"recaudaciones/alumno/concepto/actualizar",
+        {
+        headers: {
+        'Content-Type': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify(
+        {
+            "idRec": idRecG,
+            "ciclo": cicloG,
+            "concepto": conceptoG,
+            "recibo": numeroReciboG,
+            "fecha": fechaG,
+            "id_concepto": idConceptoG
+        }
+
+        )
+    })
+    .then((response) => {
+    return response.json()
+    })
+    .then((resp) => {console.log(resp);
+    if(resp == true){
+        swal("Editado exitoso!","","success",).then(function(){
+            window.location.reload();
+            }
+        );
+    }else{
+        swal("Oops, el editado no se concreto","","info");
+    }
+
+    })
+    .catch(error => {
+
+    swal("Oops, Algo salió mal!!", "","error")
+    console.error(error)
+    });
+
+
+
+/*
     console.log("No tiene permiso para guargar")
-    swal("No es posible realizar cambios", "", "info");
+    swal("No es posible realizar cambios", "", "info");*/
+
+
+
   }
 
 

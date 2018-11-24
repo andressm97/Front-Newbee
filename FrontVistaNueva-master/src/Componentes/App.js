@@ -51,6 +51,8 @@ class App extends React.Component {
       alumno: {},
       conceptos:[],
       costosP: {},
+      concepto:[],
+      datos:[]
     }
     this.clase='';
     this.alumno = '';
@@ -131,6 +133,43 @@ componentDidUpdate(){
        checkbox_selec.push(checkbox.id);
      }
    });
+//aqui van los concetos
+   var array=[];
+
+   fetch(CONFIG+'/concepto/conceptos')
+   .then((response)=>{
+       return response.json()
+   }).then((listas)=>{
+       console.log("holaaaaaaaa")
+       console.log(listas)
+
+       this.setState({
+         datos:listas
+       })
+       listas.forEach(function(element) {
+         
+         var e={value:element.concepto,label:element.concepto};
+         array.push(e);
+       });
+
+
+   })
+   .catch(error=>{
+       console.error(error)
+   });
+   console.log("valores de las weas");
+   console.log(array)
+
+   this.setState({
+     concepto:array
+   })
+
+
+
+//aqui terminan los conceptos
+
+
+
 
 
     var separador = " "; // un espacio en blanco
@@ -408,7 +447,7 @@ componentDidUpdate(){
             <div className="  center-xs-12">
               <table className=" total table ">
                 <TableHeader   />
-                <PagoList funcion={this.Funcion} listado={this.state.pageOfItems} />
+                <PagoList funcion={this.Funcion} listado={this.state.pageOfItems}  conceptos={this.state.concepto} datos={this.state.datos}/>
               </table>
               <div className="margen_top"> <Paginacion items={this.state.pagocero} onChangePage={this.onChangePage}/></div>
               <div className="row">

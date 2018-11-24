@@ -1,9 +1,63 @@
 import React from 'react'
 import CONFIG from '../Configuracion/Config'
 import swal from 'sweetalert';
-
-
+import Select from 'react-select';
+const options = [
+  { value: 'chocolate', label: 'Chocolate' },
+  { value: 'strawberry', label: 'Strawberry' },
+  { value: 'vanilla', label: 'Vanilla' }
+];
 class PagoRow extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      selectedOption: null,
+      idconcepto:'',
+      array:this.props.datos
+    }
+}
+
+  componentDidMount(){
+    this.setState({
+      selectedOption:{value:this.props.pago.concepto,label:this.props.pago.concepto},
+      
+      idconcepto : this.idconcepto(this.props.pago.concepto)
+    
+    
+    });
+      
+  }
+
+  idconcepto(valor){
+    console.log("xddd4545454");
+    let id_concepto="";
+    console.log("valor:  "+valor);
+    console.log("tamaño " +this.state.array.length)  ;
+
+        for(let i=0; i<this.props.datos.length;i++){
+            if(valor==this.props.datos[i].concepto){
+                 id_concepto=this.props.datos[i].idConcepto;
+                 console.log("el valor" +valor +"es igual a"+this.props.datos[i].concepto);
+            }
+ 
+        }
+        console.log("el concepto es : "+id_concepto);
+        return id_concepto;
+  }
+  
+  componentWillUpdate(){
+    console.log("idconcepto : "+this.state.idconcepto);
+  }
+
+  handleChange = (selectedOption) => {
+    
+    this.setState({ selectedOption:selectedOption ,
+      idconcepto: this.idconcepto(selectedOption.value)
+    });
+    console.log(`Option selected:`, selectedOption);
+    console.log("idconcepto : "+this.state.idconcepto);
+    
+  }
 
   colocar=()=>{
     var hola=document.getElementById(this.props.pago.idRec);
@@ -366,7 +420,7 @@ GuardarFecth=()=>{
       </td>
 
       <td className="td">
-        <form action="#">
+        {/* <form action="#">
           <label className="row center-xs color_white">
             <input
               placeholder={this.props.pago.concepto}
@@ -375,7 +429,15 @@ GuardarFecth=()=>{
               type="text" />
               <span> </span>
           </label>
-        </form>
+          
+        </form> */}
+          <Select
+
+            value={this.state.selectedOption}
+            onChange={this.handleChange}
+            options={this.props.conceptos}
+
+            />
       </td>
 
       <td className="td">
@@ -409,7 +471,19 @@ GuardarFecth=()=>{
         </form>
       </td>
 
-      <td className="td">{this.props.pago.moneda}</td>
+      <td className="td">
+        {/* {this.props.pago.moneda} */}
+        <Select
+
+          value={this.state.selectedOption}
+          onChange={this.handleChange}
+          options={options}
+
+
+
+
+          />
+      </td>
       <td className="td">{'S/. '+this.props.pago.importe}</td>
 
       <td className="td">

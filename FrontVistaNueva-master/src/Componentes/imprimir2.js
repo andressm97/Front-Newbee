@@ -6,8 +6,6 @@ var jsPDF = require('jspdf');
 require('jspdf-autotable');
 
 class Imprimir2 extends React.Component {
-
-  
   
   componentDidMount() {
   }
@@ -20,7 +18,7 @@ class Imprimir2 extends React.Component {
     pagos.forEach(function(element) {
       let importe = 0;
         element.forEach(function(element0){
-          importe += element0.importe
+          importe += element0.importe_tc;
         })
         totalimportes.push(importe);
     });
@@ -28,6 +26,7 @@ class Imprimir2 extends React.Component {
     console.log(this.props.seleccionado);
     console.log("totalimportes");
     console.log(totalimportes);
+
     return totalimportes;
   }
 
@@ -149,12 +148,12 @@ class Imprimir2 extends React.Component {
       console.log("wea")
       console.log(total);
 
-      console.log("weabel")
+      console.log("wea abel")
       console.log(this.props.conceptos);
 
       listafinal = this.arreglosReporte(this.props.conceptos,total);
 
-      console.log("weabel :V")
+      console.log("wea abel :V")
       console.log(this.props.conceptos);
       importe = this.CalcularImporte(listafinal);
       
@@ -170,7 +169,7 @@ class Imprimir2 extends React.Component {
 
       for (let j = 0; j<aux.length; j++) {
           conceptos.push(aux[j].concepto);
-          console.log("abel fake "+j)
+          console.log("100% real no fake "+j)
        
       }
 
@@ -187,33 +186,47 @@ class Imprimir2 extends React.Component {
   console.log("LISTA 100 REAL NO FEIK");
   console.log(listafinal);
 
+  //var numeroCambio = 0;
+
   for (let l = 0; l<listafinal.length; l++) {
     var arrayAuxiliar=[];
     var arrayAntes = listafinal[l];
     var totalizado = 0;
     for (let m = 0; m<arrayAntes.length; m++) {
-      // var pago = [m+1,arrayAntes[m].nombre,arrayAntes[m].moneda,arrayAntes[m].concepto,arrayAntes[m].numero,
-      // arrayAntes[m].fecha.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3-$2-$1'),"S/."+arrayAntes[m].importe,arrayAntes[m].observacion]
-      
+
       if(this.props.seleccionado){
-      var pago = [m+1,arrayAntes[m].ciclo.toString(),arrayAntes[m].concepto,arrayAntes[m].fecha.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3-$2-$1'),"RECIBO",arrayAntes[m].numero,
-      arrayAntes[m].observacion,"S/."+this.comita(arrayAntes[m].importe.toString())]
-      totalizado = totalizado + arrayAntes[m].importe;
+
+        if(arrayAntes[m].moneda=="108"){
+        var pago = [m+1,arrayAntes[m].ciclo.toString(),arrayAntes[m].concepto,arrayAntes[m].fecha.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3-$2-$1'),"RECIBO",arrayAntes[m].numero
+        ,"S/."+this.comita(arrayAntes[m].importe.toString()),"S/."+this.comita(arrayAntes[m].importe_tc.toString()),arrayAntes[m].observacion]
+        }
+        else{
+          var pago = [m+1,arrayAntes[m].ciclo.toString(),arrayAntes[m].concepto,arrayAntes[m].fecha.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3-$2-$1'),"RECIBO",arrayAntes[m].numero
+          ,"$."+this.comita(arrayAntes[m].importe.toString()),"S/."+this.comita(arrayAntes[m].importe_tc.toString()),arrayAntes[m].observacion]
+        
+        }
+      totalizado = totalizado + arrayAntes[m].importe_tc;
       arrayAuxiliar.push(pago);
       var agregarTotal = [ ,,,,,
-        ,"Total","S/."+this.comita(totalizado.toString())]
+        ,"Total","S/."+this.comita(totalizado.toString()),]
       
-
       }
       else{
-        var pago = [m+1,arrayAntes[m].ciclo.toString(),arrayAntes[m].concepto,arrayAntes[m].fecha.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3-$2-$1'),"RECIBO",arrayAntes[m].numero
-       ,"S/."+this.comita(arrayAntes[m].importe.toString())]
-      totalizado = totalizado + arrayAntes[m].importe;
-      arrayAuxiliar.push(pago)
-      var agregarTotal = [ ,,,,
-        ,"Total","S/."+this.comita(totalizado.toString())]
+        if(arrayAntes[m].moneda=="108"){
+          var pago = [m+1,arrayAntes[m].ciclo.toString(),arrayAntes[m].concepto,arrayAntes[m].fecha.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3-$2-$1'),"RECIBO",arrayAntes[m].numero,
+          "S/."+this.comita(arrayAntes[m].importe.toString()),"S/."+this.comita(arrayAntes[m].importe_tc.toString())]
+          }
+          else{
+            var pago = [m+1,arrayAntes[m].ciclo.toString(),arrayAntes[m].concepto,arrayAntes[m].fecha.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3-$2-$1'),"RECIBO",arrayAntes[m].numero
+            ,"$."+this.comita(arrayAntes[m].importe.toString()),"S/."+this.comita(arrayAntes[m].importe_tc.toString())]
+          
+          }
+        totalizado = totalizado + arrayAntes[m].importe_tc;
+        arrayAuxiliar.push(pago);
+        var agregarTotal = [ ,,,,,
+          ,"Total","S/."+this.comita(totalizado.toString())]
       }
-      ;
+      
     }
    
     arrayAuxiliar.push(agregarTotal);
@@ -227,26 +240,22 @@ class Imprimir2 extends React.Component {
   console.log("listado final con el formato requerido para generar el pdf");
   console.log(listadoFinalFormato);
   console.log("select"+ this.props.seleccionado);
+
     if(this.props.seleccionado){
-    var columns = ["N°","Ciclo","Concepto","Fecha","Documento","Numero","Observacion","Importe"];
-     var columns2 = ["  ","     ","        ","     ","         ","      ","           ","       "];
-     var columnsBenf2 = ["  ","         ","            ","         ","     ","             "];
+    var columns = ["N°","Ciclo","Concepto","Fecha","Documento","Numero","Importe","Subtotal","Observacion"];
+     var columns2 = ["  ","     ","        ","     ","         ","      ","       ","        ","           "];
+     var columnsBenf2 = ["  ","         ","            ","         ","     ","             ","        "];
       
     }
 
     else{
-      var columns = ["N°","Ciclo","Concepto","Fecha","Documento","Numero","Importe"];
-      var columns2 = ["  ","     ","        ","     ","         ","      ","       "];
-      var columnsBenf2 = ["  ","         ","            ","         ","             "];
-       
-
+      var columns = ["N°","Ciclo","Concepto","Fecha","Documento","Numero","Importe","Subtotal"];
+      var columns2 = ["  ","     ","        ","     ","         ","      ","       ","        "];
+      var columnsBenf2 = ["  ","         ","            ","         ","             ","        "];
+      
     }
 
-
-
     var data = "Hola";
-
-
 
       var doc = new jsPDF('landscape','pt');
 
@@ -258,7 +267,10 @@ class Imprimir2 extends React.Component {
             for(var x=0;x<importe.length;x++){
               sumitaDeImportes=sumitaDeImportes+importe[x];
             }
-            console.log("TOTAL DE LOS IMPORTES");
+
+            sumitaDeImportes = sumitaDeImportes.toFixed(2);
+
+            console.log("TOTAL DE LOS IMPORTES xdxdxd");
             console.log(sumitaDeImportes);
     
     
@@ -895,7 +907,7 @@ console.log(listadoFinalBeneficio);
  
 
 
-          var columnsBenf = ["N°","Beneficio","Autorizacion","Condicion","Fecha","Resolucionion"];
+          var columnsBenf = ["N°","Beneficio","Autorizacion","Condicion","Fecha","Resolucion"];
 
           doc.autoTable(columnsBenf, listadoFinalBeneficio, {
             theme: 'grid',

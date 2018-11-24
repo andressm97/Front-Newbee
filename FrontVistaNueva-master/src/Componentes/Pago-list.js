@@ -11,10 +11,6 @@ class PagoList extends React.Component {
     }
   }
 
-  componentDidMount(){
-
-   
-  }
 
 
   render() { 

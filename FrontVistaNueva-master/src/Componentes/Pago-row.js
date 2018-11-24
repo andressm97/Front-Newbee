@@ -30,39 +30,39 @@ class PagoRow extends React.Component {
   }
 
   idconcepto(valor){
-    console.log("xddd4545454");
+    
     let id_concepto="";
-    console.log("valor:  "+valor);
-    console.log("tamaño " +this.state.array.length)  ;
+    // console.log("valor:  "+valor);
+    // console.log("tamaño " +this.state.array.length)  ;
 
         for(let i=0; i<this.props.datos.length;i++){
             if(valor==this.props.datos[i].concepto){
                  id_concepto=this.props.datos[i].idConcepto;
-                 console.log("el valor" +valor +"es igual a"+this.props.datos[i].concepto);
+                //  console.log("el valor" +valor +"es igual a"+this.props.datos[i].concepto);
             }
  
         }
-        console.log("el concepto es : "+id_concepto);
+        // console.log("el concepto es : "+id_concepto);
         return id_concepto;
   }
 
   idmoneda(valor){
-    console.log("MONEDAS");
+    // console.log("MONEDAS");
     let id_moneda="";
-    console.log("tamaño " +this.props.datosmonedas.length)  ;
-    console.log("moneda 1" +this.props.datosmonedas[1].moneda)  ;
-    console.log("valor_monedas:  "+valor);
+    // console.log("tamaño " +this.props.datosmonedas.length)  ;
+    // console.log("moneda 1" +this.props.datosmonedas[1].moneda)  ;
+    // console.log("valor_monedas:  "+valor);
 
     for(let i=0; i<this.props.datosmonedas.length;i++){
 
       if(valor==this.props.datosmonedas[i].moneda){
            id_moneda=this.props.datosmonedas[i].id_moneda;
-           console.log("el valor la moneda" +valor +"es igual a "+this.props.datosmonedas[i].id_moneda);
+          //  console.log("el valor la moneda" +valor +"es igual a "+this.props.datosmonedas[i].id_moneda);
       }
    
 
   }
-      console.log("la moneda es  : "+id_moneda);
+      // console.log("la moneda es  : "+id_moneda);
       return id_moneda;
 
   }
@@ -72,22 +72,28 @@ class PagoRow extends React.Component {
   }
 
   handleChange = (selectedOption) => {
+
+    if(selectedOption!=null){
     
     this.setState({ selectedOption:selectedOption ,
       idconcepto: this.idconcepto(selectedOption.value)
     });
-    console.log(`Option selected:`, selectedOption);
-    console.log("idconcepto : "+this.idconcepto(selectedOption.value));
-    
+    // console.log(`Option selected:`, selectedOption);
+    // console.log("idconcepto : "+this.idconcepto(selectedOption.value));
+    }else{
+      swal("Seleccione una opcion", "", "info");
+    }
   }
   handleChange2 = (selectedOption) => {
-    
+    if(selectedOption!=null){
     this.setState({ selectedOption2:selectedOption ,
       idmoneda: this.idmoneda(selectedOption.value)
     });
-    console.log(`Option selected:`, selectedOption);
-    console.log("idconcepto : "+this.idmoneda(selectedOption.value));
-    
+    // console.log(`Option selected:`, selectedOption);
+    // console.log("idconcepto : "+this.idmoneda(selectedOption.value));
+    }else{
+      swal("Seleccione una opcion", "", "info");
+    }
   }
 
 
@@ -525,7 +531,7 @@ GuardarFecth=()=>{
         </form>
       </td>
 
-      <td className="td">
+      <td className="xd">
         {/* <form action="#">
           <label className="row center-xs color_white">
             <input

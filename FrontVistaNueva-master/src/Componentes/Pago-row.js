@@ -50,17 +50,20 @@ class PagoRow extends React.Component {
     console.log("MONEDAS");
     let id_moneda="";
     console.log("tamaño " +this.props.datosmonedas.length)  ;
+    console.log("moneda 1" +this.props.datosmonedas[1].moneda)  ;
     console.log("valor_monedas:  "+valor);
 
     for(let i=0; i<this.props.datosmonedas.length;i++){
+
       if(valor==this.props.datosmonedas[i].moneda){
-           id_moneda=this.props.datos[i].id_moneda;
-           console.log("el valor la moneda" +valor +"es igual a "+this.props.datos[i].id_moneda);
+           id_moneda=this.props.datosmonedas[i].id_moneda;
+           console.log("el valor la moneda" +valor +"es igual a "+this.props.datosmonedas[i].id_moneda);
       }
-      console.log("la moneda es  : "+id_moneda);
-        return id_moneda;
+   
 
   }
+      console.log("la moneda es  : "+id_moneda);
+      return id_moneda;
 
   }
   

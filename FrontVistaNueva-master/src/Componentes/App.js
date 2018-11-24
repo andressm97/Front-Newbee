@@ -356,7 +356,6 @@ componentDidUpdate(){
           return response.json()
       }).then((costos)=>{
         
-        
         console.log("costos");
         console.log(costos);
         this.setState({costosP: costos})

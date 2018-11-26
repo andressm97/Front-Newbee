@@ -7,10 +7,15 @@ const options = [
   { value: 'strawberry', label: 'Strawberry' },
   { value: 'vanilla', label: 'Vanilla' }
 ];
+
+
+
 class PagoRow extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
+      desabilitar:true,
+      desabilitar2:true,
       selectedOption: null,
       selectedOption2:null,
       idconcepto:'',
@@ -20,6 +25,15 @@ class PagoRow extends React.Component {
 }
 
   componentDidMount(){
+    // if(this.props.pago.estado=="M"){
+    //   this.setState({
+    //     desabilitar:false
+    //   })
+
+
+    // }
+
+    
     this.setState({
       selectedOption:{value:this.props.pago.concepto,label:this.props.pago.concepto},
       idconcepto : this.idconcepto(this.props.pago.concepto),
@@ -109,16 +123,26 @@ class PagoRow extends React.Component {
     var estadoAlumno;
     estadoAlumno = this.props.pago.estado;
 
+    this.setState({
+      desabilitar2:false
+    })
+
+
+
     if(estadoAlumno=="M"){
       var editConcepto;
     editConcepto=this.props.pago.idRec.toString()+this.props.pago.concepto;
 
     var conceptoEdit = this.props.pago.concepto;
 
-    document.getElementById(editConcepto).value= conceptoEdit;
-    document.getElementById(editConcepto).disabled = false;
-    document.getElementById(editConcepto).style.background='#F2F2F2';
+    //document.getElementById(editConcepto).value= conceptoEdit;
+    //document.getElementById(editConcepto).disabled = false;
+    //document.getElementById(editConcepto).style.background='#F2F2F2';
 
+    this.setState({
+      desabilitar:false
+    })
+    
 
     var editFecha;
     var fechaEdit = this.props.pago.fecha;
@@ -171,7 +195,12 @@ class PagoRow extends React.Component {
     document.getElementById(editCiclo).disabled = false;
     document.getElementById(editCiclo).style.background='#F2F2F2';
     document.getElementById(editCiclo).focus();
-    }
+
+  
+   //document.getElementById(conceptos)
+   
+  }
+
 
   }
 
@@ -543,13 +572,19 @@ GuardarFecth=()=>{
           </label>
           
         </form> */}
+        
           <Select
-
+            
+            id="conceptos"
+            className="conceptos"
             value={this.state.selectedOption}
             onChange={this.handleChange}
             options={this.props.conceptos}
+            disabled={this.state.desabilitar}
+            //autofocus
 
             />
+           
       </td>
 
       <td className="td">
@@ -590,8 +625,8 @@ GuardarFecth=()=>{
           value={this.state.selectedOption2}
           onChange={this.handleChange2}
           options={this.props.monedas}
-
-
+          disabled={this.state.desabilitar2}
+          
 
 
           />

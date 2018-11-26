@@ -7,7 +7,7 @@ class ConceptoList extends React.Component {
         <p>     
         {
             this.props.listado.map((concepto) => {
-              return <label key={concepto.idConcepto} className="row center-xs">
+              return <label key={concepto.idConcepto} className="">
                 <input
                 className="clase_concepto"
                 name={concepto.concepto}

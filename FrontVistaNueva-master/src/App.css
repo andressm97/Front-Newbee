@@ -41,6 +41,9 @@
 width: 130px !important; /*Aquí va el ancho de la Celda*/
 
 }
+.espacio2{
+  margin-top: 30px !important;
+}
 .scroll{
   overflow: auto;
   height: 280px;

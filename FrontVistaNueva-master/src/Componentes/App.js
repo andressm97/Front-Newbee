@@ -492,7 +492,7 @@ componentDidUpdate(){
               </table>
               <div className="margen_top"> <Paginacion items={this.state.pagocero} onChangePage={this.onChangePage}/></div>
               <div className="row">
-                <div className="col-md-9">
+                <div className="col-md-4">
                   <Importe importe={this.CalcularImporte()} />
                   <ImporteDolar importe={this.CalcularImporteDolar()} />
                 </div>

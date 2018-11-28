@@ -446,11 +446,11 @@ componentDidUpdate(){
                 <h6 align="center" className="negro">{this.state.pagos[0].apeNom}</h6>
               </div>
               <div className=" col-xs-9">
-              <div className="center-xs-12 margen_top">
-                <h5>Filtros</h5>
-                </div>
+              {/* <div className="center-xs-12 margen_top">
+                <h5 className="text-align center">Filtros</h5>
+              </div> */}
                 <div className="SplitPane row">
-                  <div className="inline col-xs-4">
+                  <div className="inline col-xs-3 ">
                     <div>
                     <label>Del:</label>
                     <FiltroFecha1 Fechas={this.SeleccionFechaDel} />
@@ -460,10 +460,17 @@ componentDidUpdate(){
                     <FiltroFecha1 Fechas={this.SeleccionFechaAl} />
                     </div>
                   </div >
-                  <div className="row center-xs-4 block ">
-                    <h4 className=" centrar espacio">Conceptos</h4>
-                    <div className="scroll center-xs ">
-                      <form action="#"><ConceptoList listado={this.state.conceptos} /></form>
+                  <div className="col-xs-3 ">
+                   
+                    <div className="col-xs-12 text-align center">
+                      <h4 className="  espacio">Conceptos</h4>
+                      <div className="scroll center-xs mt-xs-2 ">
+                        <form action="#"><ConceptoList listado={this.state.conceptos} /></form>
+                      </div>
+                    </div>
+                    <div className="col-xs-12 center espacio2">
+                      <button onClick={this.Filtrar}  className="waves-effect waves-light btn-small " type="submit">Filtrar<i className="large material-icons left">filter_list</i></button>
+                      
                     </div>
                   </div>
                   <div className="centrar col-xs-4">
@@ -476,9 +483,9 @@ componentDidUpdate(){
               </div>
 
           </div>
-          <div className="SplitPane row center-xs">
+          {/* <div className="SplitPane row center-xs">
                <button onClick={this.Filtrar}  className="waves-effect waves-light btn-large newbotonFiltrar" type="submit">Filtrar<i className="large material-icons left">filter_list</i></button>
-          </div>
+          </div> */}
           <hr />
 
           <div className="margen2">
@@ -496,7 +503,7 @@ componentDidUpdate(){
               </table>
               <div className="margen_top"> <Paginacion items={this.state.pagocero} onChangePage={this.onChangePage}/></div>
               <div className="row">
-                <div className="col-md-9">
+                <div className="col-md-4">
                   <Importe importe={this.CalcularImporte()} />
                   <ImporteDolar importe={this.CalcularImporteDolar()} />
                 </div>

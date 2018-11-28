@@ -61,14 +61,15 @@ class App extends React.Component {
     this.alumno = '';
     this.importe = 0;
     this.FiltrarFecha = this.FiltrarFecha.bind(this);
-    
+
     this.FiltrarNumeros = this.FiltrarNumeros.bind(this);
     this.filtrarConcepto = this.filtrarConcepto.bind(this);
     this.SeleccionFechaAl = this.SeleccionFechaAl.bind(this);
     this.SeleccionFechaDel = this.SeleccionFechaDel.bind(this);
     this.Filtrar = this.Filtrar.bind(this);
-  
- //   this.arreglosReporte = this.arreglosReporte.bind(this); 
+    this.reporte_ciclo = this.reporte_ciclo.bind(this);
+    this.reporte_credito = this.reporte_credito.bind(this);
+ //   this.arreglosReporte = this.arreglosReporte.bind(this);
 
     this.select = [];
     this.onChangePage = this.onChangePage.bind(this);
@@ -76,7 +77,7 @@ class App extends React.Component {
     this.enviar=this.enviar.bind(this);
     this.Funcion=this.Funcion.bind(this);
     this.Regresar=this.Regresar.bind(this);
-    
+
   }
 componentDidUpdate(){
     if(this.state.estado!=0){
@@ -95,7 +96,7 @@ componentDidUpdate(){
 
                }
              }
-         
+
         }
 
         }
@@ -106,22 +107,22 @@ componentDidUpdate(){
  }
 
   colocar=()=>{
-    
+
     var check=document.getElementById("observacion").checked;
     //console.log(check);
     if(check){
       this.setState({
-      
+
         seleccionado:true
       })
     }
     if(!check){
-    
+
       this.setState({
         seleccionado:false
       })
     }
-    
+
 
   }
 
@@ -150,7 +151,7 @@ componentDidUpdate(){
          datos:listas
        })
        listas.forEach(function(element) {
-         
+
          var e={value:element.concepto,label:element.concepto};
          array.push(e);
        });
@@ -185,7 +186,7 @@ componentDidUpdate(){
           monedas: listas
         })
         listas.forEach(function(element) {
-          
+
           var e={value:element.moneda,label:element.moneda};
           array2.push(e);
         });
@@ -195,10 +196,10 @@ componentDidUpdate(){
     .catch(error=>{
         console.error(error)
     });
-    
+
     console.log("valores de las weas de monedas");
     console.log(array2)
- 
+
     this.setState({
       monedasvl:array2
     })
@@ -235,7 +236,7 @@ componentDidUpdate(){
     var nombresTrans = nombres;
     var pruebita = parseInt(nombresTrans);
 
-   
+
     if(isNaN(pruebita)){
       this.clase=Alumno;
     fetch(CONFIG+'recaudaciones/alumno/concepto/listar/' + nombrenuevo)
@@ -245,11 +246,11 @@ componentDidUpdate(){
       .then((pagos) => {
 
 
-       /*  
+       /*
          console.log("pagos de la consulta de acuerdo el nombre ingresado");
         console.log(pagos); */
         var auxPagos = pagos;
-        
+
       var alumnoDetalle = {
       apeNom: nombreAlumno
       }
@@ -260,15 +261,15 @@ componentDidUpdate(){
         },
 
         );
-        
+
         // console.log("hola");
       var total=this.state.pagocero;
-  
+
      this.state.pagocero.map((pago)=>{
        pago.check=false
      })
       // console.log(this.state.pagocero);
-      
+
       }
     )
       .catch(error => {
@@ -285,12 +286,12 @@ componentDidUpdate(){
         this.setState({
           conceptos: conceptos,
         }
-        );        
+        );
       })
       .catch(error => {
-       
+
         console.error(error)
-      }); 
+      });
 
 
     }
@@ -301,20 +302,20 @@ componentDidUpdate(){
         .then((response)=>{
             return response.json()
         }).then((datos)=>{
-          
-          
+
+
           console.log("datos");
           console.log(datos);
           this.setState({datosformulario: datos})
-      
+
         })
         .catch(error=>{
             console.error(error)
         });
 
 
-        
-        
+
+
 
 
       fetch(CONFIG+'recaudaciones/alumno/concepto/listar_cod/' + nombrenuevo)
@@ -324,14 +325,14 @@ componentDidUpdate(){
       .then((pagos) => {
 
 
-       
+
          console.log("pagos de la consulta de acuerdo el nombre ingresado");
-        
+
          console.log(pagos);
          console.log("UN IDREC");
         // console.log(pagos[1].idRec);
         var auxPagos = pagos;
-        
+
       var alumnoDetalle = {
       apeNom: nombreAlumno
       }
@@ -343,23 +344,33 @@ componentDidUpdate(){
 
         );
         // console.log("hola");
-     //   this.arreglosReporte(this.state.lista_aux);  
+     //   this.arreglosReporte(this.state.lista_aux);
       var total=this.state.pagocero;
-  
+
      this.state.pagocero.map((pago)=>{
        pago.check=false
      })
-      // console.log(this.state.pagocero);
-      
-      fetch(CONFIG+'/beneficio/breporte/' + nombrenuevo+'/'+auxPagos[0].idPrograma)
+      // console.log(this.state.pagocero); colocar=()=>{
+
+      fetch(CONFIG+'beneficio/comprobacion/' + nombrenuevo)//CONFIG+'beneficio/breporte/' + nombrenuevo+'/'+auxPagos[0].idPrograma
       .then((response)=>{
           return response.json()
-      }).then((costos)=>{
-        
+      }).then((comprobacion)=>{//costos
+          console.log("wea");
+          console.log(comprobacion);
+          if(comprobacion ==  1 || comprobacion == 3){
+              console.log("toffe");
+              this.reporte_credito(comprobacion,nombrenuevo,auxPagos);
+          }
+          else {
+              console.log("oso");
+              this.reporte_ciclo(nombrenuevo,auxPagos);
+          }
+/*
         console.log("costos");
         console.log(costos);
         this.setState({costosP: costos})
-    
+*/
       })
       .catch(error=>{
           console.error(error)
@@ -386,35 +397,35 @@ componentDidUpdate(){
         this.setState({
           conceptos: conceptos
         },
-      
 
-        );  
-    
+
+        );
+
       })
       .catch(error => {
-       
+
         console.error(error)
-      });   
+      });
 
 
-  
+
     }
-    
+
 
   }
 
 
   Regresar=(e)=>{
-    
+
     browserHistory.push('/');
     e.preventDefault();
- 
+
   }
 
   render() {
     if (this.state.pagos.length > 0) {
       return (
-        
+
         <div className="">
         {this.state.aparecer?(
         <div>
@@ -422,12 +433,12 @@ componentDidUpdate(){
           <ul id="nav-mobile" className=" row right  hide-on-med-and-down">
               <li ><a className="seleccionar col" onClick={this.enviarFormulario} >Revisar Beneficio<i className="material-icons right">edit</i></a></li>
               <li ><a className="seleccionar col" onClick={this.Regresar} >Regresar<i className="material-icons right">reply</i></a></li>
-              
+
           </ul>
           </h3>
           <hr/>
-          
-          
+
+
             <div className="SplitPane row">
               <div className=" col-xs-3">
                 <this.clase alumno={this.state.alumno} />
@@ -469,14 +480,14 @@ componentDidUpdate(){
                <button onClick={this.Filtrar}  className="waves-effect waves-light btn-large newbotonFiltrar" type="submit">Filtrar<i className="large material-icons left">filter_list</i></button>
           </div>
           <hr />
-          
+
           <div className="margen2">
             <button onClick={this.seleccionar} className="waves-effect waves-light btn-small newbotonSeleccionar start">
             Seleccionar todo<i className="large material-icons left">check</i>
             </button>
-            
-            </div>                         
-        
+
+            </div>
+
           <div className="SplitPane row center-xs arribaSube">
             <div className="  center-xs-12">
               <table className=" total table  table-condensed table-striped ">
@@ -492,7 +503,7 @@ componentDidUpdate(){
                 <div className="col-md-3">
                 {/* <form action="#">
                     <label className="row  ">
-            
+
                       <input
                         onClick="{this.colocar}"
                         className="align-self-center"
@@ -500,24 +511,24 @@ componentDidUpdate(){
                         type="checkbox" />
                         <span> observacion</span>
 
-                     
-        
-                        
-                        
+
+
+
+
                         </label>
-                    
+
                   </form> */}
-                  
+
                   <div>
                   {/* <button  onClick={this.enviar2} listado={this.state.pagocero} className="waves-effect waves-light btn-large botonazul2">Editar<i className="large material-icons left">border_color</i></button>     */}
-                  
+
                   </div>
                 </div>
                 <div className="col-md-8 "></div>
                 <div className="col-md-1 ">
                 <form action="#">
                     <label className="row  ">
-            
+
                       <input
                         onClick={this.colocar}
                         id="observacion"
@@ -526,18 +537,18 @@ componentDidUpdate(){
                         type="checkbox" />
                         <span>observacion </span>
 
-                     
-        
-                        
-                        
+
+
+
+
                         </label>
-                    
+
                   </form>
-                
+
                 </div>
                 <div className="col-md-3">
-                 
-                  <Imprimir2 onClick={this.enviar}  seleccionado={this.state.seleccionado} listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno} costos={this.state.costosP} datos={this.state.datosformulario}/> 
+
+                  <Imprimir2 onClick={this.enviar}  seleccionado={this.state.seleccionado} listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno} costos={this.state.costosP} datos={this.state.datosformulario}/>
                 </div>
 
 
@@ -547,7 +558,7 @@ componentDidUpdate(){
           </div>
         </div>
           ):(
-         
+
             <div>
               <div className="">
                     <h3>
@@ -559,37 +570,37 @@ componentDidUpdate(){
                     </h3>
                 </div>
 
-              <FormularioIntermio codigo={this.state.name} idprograma={this.state.pagos[0].idPrograma} />  
+              <FormularioIntermio codigo={this.state.name} idprograma={this.state.pagos[0].idPrograma} />
             </div>
-          
+
 
           // <div>
           //     <h3>Editable
           // <ul id="nav-mobile" className="right  hide-on-med-and-down"></ul>
           // </h3>
           // <hr/>
-          
+
           // <div className="SplitPane row center-xs">
           //   <div className="  center-xs-12">
           //     <table className=" total table ">
-          //       <ComponenteEditable  listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno}/>    
-          //     </table> 
-          //       <div className = "row"> 
+          //       <ComponenteEditable  listado={this.state.pagocero} conceptos={this.state.conceptos} alumno={this.state.alumno}/>
+          //     </table>
+          //       <div className = "row">
           //       <div className="col-md-6">
-          //             <button  onClick={this.enviar2}  className="waves-effect waves-light btn-large botonazul2" type="submit">Regresar<i className="large material-icons left">arrow_back</i></button>    
+          //             <button  onClick={this.enviar2}  className="waves-effect waves-light btn-large botonazul2" type="submit">Regresar<i className="large material-icons left">arrow_back</i></button>
           //             </div>
           //         </div>
           //       </div>
           //     </div>
           // </div>
           )
-          
+
         }
-         
+
            <footer>
             <div className="row center-xs centrar color">
             <img src="https://png.icons8.com/ios/1600/hachiko.png" height="25"/>
-            #HachikoNight © 2018 
+            #HachikoNight © 2018
             </div>
             </footer>
 
@@ -599,8 +610,10 @@ componentDidUpdate(){
       return <p className="text-center">Cargando estado de pagos de alumno</p>
     }
   }
+
+
 //obtenemos la fecha del componente FILTROFECHA1
-Filtrar=(e)=>{ 
+Filtrar=(e)=>{
   var concep = [];
   concep = this.SeleccionConceptos();
   var filtrodel = this.state.filtroDel;
@@ -659,14 +672,14 @@ Filtrar=(e)=>{
   },
   method: "POST",
   body: JSON.stringify(
-    { 
+    {
       "nom_ape": nombrenuevoFiltro,
       "fechaInicial": filtrodel,
       "fechaFinal": filtroal,
       "conceptos": concep,
       "recibos":this.state.filtroNumeros
     }
-    
+
   )
 }
 ).then((response) => {
@@ -674,7 +687,7 @@ return response.json()
 })
 .then((pagos) => {
 if(pagos.length > 0){
-  
+
 this.setState({
   pagocero: pagos
 });
@@ -693,7 +706,7 @@ swal("Oops, Algo salió mal!!", "","error")
 console.error(error)
 });
 
-  
+
 
 }
 
@@ -702,16 +715,16 @@ console.error(error)
 
 
   SeleccionFechaDel(Fecha) {
-    
+
     var fecha1 = new String(Fecha);
     this.setState({filtroDel: fecha1});
-    
+
   }
   SeleccionFechaAl(Fecha) {
-   
+
     var fecha1 = new String(Fecha);
     this.setState({filtroAl: fecha1});
-    
+
   }
   SeleccionConceptos(){
 
@@ -730,7 +743,7 @@ console.error(error)
     }
 
    // console.log(checkbox_seleccionados);
-   
+
     return checkbox_seleccionados;
 
   }
@@ -750,11 +763,11 @@ seleccionar(){
   var checks=document.getElementsByClassName("checkbox1");
   for (let i=0;i<checks.length;i++) {
             if(this.state.todos==false){
-              checks[i].checked=true; 
+              checks[i].checked=true;
             }
             else{
-              checks[i].checked=false; 
-            }    
+              checks[i].checked=false;
+            }
 }
  if(this.state.todos==false){
           this.setState({
@@ -770,7 +783,7 @@ seleccionar(){
           this.state.pagocero.map((pago)=>{
             pago.check=false;
           })
-        }           
+        }
 }
 
 
@@ -779,7 +792,7 @@ enviarFormulario=(e)=>{
     this.setState({
       aparecer:false,
     });
-    
+
   }
 
   else{
@@ -790,7 +803,31 @@ enviarFormulario=(e)=>{
   }
 
 }
+reporte_credito(idx,nombrenuevo,auxPagos){
+     fetch(CONFIG+'beneficio/breporte_cr/' + nombrenuevo+'/'+auxPagos[0].idPrograma+"/"+idx)
+     .then((response)=>{
+         return response.json();
+     }).then((costos)=>{
+         console.log("costos");
+         console.log(costos);
+         this.setState({costosP: costos})
+     }) .catch(error=>{
+          console.error(error)
+      });
+ }
 
+ reporte_ciclo(nombrenuevo,auxPagos){
+      fetch(CONFIG+'beneficio/breporte_ci/' + nombrenuevo+'/'+auxPagos[0].idPrograma)
+      .then((response)=>{
+          return response.json();
+      }).then((costos)=>{
+          console.log("costos");
+          console.log(costos);
+          this.setState({costosP: costos})
+      }) .catch(error=>{
+           console.error(error)
+       });
+  }
 
 enviar(){
    console.log("lo que envio:");
@@ -802,7 +839,7 @@ enviar2=(e)=>{
   console.log(this.state.pagocero);
   let flac=false;
   for(let i=0;i<this.state.pagocero.length;i++){
-    
+
     if(this.state.pagocero[i].check==true){
       flac=true;break
     }
@@ -816,7 +853,7 @@ enviar2=(e)=>{
     this.setState({
       aparecer:false,
     });
-   
+
   }
   else{
     this.setState({
@@ -832,7 +869,7 @@ else{
 }
 
 CalcularImporteDolar() {
-    
+
   let pagos = this.state.pagocero;
   let importe = 0;
   console.log("ESTOS SON LOS PAGOS BIEN CHIDORIS");
@@ -845,7 +882,7 @@ CalcularImporteDolar() {
 }
 
 CalcularImporte() {
-    
+
     let pagos = this.state.pagocero;
     let importe = 0;
     console.log("ESTOS SON LOS PAGOS BIEN CHIDORIS");
@@ -865,19 +902,19 @@ FiltrarFecha(Fechas) {
       filtroDel: del,
       filtroAL : al
     })
-    
+
   }
 
   FiltrarNumeros = (listaNumeros) => {
     this.setState({
       filtroNumeros: listaNumeros
      })
- 
+
   }
 
 
   onChangePage(pageOfItems) {
-    
+
    var total=[];
    var checkbox_selec=[];
    var checks=document.getElementsByClassName("checkbox1");
@@ -885,7 +922,7 @@ FiltrarFecha(Fechas) {
    checks_normales.map((checkbox)=>{
      if(checkbox.checked){
        checkbox_selec.push(checkbox.id);
-       
+
      }
    });
 
@@ -898,13 +935,13 @@ FiltrarFecha(Fechas) {
     }
  }
     // update state with new page of items
-    this.setState({ 
+    this.setState({
       checkbox_:total,
       pageOfItems: pageOfItems });
 
      console.log(pageOfItems)
   }
-  
+
 
   filtrarConcepto = (filtrado) => {
     //console.log(filtrado);
@@ -956,7 +993,7 @@ FiltrarFecha(Fechas) {
     var filtrofinal = [];
     var listaNumeros_seleccionados = numero_codigos;
     if (listaNumeros_seleccionados.length == 0) {
-      
+
       this.setState({
         pagocero: arrayfiltrado
       })
@@ -965,7 +1002,7 @@ FiltrarFecha(Fechas) {
     }
     else {
       if (arrayfiltrado.length == 0) {
-        
+
         this.setState({
           pagocero: arrayfiltrado
         })
@@ -994,14 +1031,14 @@ FiltrarFecha(Fechas) {
           })
         }
 /*
-       
+
         console.log(arrayfiltrado);
         console.log(this.state.pagocero);*/
 
       }
     }
 
-    
+
 
   }
 }

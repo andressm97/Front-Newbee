@@ -358,13 +358,21 @@ componentDidUpdate(){
       }).then((comprobacion)=>{//costos
           console.log("wea");
           console.log(comprobacion);
-          if(comprobacion ==  1 || comprobacion == 3){
-              console.log("toffe");
+          if(comprobacion ==  1 ){
+              //console.log("toffe");
               this.reporte_credito(comprobacion,nombrenuevo,auxPagos);
           }
-          else {
-              console.log("oso");
-              this.reporte_ciclo(nombrenuevo,auxPagos);
+          else if(comprobacion == 2) {
+              //console.log("oso");
+              this.reporte_ciclo(nombrenuevo,auxPagos,2);
+          }
+          else if(comprobacion == 3){
+               if(comprobacion.tipo == "por ciclo"){
+                   this.reporte_ciclo(nombrenuevo,auxPagos,0);
+               }
+               else{
+                   this.reporte_credito(comprobacion,nombrenuevo,auxPagos);
+               }
           }
 /*
         console.log("costos");
@@ -461,7 +469,7 @@ componentDidUpdate(){
                     </div>
                   </div >
                   <div className="col-xs-3 ">
-                   
+
                     <div className="col-xs-12 text-align center">
                       <h4 className="  espacio">Conceptos</h4>
                       <div className="scroll center-xs mt-xs-2 ">
@@ -470,7 +478,7 @@ componentDidUpdate(){
                     </div>
                     <div className="col-xs-12 center espacio2">
                       <button onClick={this.Filtrar}  className="waves-effect waves-light btn-small " type="submit">Filtrar<i className="large material-icons left">filter_list</i></button>
-                      
+
                     </div>
                   </div>
                   <div className="centrar col-xs-4">
@@ -823,8 +831,8 @@ reporte_credito(idx,nombrenuevo,auxPagos){
       });
  }
 
- reporte_ciclo(nombrenuevo,auxPagos){
-      fetch(CONFIG+'beneficio/breporte_ci/'+ nombrenuevo+'/'+auxPagos[0].idPrograma)
+ reporte_ciclo(nombrenuevo,auxPagos,idx){
+      fetch(CONFIG+'beneficio/breporte_ci/'+ nombrenuevo+'/'+auxPagos[0].idPrograma+"/"+idx)
       .then((response)=>{
           return response.json();
       }).then((costos)=>{

@@ -11,7 +11,9 @@
 }
 
 
-
+.tfuente{
+  font-size: 15px !important;
+}
 ::placeholder { 
   color: black;
   text-align: center;

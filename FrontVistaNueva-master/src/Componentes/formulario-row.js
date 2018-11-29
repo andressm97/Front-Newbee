@@ -26,8 +26,8 @@ class FormularioRow extends React.Component{
              <td className="td">{this.props.lista.benef_otrogado}</td>
              <td className="td">
                 <form action="#">
-                    <label className="row center-xs color_white">
-                    <button type="submit" onClick={this.enviarFormulario}   className="btn btn-primary btn-lg">EDITAR</button>
+                    <label className=" ">
+                    <button type="submit" onClick={this.enviarFormulario}   className="btn btn-primary btn-small">EDITAR</button>
                     </label>
 
                     </form>

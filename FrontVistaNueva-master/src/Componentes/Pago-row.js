@@ -576,7 +576,7 @@ GuardarFecth=()=>{
 
       <td className="td">
         <form action="#">
-          <label className="row center-xs color_white">
+          <label className="center-xs color_white">
             <input
               id={this.props.pago.idRec.toString()+"250296"}
               placeholder = {this.props.pago.ciclo}
@@ -617,7 +617,7 @@ GuardarFecth=()=>{
       <td className="td">
 
       <form action="#">
-          <label className="row center-xs color_white">
+          <label className="center-xs color_white">
             <input
               name={this.props.pago.idRec.toString()+this.props.pago.numero}
               placeholder= {this.props.pago.numero}
@@ -633,7 +633,7 @@ GuardarFecth=()=>{
 
       <td className="td">
         <form action="#">
-          <label className="row center-xs color_white">
+          <label className=" center-xs color_white">
             <input
               name={this.props.pago.idRec.toString()+this.props.pago.idAlum.toString()}
               placeholder={this.props.pago.fecha.replace(/^(\d{4})-(\d{2})-(\d{2})$/g,'$3-$2-$1')}

@@ -505,7 +505,7 @@ componentDidUpdate(){
 
           <div className="SplitPane row center-xs arribaSube">
             <div className="  center-xs-12">
-              <table className=" total table  table-condensed table-striped ">
+              <table className="  table   ">
                 <TableHeader   />
                 <PagoList funcion={this.Funcion} listado={this.state.pageOfItems}  conceptos={this.state.concepto} datos={this.state.datos} datosMonedas={this.state.monedas}  monedas={this.state.monedasvl}/>
               </table>
@@ -542,7 +542,7 @@ componentDidUpdate(){
                 <div className="col-md-8 "></div>
                 <div className="col-md-1 ">
                 <form action="#">
-                    <label className="row  ">
+                    <label className="row tfuente ">
 
                       <input
                         onClick={this.colocar}
@@ -550,7 +550,7 @@ componentDidUpdate(){
                         className="obs"
 
                         type="checkbox" />
-                        <span>observacion </span>
+                        <span className="tfuente">observacion </span>
 
 
 

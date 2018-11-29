@@ -700,16 +700,6 @@ console.log(listadoFinalBeneficio);
 
     doc.setFont("helvetica");
     doc.setFontType("bold");
-    doc.setFontSize(9);
-    doc.text("Derecho Enseñanza", 35, 290);
-
-    doc.setFont("helvetica");
-    doc.setFontType("bold");
-    doc.setFontSize(9);
-    doc.text("Total", 35, 310);
-
-    doc.setFont("helvetica");
-    doc.setFontType("bold");
     doc.setFontSize(8);
     doc.text(":", 140, 250);
 
@@ -796,8 +786,30 @@ console.log(listadoFinalBeneficio);
       doc.text("", 620, 350); //AQUI VA EL TOTAL DEL COSTO FINAL
     }
 
-}else{  // supongo que en este else, por algun lado, va la wea del ciclo
+    doc.setFont("helvetica");
+      doc.setFontType("bold");
+      doc.setFontSize(9);
+      doc.text("Derecho Enseñanza", 500, 290);
 
+      doc.setFont("helvetica");
+      doc.setFontType("bold");
+      doc.setFontSize(9);
+      doc.text("Derecho Enseñanza", 35, 290);
+  
+      doc.setFont("helvetica");
+      doc.setFontType("bold");
+      doc.setFontSize(9);
+      doc.text("Total", 35, 310);
+
+      doc.setFont("helvetica");
+    doc.setFontType("bold");
+    doc.setFontSize(9);
+    doc.text("Total", 500, 310);
+
+
+
+}else{  // supongo que en este else, por algun lado, va la wea del ciclo
+    //AQUI ES EL ELSE DEL POR CREDITO :vV
       doc.setFont("helvetica");
       doc.setFontType("bold");
       doc.setFontSize(9);
@@ -819,6 +831,51 @@ console.log(listadoFinalBeneficio);
         doc.setFontSize(9);
         doc.text("", 620, 330); //AQUI VA EL TOTAL DEL COSTO FINAL
       }
+
+      if(ciclo!=null){
+        doc.setFont("helvetica");
+        doc.setFontType("normal");
+        doc.setFontSize(9);
+       doc.text("S/. "+ciclo.toString(), 180, 290); //AQUI VA EL TOTAL DEL COSTO FINAL
+      }else{
+        doc.setFont("helvetica");
+        doc.setFontType("normal");
+        doc.setFontSize(9);
+        doc.text("", 620, 330); //AQUI VA EL TOTAL DEL COSTO FINAL
+      }
+
+      if(d_ciclo!=null){
+        doc.setFont("helvetica");
+        doc.setFontType("normal");
+        doc.setFontSize(9);
+        doc.text("S/. "+d_ciclo.toString(), 620, 290); //AQUI VA EL TOTAL DEL COSTO FINAL
+      }else{
+        doc.setFont("helvetica");
+        doc.setFontType("normal");
+        doc.setFontSize(9);
+        doc.text("", 620, 290); //AQUI VA EL TOTAL DEL COSTO FINAL
+      }
+
+      doc.setFont("helvetica");
+      doc.setFontType("bold");
+      doc.setFontSize(9);
+      doc.text("Descuento Ciclo", 500, 290);
+
+      doc.setFont("helvetica");
+      doc.setFontType("bold");
+      doc.setFontSize(9);
+      doc.text("Ciclo", 35, 290);
+  
+      doc.setFont("helvetica");
+      doc.setFontType("bold");
+      doc.setFontSize(9);
+      doc.text("Derecho Enseñanza", 35, 310);
+
+      doc.setFont("helvetica");
+    doc.setFontType("bold");
+    doc.setFontSize(9);
+    doc.text("Derecho Enseñanza", 500, 310);
+
 
     }
 
@@ -886,16 +943,6 @@ console.log(listadoFinalBeneficio);
     doc.setFontType("bold");
     doc.setFontSize(9);
     doc.text("Matricula EPG", 500, 270);
-
-    doc.setFont("helvetica");
-    doc.setFontType("bold");
-    doc.setFontSize(9);
-    doc.text("Derecho Enseñanza", 500, 290);
-
-    doc.setFont("helvetica");
-    doc.setFontType("bold");
-    doc.setFontSize(9);
-    doc.text("Total", 500, 310);
 
     doc.setFont("helvetica");
     doc.setFontType("bold");

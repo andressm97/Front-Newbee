@@ -824,7 +824,7 @@ reporte_credito(idx,nombrenuevo,auxPagos){
  }
 
  reporte_ciclo(nombrenuevo,auxPagos){
-      fetch(CONFIG+'beneficio/breporte_ci/' + nombrenuevo+'/'+auxPagos[0].idPrograma)
+      fetch(CONFIG+'beneficio/breporte_ci/'+ nombrenuevo+'/'+auxPagos[0].idPrograma)
       .then((response)=>{
           return response.json();
       }).then((costos)=>{

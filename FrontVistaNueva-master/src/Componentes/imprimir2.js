@@ -41,21 +41,41 @@ class Imprimir2 extends React.Component {
     doc.save('Test.pdf');
 }
 
-  comita(importecito2){
-      if(importecito2.length==4){
-        var importecito = importecito2.substr(0,1)+','+importecito2.substr(1,3);
-      }else if(importecito2.length==5){
-        var importecito = importecito2.substr(0,2)+','+importecito2.substr(2,3);
-      }else if(importecito2.length==6){
-        var importecito = importecito2.substr(0,3)+','+importecito2.substr(3,3);
-      }else if(importecito2.length==7){
-        var importecito = importecito2.substr(0,1)+','+importecito2.substr(1,3)+','+importecito2.substr(4,3); //NUNCA VA LLEGAR A ESTO WE
-      }
-      else{
-        return importecito2;
-      }
-        return importecito;
-  }
+    comita(importecito2){
+
+        var trans = 0;
+        for (var i = 0; i < importecito2.length; i++) {
+              if(importecito2.charAt(i) == '.'){
+                  trans = importecito2.length-i;
+                  //console.log("trans "+trans+" "+i+" "+importecito2+" "+importecito2.length);
+              }
+        }
+
+        if(importecito2.length==(4+trans)){
+            trans = this.numerasos(trans);
+            var importecito = importecito2.substr(0,1)+','+importecito2.substr(1,(3+trans));//console.log(importecito);
+          }else if(importecito2.length==(5+trans)){
+              trans = this.numerasos(trans);
+              var importecito = importecito2.substr(0,2)+','+importecito2.substr(2,(3+trans));//console.log(importecito);
+          }else if(importecito2.length==(6+trans)){
+              trans = this.numerasos(trans);
+              var importecito = importecito2.substr(0,3)+','+importecito2.substr(3,(3+trans));//console.log(importecito);
+          }else if(importecito2.length==(7+trans)){
+              trans = this.numerasos(trans);
+              var importecito = importecito2.substr(0,1)+','+importecito2.substr(1,3)+','+importecito2.substr(4,(3+trans)); //NUNCA VA LLEGAR A ESTO WE
+            }
+            else{//console.log(importecito2);
+              return importecito2;
+          }//console.log(importecito+" :v");
+          return importecito;
+    }
+
+    numerasos(trans){
+        if(trans > 3){
+            trans = 2;
+        }
+        return trans;
+    }
 
   arreglosReporte(con,pag){
         var lista = [];

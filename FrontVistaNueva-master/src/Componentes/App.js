@@ -503,16 +503,20 @@ componentDidUpdate(){
 
             </div>
 
-          <div className="SplitPane row center-xs arribaSube">
-            <div className="  center-xs-12">
-              <table className="  table   ">
+          <div className="row">
+            <div className="  col-md-12">
+              <table className="table-small">
                 <TableHeader   />
                 <PagoList funcion={this.Funcion} listado={this.state.pageOfItems}  conceptos={this.state.concepto} datos={this.state.datos} datosMonedas={this.state.monedas}  monedas={this.state.monedasvl}/>
               </table>
               <div className="margen_top"> <Paginacion items={this.state.pagocero} onChangePage={this.onChangePage}/></div>
               <div className="row">
-                <div className="col-md-4">
+                <div className="col-md-7">
                   <Importe importe={this.CalcularImporte()} />
+                  {/* <ImporteDolar importe={this.CalcularImporteDolar()} /> */}
+                </div>
+                <div className="col-md-7">
+                
                   <ImporteDolar importe={this.CalcularImporteDolar()} />
                 </div>
                 <div className="col-md-3">

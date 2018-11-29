@@ -36,8 +36,8 @@ render(){
         <tr>
              <td className="td">
             <form action="#">
-                <label className="row center-xs color_white">
-                <button type="submit" onClick={this.validar} className="btn btn-primary btn-lg">CONSULTAR</button>
+                <label className="center-xs ">
+                <button type="submit" onClick={this.validar} className="btn btn-primary btn-small">CONSULTAR</button>
                 
                 <span></span>
                 

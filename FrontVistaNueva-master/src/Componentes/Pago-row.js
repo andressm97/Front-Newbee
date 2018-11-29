@@ -20,7 +20,8 @@ class PagoRow extends React.Component {
       selectedOption2:null,
       idconcepto:'',
       idmoneda:'',
-      array:this.props.datos
+      array:this.props.datos,
+      moneda:'',
     }
 }
 
@@ -39,7 +40,19 @@ class PagoRow extends React.Component {
       idconcepto : this.idconcepto(this.props.pago.concepto),
       selectedOption2:{value:this.props.pago.moneda2,label:this.props.pago.moneda2},
       idmoneda : this.idmoneda(this.props.pago.moneda2)
+
     });
+
+    if(this.props.pago.moneda2=='DOL'){
+      this.setState({
+        moneda:'$. '
+      })
+    }
+    else{
+      this.setState({
+        moneda:'S/. '
+      })
+    }
       
   }
 
@@ -103,6 +116,20 @@ class PagoRow extends React.Component {
     this.setState({ selectedOption2:selectedOption ,
       idmoneda: this.idmoneda(selectedOption.value)
     });
+
+    if(selectedOption.value=='DOL'){
+      this.setState({
+        moneda:'$. '
+      })
+    }
+    else{
+      this.setState({
+        moneda:'S/. '
+      })
+
+    }
+
+
     // console.log(`Option selected:`, selectedOption);
     // console.log("idconcepto : "+this.idmoneda(selectedOption.value));
     }else{
@@ -631,7 +658,7 @@ GuardarFecth=()=>{
 
           />
       </td>
-      <td className="td">{'S/. '+this.props.pago.importe}</td>
+      <td className="td">{this.state.moneda+this.props.pago.importe}</td>
 
       <td className="td">
         <button

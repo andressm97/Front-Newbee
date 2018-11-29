@@ -141,18 +141,18 @@ class Imprimir2 extends React.Component {
 
 
     //DATOS DEL COSTO
-    var costoTotal = "";
-    var costoEPG = "";
-    var costoUPG = "";
-    var dcostoTotal = "";
-    var dcostoEPG = "";
-    var dcostoUPG = "";
-    var costo_TOTAL = "";
-    var dcosto_TOTAL = "";
-    var costo_tipo = "";
-    var costo_credito = "";
-    var costo_credito_d = "";
-    var creditos = "";
+    var costoTotal = null;
+    var costoEPG = null;
+    var costoUPG = null;
+    var dcostoTotal = null;
+    var dcostoEPG =null;;
+    var dcostoUPG = null;
+    var costo_TOTAL =null;;
+    var dcosto_TOTAL = null;
+    var costo_tipo =null;;
+    var costo_credito =null;;
+    var costo_credito_d =null;;
+    var creditos =null;;
 
     var ciclo = "";
     var d_ciclo = "";
@@ -846,7 +846,7 @@ console.log(listadoFinalBeneficio);
         doc.setFont("helvetica");
         doc.setFontType("normal");
         doc.setFontSize(9);
-       doc.text("S/. "+ciclo.toString(), 180, 290); //AQUI VA EL TOTAL DEL COSTO FINAL
+       doc.text("S/. "+ciclo.toString(), 160, 290); //AQUI VA EL TOTAL DEL COSTO FINAL
       }else{
         doc.setFont("helvetica");
         doc.setFontType("normal");
@@ -869,22 +869,22 @@ console.log(listadoFinalBeneficio);
       doc.setFont("helvetica");
       doc.setFontType("bold");
       doc.setFontSize(9);
-      doc.text("Descuento Ciclo", 500, 290);
+      doc.text("Derecho Enseñanza", 500, 290);
 
       doc.setFont("helvetica");
       doc.setFontType("bold");
       doc.setFontSize(9);
-      doc.text("Ciclo", 35, 290);
+      doc.text("Derecho Enseñanza", 35, 290);
 
       doc.setFont("helvetica");
       doc.setFontType("bold");
       doc.setFontSize(9);
-      doc.text("Derecho Enseñanza", 35, 310);
+      doc.text("Total", 35, 310);
 
       doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(9);
-    doc.text("Derecho Enseñanza", 500, 310);
+    doc.text("Total", 500, 310);
 
 
     }

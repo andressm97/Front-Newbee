@@ -682,12 +682,12 @@ console.log(listadoFinalBeneficio);
     doc.setFontType("bold");
     doc.setFontSize(11);
     doc.text("Datos del Costo del Programa", 37, 210);
-
+/*
     doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(9);
     doc.text("Costo Real", 35, 230);
-
+*/
     doc.setFont("helvetica");
     doc.setFontType("bold");
     doc.setFontSize(9);
@@ -719,6 +719,11 @@ console.log(listadoFinalBeneficio);
     doc.text(":", 140, 310);
 
     if(costo_tipo=="por credito"){
+
+        doc.setFont("helvetica");
+        doc.setFontType("bold");
+        doc.setFontSize(9);
+        doc.text("Costo Real", 35, 230);
 
       doc.setFont("helvetica");
       doc.setFontType("bold");
@@ -795,7 +800,7 @@ console.log(listadoFinalBeneficio);
       doc.setFontType("bold");
       doc.setFontSize(9);
       doc.text("Derecho Enseñanza", 35, 290);
-  
+
       doc.setFont("helvetica");
       doc.setFontType("bold");
       doc.setFontSize(9);
@@ -810,6 +815,11 @@ console.log(listadoFinalBeneficio);
 
 }else{  // supongo que en este else, por algun lado, va la wea del ciclo
     //AQUI ES EL ELSE DEL POR CREDITO :vV
+        doc.setFont("helvetica");
+        doc.setFontType("bold");
+        doc.setFontSize(9);
+        doc.text("Costo Real(Ciclo)", 35, 230);
+
       doc.setFont("helvetica");
       doc.setFontType("bold");
       doc.setFontSize(9);
@@ -865,7 +875,7 @@ console.log(listadoFinalBeneficio);
       doc.setFontType("bold");
       doc.setFontSize(9);
       doc.text("Ciclo", 35, 290);
-  
+
       doc.setFont("helvetica");
       doc.setFontType("bold");
       doc.setFontSize(9);

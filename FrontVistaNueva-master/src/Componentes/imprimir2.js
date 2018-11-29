@@ -72,7 +72,7 @@ class Imprimir2 extends React.Component {
 
     numerasos(trans){
         if(trans > 3){
-            trans = 2;
+            trans = 3;
         }
         return trans;
     }

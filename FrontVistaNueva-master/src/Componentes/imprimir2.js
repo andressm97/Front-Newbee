@@ -846,7 +846,7 @@ console.log(listadoFinalBeneficio);
         doc.setFont("helvetica");
         doc.setFontType("normal");
         doc.setFontSize(9);
-       doc.text("S/. "+ciclo.toString(), 160, 290); //AQUI VA EL TOTAL DEL COSTO FINAL
+       doc.text("S/. "+this.comita(ciclo.toString()), 160, 290); //AQUI VA EL TOTAL DEL COSTO FINAL
       }else{
         doc.setFont("helvetica");
         doc.setFontType("normal");
@@ -858,7 +858,7 @@ console.log(listadoFinalBeneficio);
         doc.setFont("helvetica");
         doc.setFontType("normal");
         doc.setFontSize(9);
-        doc.text("S/. "+d_ciclo.toString(), 620, 290); //AQUI VA EL TOTAL DEL COSTO FINAL
+        doc.text("S/. "+this.comita(d_ciclo.toString()), 620, 290); //AQUI VA EL TOTAL DEL COSTO FINAL
       }else{
         doc.setFont("helvetica");
         doc.setFontType("normal");
@@ -894,7 +894,7 @@ console.log(listadoFinalBeneficio);
       doc.setFont("helvetica");
       doc.setFontType("normal");
       doc.setFontSize(9);
-      doc.text("S/. "+costoUPG.toString(), 160, 250); //AQUI VA LA MATRICULA UPG DEL COSTO REAL
+      doc.text("S/. "+this.comita(costoUPG.toString()), 160, 250); //AQUI VA LA MATRICULA UPG DEL COSTO REAL
     }else{
       doc.setFont("helvetica");
       doc.setFontType("normal");
@@ -906,7 +906,7 @@ console.log(listadoFinalBeneficio);
       doc.setFont("helvetica");
       doc.setFontType("normal");
       doc.setFontSize(9);
-      doc.text("S/. "+costoEPG.toString(), 160, 270); //AQUI VA LA MATRICULA EPG DEL COSTO REAL
+      doc.text("S/. "+this.comita(costoEPG.toString()), 160, 270); //AQUI VA LA MATRICULA EPG DEL COSTO REAL
     }else{
       doc.setFont("helvetica");
       doc.setFontType("normal");
@@ -918,7 +918,7 @@ console.log(listadoFinalBeneficio);
       doc.setFont("helvetica");
       doc.setFontType("normal");
       doc.setFontSize(9);
-      doc.text("S/. "+costoTotal.toString(), 160, 290); //AQUI VA EL DERECHO DE ENSEÑANZA DEL COSTO REAL
+      doc.text("S/. "+this.comita(costoTotal.toString()), 160, 290); //AQUI VA EL DERECHO DE ENSEÑANZA DEL COSTO REAL
     }else{
       doc.setFont("helvetica");
       doc.setFontType("normal");
@@ -930,7 +930,7 @@ console.log(listadoFinalBeneficio);
       doc.setFont("helvetica");
       doc.setFontType("normal");
       doc.setFontSize(9);
-      doc.text("S/. "+costo_TOTAL.toString(), 160, 310); //AQUI VA EL TOTAL DEL COSTO REAL
+      doc.text("S/. "+this.comita(costo_TOTAL.toString()), 160, 310); //AQUI VA EL TOTAL DEL COSTO REAL
     }else{
       doc.setFont("helvetica");
       doc.setFontType("normal");
@@ -979,7 +979,7 @@ console.log(listadoFinalBeneficio);
       doc.setFont("helvetica");
       doc.setFontType("normal");
       doc.setFontSize(9);
-      doc.text("S/. "+dcostoUPG.toString(), 620, 250); //AQUI VA LA MATRICULA UPG DEL COSTO FINAL
+      doc.text("S/. "+this.comita(dcostoUPG.toString()), 620, 250); //AQUI VA LA MATRICULA UPG DEL COSTO FINAL
     }else{
       doc.setFont("helvetica");
       doc.setFontType("normal");
@@ -991,7 +991,7 @@ console.log(listadoFinalBeneficio);
       doc.setFont("helvetica");
       doc.setFontType("normal");
       doc.setFontSize(9);
-      doc.text("S/. "+dcostoEPG.toString(), 620, 270); //AQUI VA LA MATRICULA EPG DEL COSTO FINAL
+      doc.text("S/. "+this.comita(dcostoEPG.toString()), 620, 270); //AQUI VA LA MATRICULA EPG DEL COSTO FINAL
     }else{
       doc.setFont("helvetica");
       doc.setFontType("normal");
@@ -1004,7 +1004,7 @@ console.log(listadoFinalBeneficio);
       doc.setFont("helvetica");
       doc.setFontType("normal");
       doc.setFontSize(9);
-      doc.text("S/. "+dcostoTotal.toString(), 620, 290); //AQUI VA EL DERECHO DE ENSEÑANZA DEL COSTO FINAL
+      doc.text("S/. "+this.comita(dcostoTotal.toString()), 620, 290); //AQUI VA EL DERECHO DE ENSEÑANZA DEL COSTO FINAL
     }else{
       doc.setFont("helvetica");
       doc.setFontType("normal");
@@ -1016,7 +1016,7 @@ console.log(listadoFinalBeneficio);
       doc.setFont("helvetica");
       doc.setFontType("normal");
       doc.setFontSize(9);
-      doc.text("S/. "+dcosto_TOTAL.toString(), 620, 310); //AQUI VA EL TOTAL DEL COSTO FINAL
+      doc.text("S/. "+this.comita(dcosto_TOTAL.toString()), 620, 310); //AQUI VA EL TOTAL DEL COSTO FINAL
     }else{
       doc.setFont("helvetica");
       doc.setFontType("normal");

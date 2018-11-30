@@ -158,7 +158,7 @@ Asignar=(e)=>{
 */
     for (let i = 0; i < pagoinsertar.length; i++) {
       //llamar servicio insertar alumno alumno-programa
-      fetch('https://modulo-alumno-jdbc.herokuapp.com/alumnoalumnoprograma/add',
+      fetch(CONFIG1 + 'alumnoalumnoprograma/add',
     {
     headers: {
       'Content-Type': 'application/json'

@@ -27,7 +27,7 @@ class FormularioRow extends React.Component{
              <td className="td">
                 <form action="#">
                     <label className=" ">
-                    <button type="submit" onClick={this.enviarFormulario}   className="btn btn-primary btn-small">EDITAR</button>
+                    <button type="submit" onClick={this.enviarFormulario}   className="waves-effect waves-light btn-small">EDITAR</button>
                     </label>
 
                     </form>

@@ -140,7 +140,8 @@ class LoginForm extends React.Component {
             <div className="center">
             <input type="text"  value={this.state.nombres} onChange={this.onChange} />
             </div>
-           <button type="submit" onClick={this.onSubmit} className="btn btn-primary btn-lg">CONSULTAR</button>
+            
+           <button type="submit" onClick={this.onSubmit} className="waves-effect waves-light btn-small ">CONSULTAR</button>
           </div>
     
       </form>

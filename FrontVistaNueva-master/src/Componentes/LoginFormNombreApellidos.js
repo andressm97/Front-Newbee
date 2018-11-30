@@ -193,7 +193,7 @@ class LoginForm2 extends React.Component {
               <input type="text"  value={this.state.nombres} onChange={this.onChange} />
               </div>
              {/* <button type="submit" onClick={this.onSubmit} className="btn btn-primary btn-lg">CONSULTAR</button> */}
-             <button type="submit" onClick={this.onSubmit2} className="btn btn-primary btn-lg">CONSULTAR</button>
+             <button type="submit" onClick={this.onSubmit2} className="waves-effect waves-light btn-small">CONSULTAR</button>
              
             </div>
             

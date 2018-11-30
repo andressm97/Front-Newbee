@@ -101,7 +101,7 @@ class BuscarNuevo extends React.Component {
                 buscarRec: false,
                 asignarRec: false,
             });
-            this.props.flag (true);
+            this.props.flag (false);
         } else if(selectedOption.value == 'Búsqueda por recibo'){
             this.setState({
                 value: selectedOption,
@@ -138,6 +138,7 @@ class BuscarNuevo extends React.Component {
             swal("Ingrese nombre apellido a buscar", "", "info");
         } else{
             var busqueda = {nombres: nombres};
+            this.props.flag(true);
             this.props.Busqueda(busqueda);
         }
         e.preventDefault();

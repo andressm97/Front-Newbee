@@ -31,7 +31,7 @@ class AppNueva extends React.Component {
       programa:[],
       arregloInsertar:[],
 
-      flag: true
+      flag: false
     }
 
     this.enviar=this.enviar.bind(this);

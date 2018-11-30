@@ -125,7 +125,7 @@ class PagoListNuevo2 extends React.Component {
           {
             this.state.pageOfItems.map((pago) => {
               return <PagoRowNuevo2  Opcion={this.OpcionSeleccionada} nombre={this.props.nombre} Funciones={this.props.funcion} key={pago.idAlum} 
-                                  pago={ pago} />
+                                  pago={pago} />
             })
           }
         </tbody>
@@ -138,7 +138,7 @@ class PagoListNuevo2 extends React.Component {
       </div>
     )
     }else{
-      return <div className="mensaje centrar">No se encontraron datos</div>
+      return <div className="mensaje centrar"></div>
     }
 
     
